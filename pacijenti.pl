@@ -1,23 +1,33 @@
-%ime, pol, godine, visina, tezina
-pacijent(petar,m,36,175,120).
-pacijent(milica,z,23,170,54).
-pacijent(milan,m,37,180,180).
+%ime, pol, godine
+pacijent(petar).
+pacijent(milica).
+pacijent(milan).
 
-pritisak(petar,130,100).
-pritisak(milica,120,70).
-pritisak(milan,90,50).
+pol(petar, m).
+pol(milica, z).
+pol(milan, m).
+
+godine(petar, 36).
+godine(milica, 23).
+godine(milan, 37).
 
 pusac(petar,da).
 pusac(milica,ne).
 pusac(milan,da).
 
+tezina(petar, povecanaTezina).
+tezina(milica, smanjenaTezina).
+tezina(milan, normalnaTezina).
+
 dijabeticar(petar,da).
+dijabeticar(milica,da).
+dijabeticar(milan,ne).
 
 asmaticar(petar, da).
 asmaticar(milica, ne).
 asmaticar(milan, ne).
 
-porodicneBolesti(petar, [rak]).
-porodicneBolesti(milica, []).
-porodicneBolesti(milan, []).
+porodicneBolesti(petar, [trombofilija]).
+porodicneBolesti(milica, [dijabetes]).
+porodicneBolesti(milan, [artritis]).
 
