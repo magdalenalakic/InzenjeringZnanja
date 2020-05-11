@@ -1,5 +1,7 @@
 package view;
 
+import com.ugos.jiprolog.engine.JIPEngine;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

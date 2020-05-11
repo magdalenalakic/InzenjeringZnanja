@@ -1,5 +1,10 @@
 package view;
 
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -20,16 +25,26 @@ public class DodatnaIspitivanja extends JFrame {
     private JButton previous;
     private JButton cancel;
     private JButton next;
-//    private JIPEngine engine = new JIPEngine();
+    private JIPEngine engine = new JIPEngine();
+//    private List<>
 
     public static DodatnaIspitivanja getInstance(){
         if (instance == null) {
             instance = new DodatnaIspitivanja();
+            instance.ucitajPrologFajlove();
             instance.initialise();
+
         }
         return instance;
     }
+    public void ucitajPrologFajlove(){
+        engine.consultFile("projekat.pl");
+    }
+
     public void initialise(){
+
+        dodajPacijente();
+
         setSize(850, 550);
         setTitle("Aplikacija za doktore");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,18 +196,21 @@ public class DodatnaIspitivanja extends JFrame {
         panBtm.add(next);
         add(panBtm, BorderLayout.SOUTH);
     }
+
     public void dodajPacijente(){
-//        JIPQuery query = engine.openSynchronousQuery("person(X)");
-//        ArrayList<String> niz= new ArrayList<String>();
-//        JIPTerm solution;
-//
-//        while ( (solution = query.nextSolution()) != null  ) {
-//            //System.out.println("solution: " + solution);
-//            for (JIPVariable var: solution.getVariables()) {
-//                niz.add(var.getValue().toString());
-//            }
-//        }
-//
+        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
+        ArrayList<String> niz = new ArrayList<String>();
+        JIPTerm solution;
+        System.out.println("ISPISSS");
+        while ( (solution = query.nextSolution()) != null  ) {
+            //System.out.println("solution: " + solution);
+            for (JIPVariable var: solution.getVariables()) {
+                niz.add(var.getValue().toString());
+                System.out.println(var.getValue().toString());
+            }
+        }
+
+
 //        //labela pacijent
 //        lblPatient = new JLabel("Patient");
 //        lblPatient.setFont(new Font("Tahoma", Font.PLAIN, 20));
