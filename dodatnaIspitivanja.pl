@@ -1,5 +1,5 @@
-import('pacijenti.pl') as pacijenti.
-import('rutinskiPregled.pl') as rutinskiPregledi.
+import('pacijenti.pl').
+import('rutinskiPregled.pl').
 import('simptomi.pl').
 
 sadrzi(S,[]).
@@ -9,8 +9,8 @@ listaSimptoma(pacijent, simptomi).
 
 test(analizaKrvi, [mucnina, pritiskanje]).
 dodatnoIspitivanje(listaSimptoma(X, S), analizaKrvi) :-
-   test(analizaKrvi, S2), sadrzi(S2, S), pacijenti.pacijent(X),
-   rutinskiPregledi.rezPritiska(X, P), (P = povisen; P = nizak).
+   test(analizaKrvi, S2), sadrzi(S2, S), pacijent(X),
+   rezPritiska(X, P), (P = povisen; P = nizak).
 
 
 % rezAnalizeKrvi: pacijent, nivoSeceraUKrvi, nivoHolesterola,
@@ -22,8 +22,8 @@ dodatnoIspitivanje(listaSimptoma(X, S), analizaKrvi) :-
 
 test(ehokardiografija, [bolUGrudima]).
 dodatnoIspitivanje(listaSimptoma(X, S), ehokardiografija) :-
-   test(ehokardiografija, S2), sadrzi(S2, S), pacijenti.pacijent(X),
-   rutinskiPregledi.askultacija(X, A), A = postojiSum.
+   test(ehokardiografija, S2), sadrzi(S2, S), pacijent(X),
+   askultacija(X, A), A = postojiSum.
 
 
 %rezEkg: pacijent, ST, T, otkucajSrca
