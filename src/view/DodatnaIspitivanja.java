@@ -26,6 +26,7 @@ public class DodatnaIspitivanja extends JFrame {
     private JButton cancel;
     private JButton next;
     private JIPEngine engine = new JIPEngine();
+    private Box boxCentar;
 //    private List<>
 
     public static DodatnaIspitivanja getInstance(){
@@ -38,12 +39,12 @@ public class DodatnaIspitivanja extends JFrame {
         return instance;
     }
     public void ucitajPrologFajlove(){
-        engine.consultFile("projekat.pl");
+        engine.consultFile("prolog/projekat.pl");
     }
 
     public void initialise(){
 
-        dodajPacijente();
+        ArrayList<String> pacijenti = dodajPacijente();
 
         setSize(850, 550);
         setTitle("Aplikacija za doktore");
@@ -105,16 +106,21 @@ public class DodatnaIspitivanja extends JFrame {
         getRootPane().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.BLACK, Color.LIGHT_GRAY));
 
         JPanel panTop = new JPanel();
-        panTop.setLayout(new FlowLayout(FlowLayout.CENTER));
+        panTop.setPreferredSize(new Dimension(100,100));
+        panTop.setBackground(new Color(32, 255, 140));
+        add(panTop, BorderLayout.NORTH);
+
+//        JPanel panTop = new JPanel();
+//        panTop.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel licence = new JLabel("Izaberi Pacijenta");
         licence.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-        panTop.add(licence);
+//        panTop.add(licence);
         JPanel panPacijenti = new JPanel();
         cbPacijenti = new JComboBox();
-        ArrayList<String> pacijenti = new ArrayList<String>();
-        pacijenti.add("Milan");
-        pacijenti.add("Milica");
-        pacijenti.add("Petar");
+//        ArrayList<String> pacijenti = new ArrayList<String>();
+//        pacijenti.add("Milan");
+//        pacijenti.add("Milica");
+//        pacijenti.add("Petar");
 
         for( String ime: pacijenti) {
             cbPacijenti.addItem(ime);
@@ -126,16 +132,47 @@ public class DodatnaIspitivanja extends JFrame {
         listaSimptoma.setSize(100,20);
         listaSimptoma.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         panPacijenti.add(cbPacijenti);
-        Box boxCentar = Box.createVerticalBox();
+        boxCentar = Box.createVerticalBox();
+        boxCentar.setBackground(new Color(255, 200, 56));
         boxCentar.add(Box.createVerticalStrut(20));
-        boxCentar.add(panTop);
+//        boxCentar.add(panTop);
         boxCentar.add(panPacijenti);
-        boxCentar.add(new Label("Izaberite simptome"));
+//        boxCentar.add(new Label("Izaberite simptome"));
         boxCentar.add(listaSimptoma);
 
         boxCentar.add(Box.createGlue());
 
         add(boxCentar, BorderLayout.CENTER);
+
+        JPanel panLeft = new JPanel();
+        panLeft.setPreferredSize(new Dimension(250,200));
+        panLeft.setBackground(new Color(240, 255, 107));
+        panLeft.add(new JLabel("LABELA"));
+        JButton dodaj = new JButton("Dodaj zdravstveni karton");
+        dodaj.setPreferredSize(new Dimension(200,30));
+        dodaj.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("AKCIJAA");
+                boxCentar.removeAll();
+                boxCentar.add(new JLabel("LABELA"));
+                boxCentar.add(new JButton("DUGME"));
+                boxCentar.revalidate();
+                boxCentar.repaint();
+            }
+        });
+
+        JButton izmeni = new JButton("Izmeni zdravstveni karton");
+        izmeni.setPreferredSize(new Dimension(200,30));
+
+
+        JButton zapocni = new JButton("Zapocni pregled");
+        zapocni.setPreferredSize(new Dimension(200,30));
+        panLeft.add(dodaj);
+        panLeft.add(izmeni);
+        panLeft.add(zapocni);
+        add(panLeft, BorderLayout.WEST);
+//        add(panLeft, FlowLayout.LEFT);
 
         JPanel panBtm = new JPanel();
         panBtm.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -197,7 +234,7 @@ public class DodatnaIspitivanja extends JFrame {
         add(panBtm, BorderLayout.SOUTH);
     }
 
-    public void dodajPacijente(){
+    public ArrayList<String> dodajPacijente(){
         JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
         ArrayList<String> niz = new ArrayList<String>();
         JIPTerm solution;
@@ -209,6 +246,7 @@ public class DodatnaIspitivanja extends JFrame {
                 System.out.println(var.getValue().toString());
             }
         }
+        return niz;
 
 
 //        //labela pacijent
