@@ -183,7 +183,7 @@ rezAnalizeKrvi(petar, 16, 5.8, 0.88).
 rezAnalizeKrvi(milica, 15, 3.6, 0.25).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
 rezAnalizeKrvi(ana,  10, 2.1, 3).
-rezAnalizeKrvi(luka,  11, 2.5, 3.5)
+rezAnalizeKrvi(luka,  11, 2.5, 3.5).
 
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
 rezEkg(petar, nijeUredan, ubrzan).
@@ -234,7 +234,7 @@ dijagnoza(X, Y) :-
 
 %tahikardija
 dijagnoza(X, Y) :-
-         (rezEkg(X, nijeUredan, ubrzan), rezPritiska(X, R), (R = normalan; R = povisen), pacijent(X), rezHolter24(X, povisen, prisutno, normalan))  -> Y = tahikardija;
+         (rezEkg(X, nijeUredan, ubrzan), rezPritiska(X, R), (R = normalan; R = povisen), pacijent(X), rezHolter24(X, povisen, prisutno, normalan))  -> Y = tahikardija.
 
 dijagnoza(X, Y) :-
          (rezPritiska(X, povisen), secernaBolest(X, povisen), (rezHolesterola(X, povisen); pusac(X, da); tezina(X, povecanaTezina); fizickaAktivnost(X, da)), pacijent(X), rezEkg(X, nijeUredan, ubrzan)) -> Y = infarktMiokarda.

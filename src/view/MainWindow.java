@@ -2,12 +2,16 @@ package view;
 
 import com.ugos.jiprolog.engine.JIPEngine;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
 
@@ -15,6 +19,7 @@ public class MainWindow extends JFrame {
     private static MainWindow instance = null;
     private JButton next;
     private JButton cancel;
+    private BufferedImage image;
 
 
 
@@ -36,8 +41,14 @@ public class MainWindow extends JFrame {
 
     public void init() {
 
+        try {
+            image = ImageIO.read(new File("images/download.jpg"));
+        } catch (IOException ex) {
+            // handle exception...
+        }
 
         setSize(350, 350);
+
         setTitle("Dobrodosli");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -87,13 +98,16 @@ public class MainWindow extends JFrame {
         });
 
         JPanel empty = new JPanel();
-        empty.setPreferredSize(new Dimension(100, 150));
+        empty.setPreferredSize(new Dimension(100, 30));
         add(empty, BorderLayout.NORTH);
+//        setContentPane(new JLabel(new ImageIcon(image)));
 
         JPanel panTop = new JPanel();
         panTop.setLayout(new FlowLayout(FlowLayout.CENTER));
         JLabel welcome = new JLabel("Dobrodosli");
+        JLabel picLabel = new JLabel(new ImageIcon(image));
         welcome.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+        panTop.add(picLabel);
         panTop.add(welcome);
         add(panTop, BorderLayout.CENTER);
 
