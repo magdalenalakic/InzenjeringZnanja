@@ -12,5 +12,9 @@ out/
 *.zip
 *.tar.gz
 *.rar
-
+*.iws
 *.iml
+*.class
+*.ctxt
+.mtj.tmp/
+cmake-build-*/
