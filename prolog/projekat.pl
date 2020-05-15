@@ -56,16 +56,6 @@ alergican(milan, da).
 alergican(ana, ne).
 alergican(luka, da).
 
-fizickaAktivnost(petar, ne).
-fizickaAktivnost(milan, ne).
-fizickaAktivnost(milica, ne).
-
-trudnoca(milica, da).
-
-alergican(petar, ne).
-alergican(milica, da).
-alergican(milan, da).
-
 porodicneBolesti(petar, [trombofilija]).
 porodicneBolesti(milica, [dijabetes]).
 porodicneBolesti(milan, [artritis]).
