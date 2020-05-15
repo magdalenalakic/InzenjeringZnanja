@@ -1,9 +1,12 @@
 package model;
 
+import ucm.gaia.jcolibri.cbrcore.Attribute;
+import ucm.gaia.jcolibri.cbrcore.CaseComponent;
+
 import java.util.HashMap;
 import java.util.List;
 
-public class Pacijent {
+public class Pacijent implements CaseComponent {
     private Long id;
     private String ime;
     private PolEnum pol;
@@ -226,5 +229,10 @@ public class Pacijent {
 
     public void setListaLekova(List<Lekovi> listaLekova) {
         this.listaLekova = listaLekova;
+    }
+
+    @Override
+    public Attribute getIdAttribute() {
+        return null;
     }
 }
