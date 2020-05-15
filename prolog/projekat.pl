@@ -248,7 +248,7 @@ terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), tru
 terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, da), rezPritiska(X,nizak), append([],[nitroglicerin, rosuvastatin],T).
 
 %lekovi za Hipertenziju
-terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),(secernaBolest(X, nema);secernaBolest(X, smanjen)) , (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([], [lizinopril, kaptopril, atenolol, amlopin], T), !.
+terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),(secernaBolest(X, nema);secernaBolest(X, smanjen)) , (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([], [lizinopril, kaptopril, atenolol, amlopin, micardis], T), !.
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),secernaBolest(X, povisen), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([], [lizinopril, atenolol, amlopin], T), !.
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),(secernaBolest(X, nema);secernaBolest(X, smanjen)), rezPritiska(X,nizak),  append([], [lizinopril, kaptopril], T), !.
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),secernaBolest(X, povisen), rezPritiska(X,nizak), append([], [lizinopril], T).
@@ -263,7 +263,7 @@ terapija(X, infarktMiokarda, T) :- dijagnoza(X, infarktMiokarda), trudnoca(X, ne
 terapija(X, hipotenzija, T) :- dijagnoza(X, hipotenzija), pacijent(X), trudnoca(X, ne), godine(X, G), G>=16, secernaBolest(X, nema), rezPritiska(X, nizak), append([], [dihidroergotamin, etilefrin, amezinium, mineralokortikoida], T).
 
 %lekovi za infarkt miokarda
-terapija(X, infarktMiokarda, T) :- dijagnoza(X, infarktMiokarda), trudnoca(X, ne), godine(X, G), G>=16, pacijent(X), alergican(X, ne), asmaticar(X, ne),  append([], [aspirin, nitroglicerin, propranolol], T).
+terapija(X, infarktMiokarda, T) :- dijagnoza(X, infarktMiokarda), trudnoca(X, ne), godine(X, G), G>=16, pacijent(X), alergican(X, ne), asmaticar(X, ne),  append([], [aspirin, nitroglicerin, propranolol, lizinopril, kaptropil], T).
 
 terapije(L) :- findall(X, terapija(X,D,T), L).
 
