@@ -1,6 +1,6 @@
 package model;
 
-public enum DodatnaIspitivanja {
+public enum DodatnaIspitivanjaEnum {
     analizaKrvi,
     ekg,
     ehokardiografija,
