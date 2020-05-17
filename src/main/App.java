@@ -1,6 +1,7 @@
 package main;
 
 import connector.CsvConnector;
+import model.Pacijent;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
@@ -13,6 +14,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 import view.MainWindow;
+
 
 import java.util.Collection;
 
@@ -28,13 +30,13 @@ public class App implements StandardCBRApplication {
         MainWindow gp = MainWindow.getInstance();
         gp.setVisible(true);
 
-//        CbrApplication recommender = new CbrApplication();
-//        try {
-//            System.out.println("-----");
-//            recommender.configure();
-//            recommender.preCycle();
+        App recommender = new App();
+        try {
+            System.out.println("-----");
+            recommender.configure();
+            recommender.preCycle();
 //            CBRQuery query = new CBRQuery();
-//            MovieDescription movieDescription = new MovieDescription();
+//            Pacijent movieDescription = new Pacijent();
 //            movieDescription.setGenre("Comedy");
 //            movieDescription.setYear(1980);
 //            movieDescription.setAge(24);
@@ -42,7 +44,7 @@ public class App implements StandardCBRApplication {
 //            query.setDescription( movieDescription );
 //            recommender.cycle(query);
 //            recommender.postCycle();
-//
+
 //            System.out.println("-----");
 //            recommender.setSimilarityConfigration2();
 //            recommender.preCycle();
@@ -85,11 +87,11 @@ public class App implements StandardCBRApplication {
 //            query.setDescription( movieDescription );
 //            recommender.cycle(query);
 //            recommender.postCycle();
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -119,8 +121,8 @@ public class App implements StandardCBRApplication {
     public CBRCaseBase preCycle() throws ExecutionException {
         _caseBase.init(_connector);
         java.util.Collection<CBRCase> cases = _caseBase.getCases();
-//		for (CBRCase c: cases)
-//			System.out.println(c.getDescription());
+		for (CBRCase c: cases)
+			System.out.println(c.getDescription());
         return _caseBase;
     }
 

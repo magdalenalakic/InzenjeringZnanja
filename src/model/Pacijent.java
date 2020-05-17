@@ -235,4 +235,31 @@ public class Pacijent implements CaseComponent {
     public Attribute getIdAttribute() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Pacijent{" +
+                "id=" + id +
+                ", ime='" + ime + '\'' +
+                ", pol=" + pol +
+                ", godine=" + godine +
+                ", tezina=" + tezina +
+                ", pusac=" + pusac +
+                ", dijabeticar=" + dijabeticar +
+                ", asmaticar=" + asmaticar +
+                ", fizickaAktivnost=" + fizickaAktivnost +
+                ", trudnoca=" + trudnoca +
+                ", alergican=" + alergican +
+                ", auskultacija=" + auskultacija +
+                ", gornjiPritisak=" + gornjiPritisak +
+                ", donjiPritisak=" + donjiPritisak +
+                ", rezPritiska=" + rezPritiska +
+                ", porodicneBolesti=" + porodicneBolesti +
+                ", listaSimptoma=" + listaSimptoma +
+                ", listaDodatnihIspitivanja=" + listaDodatnihIspitivanja +
+                ", listaRezultataDodatnihIspitivanja=" + listaRezultataDodatnihIspitivanja +
+                ", listaDijagnoza=" + listaDijagnoza +
+                ", listaLekova=" + listaLekova +
+                '}';
+    }
 }
