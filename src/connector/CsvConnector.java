@@ -106,7 +106,6 @@ public class CsvConnector implements Connector {
                 if (line.startsWith("#") || (line.length() == 0))
                     continue;
                 linije.add(line);
-                System.out.println(line);
             }
             System.out.println("Dodatna ispitivanja");
             for(int b = 0; b < linije.size(); b++){
