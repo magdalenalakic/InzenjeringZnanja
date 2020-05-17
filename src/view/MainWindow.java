@@ -1,6 +1,7 @@
 package view;
 
 import com.ugos.jiprolog.engine.JIPEngine;
+import model.Pacijent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +13,8 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainWindow extends JFrame {
 
@@ -20,6 +23,7 @@ public class MainWindow extends JFrame {
     private JButton next;
     private JButton cancel;
     private BufferedImage image;
+    private List<Pacijent> listaPacijenata = new ArrayList<>();
 
 
 
@@ -153,4 +157,11 @@ public class MainWindow extends JFrame {
     }
 
 
+    public List<Pacijent> getListaPacijenata() {
+        return listaPacijenata;
+    }
+
+    public void setListaPacijenata(List<Pacijent> listaPacijenata) {
+        this.listaPacijenata = listaPacijenata;
+    }
 }

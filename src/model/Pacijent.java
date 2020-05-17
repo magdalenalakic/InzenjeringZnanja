@@ -60,6 +60,22 @@ public class Pacijent implements CaseComponent {
         this.listaDijagnoza = listaDijagnoza;
         this.listaLekova = listaLekova;
     }
+    public Pacijent(String ime, PolEnum pol, Integer godine, TezinaEnum tezina, Boolean pusac,
+                    Boolean dijabeticar, Boolean asmaticar, Boolean fizickaAktivnost, Boolean trudnoca,
+                    Boolean alergican) {
+
+        this.ime = ime;
+        this.pol = pol;
+        this.godine = godine;
+        this.tezina = tezina;
+        this.pusac = pusac;
+        this.dijabeticar = dijabeticar;
+        this.asmaticar = asmaticar;
+        this.fizickaAktivnost = fizickaAktivnost;
+        this.trudnoca = trudnoca;
+        this.alergican = alergican;
+
+    }
 
     public Pacijent() {
     }

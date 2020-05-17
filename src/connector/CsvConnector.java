@@ -1,11 +1,14 @@
 package connector;
 
+import controller.PacijentController;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import view.DodatnaIspitivanja;
+import view.MainWindow;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CsvConnector implements Connector {
+
+    public static PacijentController pacijentController = new PacijentController();
 
     @Override
     public void initFromXMLfile(URL url) throws InitializingException {
@@ -69,7 +74,12 @@ public class CsvConnector implements Connector {
                 pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
                 pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
                 pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
-//                pacijent.setRezPritiska(RezPritiskaEnum.valueOf(values[14]));
+                RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
+                if(rez.equals(null)){
+                    System.out.println("Greska prilikom racunanja pritiska.");
+                }else{
+                    pacijent.setRezPritiska(rez);
+                }
                 String[] listaSimptoma = values[14].split(",");
                 for(int i = 0; i < listaSimptoma.length; i++){
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
@@ -80,6 +90,7 @@ public class CsvConnector implements Connector {
                 }
 
                 listaPacijenata.add(pacijent);
+
                 System.out.println(pacijent);
 
             }
@@ -98,7 +109,6 @@ public class CsvConnector implements Connector {
                 if (line.startsWith("#") || (line.length() == 0))
                     continue;
                 linije.add(line);
-                System.out.println(line);
             }
             System.out.println("Dodatna ispitivanja");
             for(int b = 0; b < linije.size(); b++){
@@ -200,7 +210,17 @@ public class CsvConnector implements Connector {
         }
         for(int k = 0; k < listaPacijenata.size(); k++){
             cbrCase.setDescription(listaPacijenata.get(k));
+            MainWindow.getInstance().getListaPacijenata().add(listaPacijenata.get(k));
+            System.out.println("CSV connector");
+            System.out.println(MainWindow.getInstance().getListaPacijenata().size());
         }
+        System.out.println("**************");
+        for(int k = 0; k < MainWindow.getInstance().getListaPacijenata().size(); k++){
+
+            System.out.println(MainWindow.getInstance().getListaPacijenata().get(k));
+
+        }
+        System.out.println("**************");
         cases.add(cbrCase);
         return cases;
     }

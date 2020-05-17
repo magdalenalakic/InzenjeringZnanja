@@ -6,6 +6,7 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 import controller.DodajZdravstveniKartonListener;
+import model.Pacijent;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -15,12 +16,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.List;
 //import com.ugos.jiprolog.engine.JIPEngine;
 //import com.ugos.jiprolog.engine.JIPQuery;
 //import com.ugos.jiprolog.engine.JIPTerm;
 //import com.ugos.jiprolog.engine.JIPVariable;
 
 public class DodatnaIspitivanja extends JFrame {
+
     private static DodatnaIspitivanja instance = null;
     private JComboBox cbPacijenti;
     private JList listaSimptoma;
@@ -523,4 +526,5 @@ public class DodatnaIspitivanja extends JFrame {
     public JRadioButton getAlergijaNe() {
         return alergijaNe;
     }
+
 }
