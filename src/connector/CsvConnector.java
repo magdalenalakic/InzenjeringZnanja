@@ -1,5 +1,6 @@
 package connector;
 
+import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
@@ -50,6 +51,31 @@ public class CsvConnector implements Connector {
                 String[] values = line.split(";");
 
                 CBRCase cbrCase = new CBRCase();
+
+                Pacijent pacijent = new Pacijent();
+                pacijent.setId(Long.parseLong(values[0]));
+                pacijent.setIme(values[1]);
+                pacijent.setPol(PolEnum.valueOf(values[2]));
+                pacijent.setGodine(Integer.parseInt(values[3]));
+                pacijent.setTezina(TezinaEnum.valueOf(values[4]));
+                pacijent.setPusac(Boolean.parseBoolean(values[5]));
+                pacijent.setDijabeticar(Boolean.parseBoolean(values[6]));
+                pacijent.setAsmaticar(Boolean.parseBoolean(values[7]));
+                pacijent.setFizickaAktivnost(Boolean.parseBoolean(values[8]));
+                pacijent.setTrudnoca(Boolean.parseBoolean(values[9]));
+                pacijent.setAlergican(Boolean.parseBoolean(values[10]));
+                pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
+                pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
+                pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
+                pacijent.setRezPritiska(RezPritiskaEnum.valueOf(values[14]));
+                String[] porodicneBolesti = values[15].split(",");
+                for(int i = 0; i < porodicneBolesti.length; i++){
+                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
+                }
+                String[] listaSimptoma = values[16].split(",");
+                for(int i = 0; i < listaSimptoma.length; i++){
+                    pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
+                }
 
 //                MovieDescription movieDescription = new MovieDescription();
 //                movieDescription.setGender(values[1]);
