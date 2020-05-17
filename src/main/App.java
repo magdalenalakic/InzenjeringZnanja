@@ -1,7 +1,9 @@
 package main;
 
 import connector.CsvConnector;
+import controller.PacijentController;
 import model.Pacijent;
+import model.RezPritiskaEnum;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
@@ -21,14 +23,23 @@ import java.util.Collection;
 
 public class App implements StandardCBRApplication {
 
+    public static PacijentController pacijentController = new PacijentController();
     Connector _connector;
     CBRCaseBase _caseBase;
     NNConfig simConfig;
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         MainWindow gp = MainWindow.getInstance();
         gp.setVisible(true);
+
+//        RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(130,100);
+//        if(rez.equals(null)){
+//            System.out.println("null");
+//        }
+//        System.out.println("REZULTAT PRITISKA: "+ rez.toString());
+
 
         App recommender = new App();
         try {

@@ -1,5 +1,6 @@
 package connector;
 
+import controller.PacijentController;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
@@ -16,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CsvConnector implements Connector {
+
+    public static PacijentController pacijentController = new PacijentController();
 
     @Override
     public void initFromXMLfile(URL url) throws InitializingException {
@@ -69,7 +72,12 @@ public class CsvConnector implements Connector {
                 pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
                 pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
                 pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
-//                pacijent.setRezPritiska(RezPritiskaEnum.valueOf(values[14]));
+                RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
+                if(rez.equals(null)){
+                    System.out.println("Greska prilikom racunanja pritiska.");
+                }else{
+                    pacijent.setRezPritiska(rez);
+                }
                 String[] listaSimptoma = values[14].split(",");
                 for(int i = 0; i < listaSimptoma.length; i++){
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
