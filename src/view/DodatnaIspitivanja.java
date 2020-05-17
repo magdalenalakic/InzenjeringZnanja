@@ -1,9 +1,11 @@
 package view;
 
+import com.sun.deploy.panel.JavaPanel;
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
+import controller.DodajZdravstveniKartonListener;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -27,6 +29,28 @@ public class DodatnaIspitivanja extends JFrame {
     private JButton next;
     private JIPEngine engine = new JIPEngine();
     private Box boxCentar;
+    private Box boxRight;
+    private JTextField imePacijenta;
+    private JTextField godinePacijenta;
+    private JRadioButton polZ;
+    private JRadioButton polM;
+    private JRadioButton pusacDa;
+    private JRadioButton pusacNe;
+    private JRadioButton dijabeticarDa;
+    private JRadioButton dijabeticarNe;
+    private JRadioButton tezinaPovecana;
+    private JRadioButton tezinaSmanjena;
+    private JRadioButton tezinaNormalna;
+    private JRadioButton asmaticarDa;
+    private JRadioButton asmaticarNe;
+    private JRadioButton fizickaAktivnostDa;
+    private JRadioButton fizickaAktivnostNe;
+    private JRadioButton trudnocaDa;
+    private JRadioButton trudnocaNe;
+    private JRadioButton alergijaDa;
+    private JRadioButton alergijaNe;
+
+
 //    private List<>
 
     public static DodatnaIspitivanja getInstance(){
@@ -46,7 +70,7 @@ public class DodatnaIspitivanja extends JFrame {
 
         ArrayList<String> pacijenti = dodajPacijente();
 
-        setSize(850, 550);
+        setSize(1000, 700);
         setTitle("Aplikacija za doktore");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -116,6 +140,7 @@ public class DodatnaIspitivanja extends JFrame {
         licence.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
 //        panTop.add(licence);
         JPanel panPacijenti = new JPanel();
+
         cbPacijenti = new JComboBox();
 //        ArrayList<String> pacijenti = new ArrayList<String>();
 //        pacijenti.add("Milan");
@@ -132,6 +157,8 @@ public class DodatnaIspitivanja extends JFrame {
         listaSimptoma.setSize(100,20);
         listaSimptoma.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         panPacijenti.add(cbPacijenti);
+        JPanel panCenter = new JPanel();
+
         boxCentar = Box.createVerticalBox();
         boxCentar.setBackground(new Color(255, 200, 56));
         boxCentar.add(Box.createVerticalStrut(20));
@@ -141,8 +168,24 @@ public class DodatnaIspitivanja extends JFrame {
         boxCentar.add(listaSimptoma);
 
         boxCentar.add(Box.createGlue());
+        panCenter.add(boxCentar);
 
-        add(boxCentar, BorderLayout.CENTER);
+        add(panCenter, BorderLayout.CENTER);
+
+
+
+        JPanel panRight = new JPanel();
+        panRight.setPreferredSize(new Dimension(250,200));
+        panRight.setBackground(new Color(249, 128, 255));
+        add(panRight, BorderLayout.EAST);
+
+        boxRight = Box.createVerticalBox();
+        boxRight.add(Box.createVerticalStrut(20));
+        boxRight.add(Box.createGlue());
+        boxRight.add(new JLabel("DESNOOOOOOOOOOOO:"));
+        panRight.add(boxRight);
+//        revalidate();
+//        repaint();
 
         JPanel panLeft = new JPanel();
         panLeft.setPreferredSize(new Dimension(250,200));
@@ -153,12 +196,10 @@ public class DodatnaIspitivanja extends JFrame {
         dodaj.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("AKCIJAA");
-                boxCentar.removeAll();
-                boxCentar.add(new JLabel("LABELA"));
-                boxCentar.add(new JButton("DUGME"));
-                boxCentar.revalidate();
-                boxCentar.repaint();
+
+                dodajZdravstveniKartonView();
+
+
             }
         });
 
@@ -229,9 +270,119 @@ public class DodatnaIspitivanja extends JFrame {
             }
         });
         panBtm.add(cancel);
-        panBtm.add(previous);
-        panBtm.add(next);
+//        panBtm.add(previous);
+//        panBtm.add(next);
         add(panBtm, BorderLayout.SOUTH);
+    }
+
+    public void dodajZdravstveniKartonView(){
+        imePacijenta = new JTextField();
+        imePacijenta.setMaximumSize(new Dimension(400,30));
+//                imePacijenta.setColumns(10);
+        ButtonGroup pol = new ButtonGroup();
+        polZ = new JRadioButton("zenski");
+        polM = new JRadioButton("muski");
+        pol.add(polZ);
+        pol.add(polM);
+        godinePacijenta = new JTextField();
+        godinePacijenta.setMaximumSize(new Dimension(400,30));
+
+        ButtonGroup tezina = new ButtonGroup();
+        tezinaNormalna = new JRadioButton("normalna");
+        tezinaPovecana = new JRadioButton("povecana");
+        tezinaSmanjena = new JRadioButton("smanjena");
+        tezina.add(tezinaNormalna);
+        tezina.add(tezinaPovecana);
+        tezina.add(tezinaSmanjena);
+
+        ButtonGroup pusac = new ButtonGroup();
+        pusacDa = new JRadioButton("da");
+        pusacNe = new JRadioButton("ne");
+        pusac.add(pusacDa);
+        pusac.add(pusacNe);
+
+        ButtonGroup dijabeticar = new ButtonGroup();
+        dijabeticarDa = new JRadioButton("da");
+        dijabeticarNe = new JRadioButton("ne");
+        dijabeticar.add(dijabeticarDa);
+        dijabeticar.add(dijabeticarNe);
+
+        ButtonGroup asmaticar = new ButtonGroup();
+        asmaticarDa = new JRadioButton("da");
+        asmaticarNe = new JRadioButton("ne");
+        asmaticar.add(asmaticarDa);
+        asmaticar.add(asmaticarNe);
+
+        ButtonGroup fizickaAktivnost = new ButtonGroup();
+        fizickaAktivnostDa = new JRadioButton("jeste");
+        fizickaAktivnostNe = new JRadioButton("nije");
+        fizickaAktivnost.add(fizickaAktivnostDa);
+        fizickaAktivnost.add(fizickaAktivnostNe);
+
+        ButtonGroup trudnoca = new ButtonGroup();
+        trudnocaDa = new JRadioButton("da");
+        trudnocaNe = new JRadioButton("ne");
+        trudnoca.add(trudnocaDa);
+        trudnoca.add(trudnocaNe);
+
+        ButtonGroup alergija = new ButtonGroup();
+        alergijaDa = new JRadioButton("ima");
+        alergijaNe = new JRadioButton("nema");
+        alergija.add(alergijaDa);
+        alergija.add(alergijaNe);
+
+        System.out.println("AKCIJAA");
+
+
+
+        boxCentar.removeAll();
+        boxRight.removeAll();
+        boxCentar.add(new JLabel("Podaci o pacijentu"));
+        boxCentar.add(new JLabel("Ime:"));
+        boxCentar.add(imePacijenta);
+        boxCentar.add(new JLabel("Pol:"));
+        JPanel radioPol =  new JPanel();
+        radioPol.setLayout(new FlowLayout());
+//                boxCentar.add(polZ);
+//                boxCentar.add(polM);
+        radioPol.add(polZ);
+        radioPol.add(polM);
+//        add(radioPol);
+//        revalidate();
+//        repaint();
+        boxCentar.add(polZ);
+        boxCentar.add(polM);
+        boxCentar.add(new JLabel("Godine:"));
+        boxCentar.add(godinePacijenta);
+        boxCentar.add(new JLabel("Tezina:"));
+        boxCentar.add(tezinaSmanjena);
+        boxCentar.add(tezinaNormalna);
+        boxCentar.add(tezinaPovecana);
+        boxCentar.add(new JLabel("Pusac:"));
+        boxCentar.add(pusacDa);
+        boxCentar.add(pusacNe);
+        boxCentar.add(new JLabel("Dijabeticar:"));
+        boxCentar.add(dijabeticarDa);
+        boxCentar.add(dijabeticarNe);
+        boxRight.add(new JLabel("Asmaticar:"));
+        boxRight.add(asmaticarDa);
+        boxRight.add(asmaticarNe);
+        boxRight.add(new JLabel("Fizicka aktivnost:"));
+        boxRight.add(fizickaAktivnostDa);
+        boxRight.add(fizickaAktivnostNe);
+        boxRight.add(new JLabel("Trudnoca:"));
+        boxRight.add(trudnocaDa);
+        boxRight.add(trudnocaNe);
+        boxRight.add(new JLabel("Alergija:"));
+        boxRight.add(alergijaDa);
+        boxRight.add(alergijaNe);
+        JButton dodajZK = new JButton("DODAJ");
+        boxCentar.add(dodajZK);
+        dodajZK.addActionListener(new DodajZdravstveniKartonListener());
+        boxCentar.revalidate();
+        boxCentar.repaint();
+        boxRight.revalidate();
+        boxRight.repaint();
     }
 
     public ArrayList<String> dodajPacijente(){
@@ -263,5 +414,113 @@ public class DodatnaIspitivanja extends JFrame {
 //        for( String ime: niz) {
 //            comboBoxPatient.addItem(ime);
 //        }
+    }
+
+    public JComboBox getCbPacijenti() {
+        return cbPacijenti;
+    }
+
+    public JList getListaSimptoma() {
+        return listaSimptoma;
+    }
+
+    public JButton getPrevious() {
+        return previous;
+    }
+
+    public JButton getCancel() {
+        return cancel;
+    }
+
+    public JButton getNext() {
+        return next;
+    }
+
+    public JIPEngine getEngine() {
+        return engine;
+    }
+
+    public Box getBoxCentar() {
+        return boxCentar;
+    }
+
+    public Box getBoxRight() {
+        return boxRight;
+    }
+
+    public JTextField getImePacijenta() {
+        return imePacijenta;
+    }
+
+    public JTextField getGodinePacijenta() {
+        return godinePacijenta;
+    }
+
+    public JRadioButton getPolZ() {
+        return polZ;
+    }
+
+    public JRadioButton getPolM() {
+        return polM;
+    }
+
+    public JRadioButton getPusacDa() {
+        return pusacDa;
+    }
+
+    public JRadioButton getPusacNe() {
+        return pusacNe;
+    }
+
+    public JRadioButton getDijabeticarDa() {
+        return dijabeticarDa;
+    }
+
+    public JRadioButton getDijabeticarNe() {
+        return dijabeticarNe;
+    }
+
+    public JRadioButton getTezinaPovecana() {
+        return tezinaPovecana;
+    }
+
+    public JRadioButton getTezinaSmanjena() {
+        return tezinaSmanjena;
+    }
+
+    public JRadioButton getTezinaNormalna() {
+        return tezinaNormalna;
+    }
+
+    public JRadioButton getAsmaticarDa() {
+        return asmaticarDa;
+    }
+
+    public JRadioButton getAsmaticarNe() {
+        return asmaticarNe;
+    }
+
+    public JRadioButton getFizickaAktivnostDa() {
+        return fizickaAktivnostDa;
+    }
+
+    public JRadioButton getFizickaAktivnostNe() {
+        return fizickaAktivnostNe;
+    }
+
+    public JRadioButton getTrudnocaDa() {
+        return trudnocaDa;
+    }
+
+    public JRadioButton getTrudnocaNe() {
+        return trudnocaNe;
+    }
+
+    public JRadioButton getAlergijaDa() {
+        return alergijaDa;
+    }
+
+    public JRadioButton getAlergijaNe() {
+        return alergijaNe;
     }
 }
