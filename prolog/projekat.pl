@@ -64,7 +64,6 @@ porodicneBolesti(luka, [infarktMiokarda]).
 
 simptom(bolUGrudima).
 simptom(mucnina).
-simptom(hladnoZnojenje).
 simptom(pritiskanje).
 simptom(vrtoglavica).
 simptom(gubitakSvesti).
@@ -206,6 +205,7 @@ rezHolter24(luka, povisen, prisutno, normalan).
 
 %rezultati CT(uredan, nijeUredan)
 rezCT(milica, uredan).
+rezCR(milan, nijeUredan).
 
 %DIJAGNOZE ----------------------------------------------------------------------------------------------------------------------
 % hipertenzija
