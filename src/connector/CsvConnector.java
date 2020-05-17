@@ -7,6 +7,8 @@ import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import view.DodatnaIspitivanja;
+import view.MainWindow;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -88,6 +90,7 @@ public class CsvConnector implements Connector {
                 }
 
                 listaPacijenata.add(pacijent);
+
                 System.out.println(pacijent);
 
             }
@@ -207,7 +210,17 @@ public class CsvConnector implements Connector {
         }
         for(int k = 0; k < listaPacijenata.size(); k++){
             cbrCase.setDescription(listaPacijenata.get(k));
+            MainWindow.getInstance().getListaPacijenata().add(listaPacijenata.get(k));
+            System.out.println("CSV connector");
+            System.out.println(MainWindow.getInstance().getListaPacijenata().size());
         }
+        System.out.println("**************");
+        for(int k = 0; k < MainWindow.getInstance().getListaPacijenata().size(); k++){
+
+            System.out.println(MainWindow.getInstance().getListaPacijenata().get(k));
+
+        }
+        System.out.println("**************");
         cases.add(cbrCase);
         return cases;
     }

@@ -4,6 +4,7 @@ import model.Pacijent;
 import model.PolEnum;
 import model.TezinaEnum;
 import view.DodatnaIspitivanja;
+import view.MainWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,8 +93,8 @@ public class DodajZdravstveniKartonListener implements ActionListener {
             alergican = new Boolean(false);
         }
         Pacijent pacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar, asmaticar, fizickaAktivnost, trudnoca, alergican);
-        DodatnaIspitivanja.getInstance().getListaPacijenata().add(pacijent);
-        System.out.println(DodatnaIspitivanja.getInstance().getListaPacijenata().size());
+        MainWindow.getInstance().getListaPacijenata().add(pacijent);
+        System.out.println(MainWindow.getInstance().getListaPacijenata().size());
         System.out.println(pacijent);
     }
 }

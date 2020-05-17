@@ -23,7 +23,7 @@ import java.util.List;
 //import com.ugos.jiprolog.engine.JIPVariable;
 
 public class DodatnaIspitivanja extends JFrame {
-    private List<Pacijent> listaPacijenata = new ArrayList<>();
+
     private static DodatnaIspitivanja instance = null;
     private JComboBox cbPacijenti;
     private JList listaSimptoma;
@@ -527,11 +527,4 @@ public class DodatnaIspitivanja extends JFrame {
         return alergijaNe;
     }
 
-    public List<Pacijent> getListaPacijenata() {
-        return listaPacijenata;
-    }
-
-    public void setListaPacijenata(List<Pacijent> listaPacijenata) {
-        this.listaPacijenata = listaPacijenata;
-    }
 }
