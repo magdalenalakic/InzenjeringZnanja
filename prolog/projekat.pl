@@ -59,8 +59,8 @@ alergican(luka, da).
 porodicneBolesti(petar, [trombofilija]).
 porodicneBolesti(milica, [dijabetes]).
 porodicneBolesti(milan, [artritis]).
-porodicneBolesti(ana, [srcaneBolesti]).
-porodicneBolesti(luka, [srcaneBolesti]).
+porodicneBolesti(ana, [infarktMiokarda]).
+porodicneBolesti(luka, [infarktMiokarda]).
 
 simptom(bolUGrudima).
 simptom(mucnina).
@@ -148,7 +148,8 @@ dodatnoIspitivanje(listaSimptoma(X, S), Y) :-
 %ct
 dodatnoIspitivanje(listaSimptoma(X, S), Y) :-
    (potrebniSimptomi(ct, S2), sadrzi(S2, S), pacijent(X), rezErgometrija(X, E), E = neodredjeno, rezEkg(X, K, T), K = uredan, T=normalan) -> Y = ct;
-   (rezRendgen(X, R), R = abnormalnePojave) -> Y = ct.
+   (rezRendgen(X, R), R = nijeUredan) -> Y = ct.
+
 
 %racunanje secera
 secernaBolest(X, R) :- (rezAnalizeKrvi(X, Y, H, T), Y>11) -> R = povisen ;
@@ -178,7 +179,7 @@ rezAnalizeKrvi(luka,  11, 2.5, 3.5).
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
 rezEkg(petar, nijeUredan, ubrzan).
 rezEkg(milan, nijeUredan, usporen).
-rezEkg(milica, nijeUredan, normalan).
+rezEkg(milica, nijeUredan, ubrzan).
 rezEkg(ana, nijeUredan, usporen).
 rezEkg(luka, neodredjen, ubrzan).
 
@@ -186,18 +187,25 @@ rezEkg(luka, neodredjen, ubrzan).
 rezErgometrija(petar, niskaOpterecenja).
 rezErgometrija(ana, niskaOpterecenja).
 
+%ehokardiografija rezultati(uredna, nijeUredna)
+rezEhokardiografije(milica, uredna).
+
 %koronarnaAngiografija -> potrebni rezultati ako je rutinski
 rezKA(petar, pozitivno).
 rezKA(ana, pozitivno).
 
-%rezultati rendgena
-rezRendgen(milan, abnormalnePojave).
+%rezultati rendgena(uredan, nijeUredan)
+rezRendgen(milan, nijeUredan).
+rezRendgen(milica, nijeUredan).
 
 %rezultati holtera 24
 % srcanaFrekvencija, poremecajRitma, ST segment
 rezHolter24(milan, povisen, prisutno, normalan).
 rezHolter24(ana, snizen, prisutno, normalan).
 rezHolter24(luka, povisen, prisutno, normalan).
+
+%rezultati CT(uredan, nijeUredan)
+rezCT(milica, uredan).
 
 %DIJAGNOZE ----------------------------------------------------------------------------------------------------------------------
 % hipertenzija
@@ -232,10 +240,10 @@ dijagnoza(X, Y) :-
 %TERAPIJE ------------------------------------------------------------------------------------------------------------------------------
 %TODO: ispitati pol, godine, trudnoca, pusac...
 %lekovi za Anginu Pectoris
-terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, ne), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([],[nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin],T), !.
+terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, da), asmaticar(X, ne), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([],[nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin],T), !.
 terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, da), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([],[nitroglicerin, atenolol, rosuvastatin],T), !.
 terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, ne), rezPritiska(X,nizak), append([],[nitroglicerin, aspirin, rosuvastatin],T), !.
-terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, da), rezPritiska(X,nizak), append([],[nitroglicerin, rosuvastatin],T).
+terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, da), asmaticar(X, da), rezPritiska(X,nizak), append([],[nitroglicerin, rosuvastatin],T).
 
 %lekovi za Hipertenziju
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),(secernaBolest(X, nema);secernaBolest(X, smanjen)) , (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([], [lizinopril, kaptopril, atenolol, amlopin], T), !.
@@ -243,7 +251,7 @@ terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoc
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),(secernaBolest(X, nema);secernaBolest(X, smanjen)), rezPritiska(X,nizak),  append([], [lizinopril, kaptopril], T), !.
 terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), trudnoca(X, ne),secernaBolest(X, povisen), rezPritiska(X,nizak), append([], [lizinopril], T).
 
-%lijekovi za Hipotenziju: Mogući terapijski režim uključuje dihidroergotamin, etilefrin, amezinium, njihovu kombinaciju ili postupno dodavanje mineralokortikoida.
+%lijekovi za Hipotenziju: Mogu?i terapijski re�im uklju??uje dihidroergotamin, etilefrin, amezinium, njihovu kombinaciju ili postupno dodavanje mineralokortikoida.
 terapija(X, hipotenzija, T) :- dijagnoza(X, hipotenzija), pacijent(X), trudnoca(X, ne), godine(X, G), G>=16, secernaBolest(X, nema), rezPritiska(X, nizak), append([], [dihidroergotamin, etilefrin, amezinium, mineralokortikoida], T).
 
 %lekovi za infarkt miokarda
