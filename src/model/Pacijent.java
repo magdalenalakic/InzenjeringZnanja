@@ -3,6 +3,7 @@ package model;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,12 +23,12 @@ public class Pacijent implements CaseComponent {
     private Integer gornjiPritisak;
     private Integer donjiPritisak;
     private RezPritiskaEnum rezPritiska;
-    private List<PorodicneBolesti> porodicneBolesti;
-    private List<Simptomi> listaSimptoma;
-    private List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja;
-    private HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja;
-    private List<Dijagnoze> listaDijagnoza;
-    private List<Lekovi> listaLekova;
+    private List<PorodicneBolesti> porodicneBolesti = new ArrayList<>();
+    private List<Simptomi> listaSimptoma = new ArrayList<>();
+    private List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja = new ArrayList<>();
+    private HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja = new HashMap<>();
+    private List<Dijagnoze> listaDijagnoza = new ArrayList<>();
+    private List<Lekovi> listaLekova = new ArrayList<>();
 
 
     public Pacijent(Long id, String ime, PolEnum pol, Integer godine, TezinaEnum tezina, Boolean pusac,
