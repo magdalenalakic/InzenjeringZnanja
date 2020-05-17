@@ -3,6 +3,7 @@ package model;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,20 +23,20 @@ public class Pacijent implements CaseComponent {
     private Integer gornjiPritisak;
     private Integer donjiPritisak;
     private RezPritiskaEnum rezPritiska;
-    private List<PorodicneBolesti> porodicneBolesti;
-    private List<Simptomi> listaSimptoma;
-    private HashMap<DodatnaIspitivanja, List<Simptomi>> listaDodatnihIspitivanja;
-    private HashMap<RezDodatnihIspitivanja, List<String>> listaRezultataDodatnihIspitivanja;
-    private List<Dijagnoze> listaDijagnoza;
-    private List<Lekovi> listaLekova;
+    private List<PorodicneBolesti> porodicneBolesti = new ArrayList<>();
+    private List<Simptomi> listaSimptoma = new ArrayList<>();
+    private List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja = new ArrayList<>();
+    private HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja = new HashMap<>();
+    private List<Dijagnoze> listaDijagnoza = new ArrayList<>();
+    private List<Lekovi> listaLekova = new ArrayList<>();
 
 
     public Pacijent(Long id, String ime, PolEnum pol, Integer godine, TezinaEnum tezina, Boolean pusac,
                     Boolean dijabeticar, Boolean asmaticar, Boolean fizickaAktivnost, Boolean trudnoca,
                     Boolean alergican, AuskultacijaEnum auskultacija, Integer gornjiPritisak,
                     Integer donjiPritisak, RezPritiskaEnum rezPritiska, List<PorodicneBolesti> porodicneBolesti,
-                    List<Simptomi> listaSimptoma, HashMap<DodatnaIspitivanja, List<Simptomi>> listaDodatnihIspitivanja,
-                    HashMap<RezDodatnihIspitivanja, List<String>> listaRezultataDodatnihIspitivanja,
+                    List<Simptomi> listaSimptoma, List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja,
+                    HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja,
                     List<Dijagnoze> listaDijagnoza, List<Lekovi> listaLekova) {
         this.id = id;
         this.ime = ime;
@@ -199,19 +200,19 @@ public class Pacijent implements CaseComponent {
         this.listaSimptoma = listaSimptoma;
     }
 
-    public HashMap<DodatnaIspitivanja, List<Simptomi>> getListaDodatnihIspitivanja() {
+    public List<DodatnaIspitivanjaEnum> getListaDodatnihIspitivanja() {
         return listaDodatnihIspitivanja;
     }
 
-    public void setListaDodatnihIspitivanja(HashMap<DodatnaIspitivanja, List<Simptomi>> listaDodatnihIspitivanja) {
+    public void setListaDodatnihIspitivanja(List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja) {
         this.listaDodatnihIspitivanja = listaDodatnihIspitivanja;
     }
 
-    public HashMap<RezDodatnihIspitivanja, List<String>> getListaRezultataDodatnihIspitivanja() {
+    public HashMap<DodatnaIspitivanjaEnum, List<String>> getListaRezultataDodatnihIspitivanja() {
         return listaRezultataDodatnihIspitivanja;
     }
 
-    public void setListaRezultataDodatnihIspitivanja(HashMap<RezDodatnihIspitivanja, List<String>> listaRezultataDodatnihIspitivanja) {
+    public void setListaRezultataDodatnihIspitivanja(HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja) {
         this.listaRezultataDodatnihIspitivanja = listaRezultataDodatnihIspitivanja;
     }
 
@@ -234,5 +235,32 @@ public class Pacijent implements CaseComponent {
     @Override
     public Attribute getIdAttribute() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Pacijent{" +
+                "id=" + id +
+                ", ime='" + ime + '\'' +
+                ", pol=" + pol +
+                ", godine=" + godine +
+                ", tezina=" + tezina +
+                ", pusac=" + pusac +
+                ", dijabeticar=" + dijabeticar +
+                ", asmaticar=" + asmaticar +
+                ", fizickaAktivnost=" + fizickaAktivnost +
+                ", trudnoca=" + trudnoca +
+                ", alergican=" + alergican +
+                ", auskultacija=" + auskultacija +
+                ", gornjiPritisak=" + gornjiPritisak +
+                ", donjiPritisak=" + donjiPritisak +
+                ", rezPritiska=" + rezPritiska +
+                ", porodicneBolesti=" + porodicneBolesti +
+                ", listaSimptoma=" + listaSimptoma +
+                ", listaDodatnihIspitivanja=" + listaDodatnihIspitivanja +
+                ", listaRezultataDodatnihIspitivanja=" + listaRezultataDodatnihIspitivanja +
+                ", listaDijagnoza=" + listaDijagnoza +
+                ", listaLekova=" + listaLekova +
+                '}';
     }
 }
