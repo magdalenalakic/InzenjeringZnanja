@@ -38,6 +38,8 @@ public class CsvConnector implements Connector {
     @Override
     public Collection<CBRCase> retrieveAllCases() {
         LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
+        CBRCase cbrCase = new CBRCase();
+        Pacijent pacijent = new Pacijent();
 
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/zadatak1.csv")));
@@ -50,9 +52,6 @@ public class CsvConnector implements Connector {
                     continue;
                 String[] values = line.split(";");
 
-                CBRCase cbrCase = new CBRCase();
-
-                Pacijent pacijent = new Pacijent();
                 pacijent.setId(Long.parseLong(values[0]));
                 pacijent.setIme(values[1]);
                 pacijent.setPol(PolEnum.valueOf(values[2]));
@@ -77,21 +76,56 @@ public class CsvConnector implements Connector {
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
                 }
 
-//                MovieDescription movieDescription = new MovieDescription();
-//                movieDescription.setGender(values[1]);
-//                movieDescription.setAge(Integer.parseInt(values[2]));
-//                movieDescription.setScore(Integer.parseInt(values[4]));
-//                movieDescription.setTitle(values[6]);
-//                movieDescription.setYear(Integer.parseInt(values[7]));
-//                movieDescription.setGenre(values[8]);
-//
-//                cbrCase.setDescription(movieDescription);
-//                cases.add(cbrCase);
             }
             br.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/zadatak1.csv")));
+            if (br == null)
+                throw new Exception("Error opening file");
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                if (line.startsWith("#") || (line.length() == 0))
+                    continue;
+                String[] values = line.split(";");
+                String[] listaRez = values[1].split(",");
+
+                for(int i = 0; i < listaRez.length; i++){
+                    String[] rez = listaRez[i].split("=");
+//                    if(rez[0].equals("analizaKrvi")){
+//
+//                    }else if(rez[0].equals("ekg")){
+//
+//                    }else if(rez[0].equals("ehokardiografija")){
+//
+//                    }else if(rez[0].equals("ergometrija")){
+//
+//                    }else if(rez[0].equals("koronarnaAngiografija")){
+//
+//                    }else if(rez[0].equals("rendgen")){
+//
+//                    }else if(rez[0].equals("holter24")){
+//
+//                    }else if(rez[0].equals("ct")){
+//
+//                    }
+                }
+
+
+
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+//                cbrCase.setDescription(movieDescription);
+//                cases.add(cbrCase);
         return cases;
     }
 

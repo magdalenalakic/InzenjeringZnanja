@@ -24,8 +24,8 @@ public class Pacijent implements CaseComponent {
     private RezPritiskaEnum rezPritiska;
     private List<PorodicneBolesti> porodicneBolesti;
     private List<Simptomi> listaSimptoma;
-    private List<DodatnaIspitivanja> listaDodatnihIspitivanja;
-    private HashMap<DodatnaIspitivanja, List<String>> listaRezultataDodatnihIspitivanja;
+    private List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja;
+    private HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja;
     private List<Dijagnoze> listaDijagnoza;
     private List<Lekovi> listaLekova;
 
@@ -34,8 +34,8 @@ public class Pacijent implements CaseComponent {
                     Boolean dijabeticar, Boolean asmaticar, Boolean fizickaAktivnost, Boolean trudnoca,
                     Boolean alergican, AuskultacijaEnum auskultacija, Integer gornjiPritisak,
                     Integer donjiPritisak, RezPritiskaEnum rezPritiska, List<PorodicneBolesti> porodicneBolesti,
-                    List<Simptomi> listaSimptoma, List<DodatnaIspitivanja> listaDodatnihIspitivanja,
-                    HashMap<DodatnaIspitivanja, List<String>> listaRezultataDodatnihIspitivanja,
+                    List<Simptomi> listaSimptoma, List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja,
+                    HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja,
                     List<Dijagnoze> listaDijagnoza, List<Lekovi> listaLekova) {
         this.id = id;
         this.ime = ime;
@@ -199,19 +199,19 @@ public class Pacijent implements CaseComponent {
         this.listaSimptoma = listaSimptoma;
     }
 
-    public List<DodatnaIspitivanja> getListaDodatnihIspitivanja() {
+    public List<DodatnaIspitivanjaEnum> getListaDodatnihIspitivanja() {
         return listaDodatnihIspitivanja;
     }
 
-    public void setListaDodatnihIspitivanja(List<DodatnaIspitivanja> listaDodatnihIspitivanja) {
+    public void setListaDodatnihIspitivanja(List<DodatnaIspitivanjaEnum> listaDodatnihIspitivanja) {
         this.listaDodatnihIspitivanja = listaDodatnihIspitivanja;
     }
 
-    public HashMap<DodatnaIspitivanja, List<String>> getListaRezultataDodatnihIspitivanja() {
+    public HashMap<DodatnaIspitivanjaEnum, List<String>> getListaRezultataDodatnihIspitivanja() {
         return listaRezultataDodatnihIspitivanja;
     }
 
-    public void setListaRezultataDodatnihIspitivanja(HashMap<DodatnaIspitivanja, List<String>> listaRezultataDodatnihIspitivanja) {
+    public void setListaRezultataDodatnihIspitivanja(HashMap<DodatnaIspitivanjaEnum, List<String>> listaRezultataDodatnihIspitivanja) {
         this.listaRezultataDodatnihIspitivanja = listaRezultataDodatnihIspitivanja;
     }
 
