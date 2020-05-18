@@ -13,6 +13,6 @@ public class PacijentController {
         }else if(gornjiPritisak >= 100 && gornjiPritisak <= 120 && donjiPritisak >= 60 && donjiPritisak <= 80){
             return RezPritiskaEnum.normalan;
         }
-        return null;
+        return RezPritiskaEnum.normalan;
     }
 }
