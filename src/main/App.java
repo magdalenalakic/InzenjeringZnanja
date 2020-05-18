@@ -3,21 +3,26 @@ package main;
 import connector.CsvConnector;
 import controller.PacijentController;
 import model.Pacijent;
+import model.PolEnum;
 import model.RezPritiskaEnum;
+import model.Simptomi;
+import similarity.TableSimilarity;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
-import ucm.gaia.jcolibri.cbrcore.CBRCase;
-import ucm.gaia.jcolibri.cbrcore.CBRCaseBase;
-import ucm.gaia.jcolibri.cbrcore.CBRQuery;
-import ucm.gaia.jcolibri.cbrcore.Connector;
+import ucm.gaia.jcolibri.cbrcore.*;
 import ucm.gaia.jcolibri.exception.ExecutionException;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNConfig;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 import view.MainWindow;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -46,15 +51,15 @@ public class App implements StandardCBRApplication {
             System.out.println("-----");
             recommender.configure();
             recommender.preCycle();
-//            CBRQuery query = new CBRQuery();
-//            Pacijent movieDescription = new Pacijent();
-//            movieDescription.setGenre("Comedy");
-//            movieDescription.setYear(1980);
-//            movieDescription.setAge(24);
+            CBRQuery query = new CBRQuery();
+            Pacijent movieDescription = new Pacijent();
+            movieDescription.setPol(PolEnum.M);
+            movieDescription.setGodine(31);
+//            movieDescription.getListaSimptoma().add(Simptomi.vrtoglavica);
 //            movieDescription.setScore(5);
-//            query.setDescription( movieDescription );
-//            recommender.cycle(query);
-//            recommender.postCycle();
+            query.setDescription( movieDescription );
+            recommender.cycle(query);
+            recommender.postCycle();
 
 //            System.out.println("-----");
 //            recommender.setSimilarityConfigration2();
@@ -117,7 +122,35 @@ public class App implements StandardCBRApplication {
 
     public void setSimilarityConfigration1() {
         simConfig = new NNConfig(); // KNN configuration
-//        simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
+        simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
+        simConfig.addMapping(new Attribute("pol", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("godine", Pacijent.class), new Interval(10));
+        simConfig.addMapping(new Attribute("tezina", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("pusac", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("dijabeticar", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("asmaticar", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("fizickaAktivnost", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("trudnoca", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("alergican", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("auskultacija", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("rezPritiska", Pacijent.class), new Equal());
+        simConfig.addMapping(new Attribute("bolUGrudima", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("mucnina", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("hladnoZnojenje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("pritiskanje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("vrtoglavica", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("gubitakSvesti", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("otezanoDisanje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("malaksalost", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("zamucenjeVida", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("znojenje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("umor", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("gusenje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("povracanje", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("kratakDah", Simptomi.class), new Equal());
+        simConfig.addMapping(new Attribute("povisenaTemperatura", Simptomi.class), new Equal());
+
+//        TableSimilarity pBolestiSimilarity = new TableSimilarity((Arrays.asList(new String[] {""})));
 //        simConfig.addMapping(new Attribute("age", MovieDescription.class), new Interval(5));
 //        simConfig.addMapping(new Attribute("score", MovieDescription.class), new Interval(1));
 //        simConfig.addMapping(new Attribute("year", MovieDescription.class), new Interval(10));

@@ -12,5 +12,7 @@ public enum Lekovi {
     dihidroergotamin,
     etilefrin,
     amezinium,
-    mineralokortikoida
+    mineralokortikoida,
+    verapamil,
+    diltiazem
 }
