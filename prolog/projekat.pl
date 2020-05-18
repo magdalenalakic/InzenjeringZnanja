@@ -251,68 +251,67 @@ dijagnoza(X, Y) :-
          (rezEkg(X, nijeUredan, ubrzan), rezPritiska(X, R), (R = normalan; R = povisen), pacijent(X), rezHolter24(X, povisen, prisutno, normalan))  -> Y = tahikardija.
 
 %TERAPIJE ------------------------------------------------------------------------------------------------------------------------------
-%TODO: ispitati pol, godine, trudnoca, pusac...
-%%lekovi za Anginu Pectoris
-%terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, da), asmaticar(X, ne), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([],[nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin],T), !.
-%terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, da), (rezPritiska(X,povisen);rezPritiska(X,normalan)), append([],[nitroglicerin, atenolol, rosuvastatin],T), !.
-%terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, ne), asmaticar(X, ne), rezPritiska(X,nizak), append([],[nitroglicerin, aspirin, rosuvastatin],T), !.
-%terapija(X, anginaPektoris, T) :- dijagnoza(X, anginaPektoris), pacijent(X), trudnoca(X, da), asmaticar(X, da), rezPritiska(X,nizak), append([],[nitroglicerin, rosuvastatin],T).
-%
-%
-%%lijekovi za Hipotenziju: Mogu?i terapijski re�im uklju??uje dihidroergotamin, etilefrin, amezinium, njihovu kombinaciju ili postupno dodavanje mineralokortikoida.
-%terapija(X, hipotenzija, T) :- dijagnoza(X, hipotenzija), pacijent(X), trudnoca(X, ne), godine(X, G), G>=16, secernaBolest(X, nema), rezPritiska(X, nizak), append([], [dihidroergotamin, etilefrin, amezinium, mineralokortikoida], T).
-%
-%%lekovi za infarkt miokarda
-%terapija(X, infarktMiokarda, T) :- dijagnoza(X, infarktMiokarda), trudnoca(X, ne), godine(X, G), G>=16, pacijent(X), alergican(X, ne), asmaticar(X, ne),  append([], [aspirin, nitroglicerin, propranolol], T).
-
-
-%terapija(X, tahikardija, T) :- dijagnoza(X, tahikardija), pacijent(X), L = [atenolol, bisprolol, metoprolol, amiodaron, propafen, verapamil, diltiazem],
-%                        (
-%                        ( alergican(X, ne) -> append(L, [], L1); append([], [], L1) ),
-%                        ( asmaticar(X, da) -> delete(L1, bisprolol, L2)  ; asmaticar(X, ne) -> append(L1, [], L2) ),
-%                        ( trudnoca(X, da) -> (delete(L2, bisprolol, M1) , delete(M1, metoprolol, M2), delete(M2, amiodaron, M3), delete(M3, verapamil, M4), delete(M4, diltiazem, L3) );append(L2, [], L3) ),
-%                        ( dijagnoza(X, bradikardija) -> (delete(L3, atenolol, M1) , delete(M1, bisprolol, M2) , delete(M2, metoprolol, M3), delete(M3, amiodaron, M4), delete(M4, propafen, M5), delete(M5, diltiazem, L4) ) ;append(L3, [], L4) ),
-%                        ( dijagnoza(X, hipotenzija) -> (delete(L4, atenolol, M1) , delete(M1, bisprolol, M2) , delete(M2, metoprolol, M3), delete(M3, propafen, L5) ) ;append(L4, [], L5) ),
-%                        ( godine(X, G), G =< 16 -> ( delete(L5, bisprolol, M1) , delete(M1, metoprolol, M2), delete(M2, amiodaron, M3), delete(M3, diltiazem, L6) ); append(L5, [], L6) ),
-%                        ( dijagnoza(X, infarktMiokarda) -> ( delete(L5, bisprolol, M1) , delete(M1, amiodaron, M2), delete(M2, propafen, L7) );  append(L6, [], L7) )
-%                        ) -> append(L7, [], T).
-
-%lekovi za Hipertenziju
-%terapija(X, hipertenzija, T) :- dijagnoza(X, hipertenzija), pacijent(X), L=[lizinopril, kaptopril, atenolol, amlodipin, propranolol, micardis, izopamil, valsartan, metoprolol, verapamil, diltiazem, telmipres], (
-%                               ( alergican(X, ne) -> append(L, [], L1); append([], [], L1) ),
-%                               ( asmaticar(X, da) -> delete(L1, propranolol, L2)  ; asmaticar(X, ne) -> append(L1, [], L2) ),
-%                               ( trudnoca(X, da) -> (delete(L2, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, propranolol, M3), delete(M3, micardis, M4), delete(M4, izopamil, M5), delete(M5, valsartan, M6), delete(M6, telmipres, M7), delete(M7, verapamil, M8), delete(M8, diltiazem, L3) );append(L2, [], L3) )
-%
-%                               )-> append(L3, [], T).
-
-
 listaSvihLekova(X, T, L) :-  pacijent(X),
  (
-    ( alergican(X, ne) -> (delete(L, lizinopril, M1), delete(M1, kaptropil, L1) ); append(L, [], L1) ),
-    ( asmaticar(X, da) -> delete(L1, bisprolol, L2)  ; asmaticar(X, ne) -> append(L1, [], L2) ),
-    ( trudnoca(X, da) -> (delete(L2, bisprolol, M1) , delete(M1, metoprolol, M2), delete(M2, amiodaron, M3), delete(M3, verapamil, M4), delete(M4, diltiazem, L3) );append(L2, [], L3) ),
-    ( dijagnoza(X, bradikardija) -> (delete(L3, atenolol, M1) , delete(M1, bisprolol, M2) , delete(M2, metoprolol, M3), delete(M3, amiodaron, M4), delete(M4, propafen, M5), delete(M5, diltiazem, L4) ) ;append(L3, [], L4) ),
-    ( dijagnoza(X, hipotenzija) -> (delete(L4, atenolol, M1) , delete(M1, bisprolol, M2) , delete(M2, metoprolol, M3), delete(M3, propafen, L5) ) ;append(L4, [], L5) ),
-    ( godine(X, G), G =< 16 -> ( delete(L5, bisprolol, M1) , delete(M1, metoprolol, M2), delete(M2, amiodaron, M3), delete(M3, diltiazem, L6) ); append(L5, [], L6) ),
-    ( dijagnoza(X, infarktMiokarda) -> ( delete(L5, bisprolol, M1) , delete(M1, amiodaron, M2), delete(M2, propafen, L7) );  append(L6, [], L7) )
- ) -> append(L7, [], T).
+    ( alergican(X, da) -> (delete(L, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, nitroglicerin, M3), delete(M3, aspirin, M4),
+    delete(M4, atenolol, M5), delete(M5, propranolol, M6), delete(M6, rosuvastatin, M7), delete(M7, amlodipin, M8) , delete(M8, micardis, M9),
+    delete(M9, promerol, M10), delete(M10, izopamil, M11), delete(M11, valsartan, M12), delete(M12, telmipres, M13), delete(M13, bisprolol, M14),
+    delete(M14, metoprolol, M15), delete(M15, amiodaron, M16), delete(M16, propafen, M17), delete(M17, verapamil, M18), delete(M19, diltiazem, L1));
+    alergican(X, ne) -> append(L, [], L1) ),
+
+    ( asmaticar(X, da) -> ( delete(L1, aspirin, M1), delete(M1, propranolol, M2), delete(M2, bisprolol, L2)  );
+    asmaticar(X, ne) -> append(L1, [], L2) ),
+
+    ( dijabeticar(X, da) -> ( delete(L2, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, valsartan, L3));
+    dijabeticar(X, ne) -> append(L2, [], L3)),
+
+    ( trudnoca(X, da) -> (delete(L3, lizinopril, M1) ,delete(M1, kaptopril, M2), delete(M2, aspirin, M3), delete(M3, propranolol, M4),
+    delete(M4, rosuvastatin, M5), delete(M5, micardis, M6), delete(M6, izopamil, M7), delete(M7, valsartan, M8), delete(M8, telmipres, M9),
+    delete(M9, bisprolol, M10), delete(M10, metoprolol, M11), delete(M11, amiodaron, M12), delete(M12, verapamil, M13), delete(M13, diltiazem, L4));
+    append(L3, [], L4) ),
+
+    ( dijagnoza(X, bradikardija) -> (delete(L4, atenolol, M1), delete(M1, propranolol, M2), delete(M2, promerol, M3),
+    delete(M3, bisprolol, M4), delete(M4, metoprolol, M5), delete(M5, amiodaron, M6),  delete(M6, propafen, M7), delete(M7, diltiazem, L5));
+    append(L4, [], L5) ),
+
+    ( dijagnoza(X, hipotenzija) -> (delete(L5, atenolol, M1) , delete(M1, propranolol, M2),  delete(M2, amlodipin, M3),
+    delete(M3, promerol, M4), delete(M4, izopamil, M5),  delete(M5, bisprolol, M6), delete(M6, metoprolol, M7),
+    delete(M7, propafen, M8), delete(M8, verapamil, L6)) ;
+    append(L5, [], L6) ),
+
+    ( godine(X, G), G =< 16 -> ( delete(L6, aspirin, M1), delete(M1, bisprolol, M2), delete(M2, amiodaron, M3), delete(M3, diltiazem, L7));
+    append(L6, [], L7) ),
+
+    ( godine(X, G), G =< 6 -> ( delete(L7, lizinopril, M1) , delete(M1, amlodipin, M2) ,delete(M2, metoprolol, L8));
+    append(L7, [], L8) ),
+
+    ( dijagnoza(X, anginaPektoris) ->  delete(L8, propranolol, L9) ;  append(L8, [], L9) ),
+
+    ( dijagnoza(X, infarktMiokarda) -> ( delete(L9, amlodipin, M1), delete(M1, metoprolol, M2), delete(M2, propafen, M3),
+    delete(M3, verapamil, L10));
+    append(L9, [], L10) )
+
+ ) -> append(L10, [], T).
 
 
 terapija(X, hipertenzija, Z) :- dijagnoza(X, hipertenzija) ,
-listaSvihLekova(X, T, [lizinopril, kaptopril, atenolol, amlodipin, propranolol,
-micardis, izopamil, valsartan, metoprolol, verapamil, diltiazem, telmipres]) -> Z = T.
+        listaSvihLekova(X, T, [lizinopril, kaptopril, atenolol, amlodipin, propranolol,
+        micardis, izopamil, valsartan, telmipres, metoprolol, verapamil, diltiazem ]) -> Z = T.
 
 terapija(X, hipotenzija, Z) :- dijagnoza(X, hipotenzija) ,
-listaSvihLekova(X, T, []) -> Z = T.
+        listaSvihLekova(X, T, [zenSenKapsule, dihidroergotamin, etilefrin, amezinium, mineralokortikoida]) -> Z = T.
 
 terapija(X, anginaPektoris, Z) :- dijagnoza(X, anginaPektoris) ,
-listaSvihLekova(X, T, []) -> Z = T.
+        listaSvihLekova(X, T, [nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,
+        amlodipin, izopamil, metoprolol, verapamil, diltiazem]) -> Z = T.
 
 terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),
-listaSvihLekova(X, T, [atenolol, bisprolol, metoprolol, amiodaron, propafen, verapamil, diltiazem]) -> Z = T.
+        listaSvihLekova(X, T, [atenolol, propranolol, bisprolol, metoprolol, amiodaron, propafen, verapamil,
+        diltiazem, promerol,izopamil]) -> Z = T.
 
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),
-listaSvihLekova(X, T, []) -> Z = T.
+        listaSvihLekova(X, T, []) -> Z = T.
 
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),
-listaSvihLekova(X, T, []) -> Z = T.
+        listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,
+        promerol, valsartan ]) -> Z = T.
