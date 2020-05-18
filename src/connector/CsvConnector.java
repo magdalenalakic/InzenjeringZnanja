@@ -125,20 +125,28 @@ public class CsvConnector implements Connector {
                             }
 
                             if(rez[0].equals("analizaKrvi")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.analizaKrvi);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, listaRezultata);
                             }else if(rez[0].equals("ekg")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ekg);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, listaRezultata);
                             }else if(rez[0].equals("ehokardiografija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ehokardiografija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, listaRezultata);
                             }else if(rez[0].equals("ergometrija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ergometrija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, listaRezultata);
                             }else if(rez[0].equals("koronarnaAngiografija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.koronarnaAngiografija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, listaRezultata);
                             }else if(rez[0].equals("rendgen")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.rendgen);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, listaRezultata);
                             }else if(rez[0].equals("holter24")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.holter24);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, listaRezultata);
                             }else if(rez[0].equals("ct")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ct);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, listaRezultata);
                             }
                         }
