@@ -1,6 +1,6 @@
 #id;listaDijagnoza
 1;anginaPektoris
-2;infarktMiokarda
+2;anginaPektoris
 3;hipotenzija
 4;hipotenzija
 5;hipotenzija
@@ -19,4 +19,5 @@
 18;hipertenzija
 19;hipertenzija
 20;hipertenzija
-
+21;infarktMiokarda
+22;infarktMiokarda
