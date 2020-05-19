@@ -133,7 +133,7 @@ public class DodatnaIspitivanja extends JFrame {
         getRootPane().setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.BLACK, Color.LIGHT_GRAY));
 
         JPanel panTop = new JPanel();
-        panTop.setPreferredSize(new Dimension(100,100));
+        panTop.setPreferredSize(new Dimension(100,50));
         panTop.setBackground(new Color(32, 255, 140));
         add(panTop, BorderLayout.NORTH);
 
@@ -179,7 +179,7 @@ public class DodatnaIspitivanja extends JFrame {
 
         JPanel panRight = new JPanel();
         panRight.setPreferredSize(new Dimension(250,200));
-        panRight.setBackground(new Color(249, 128, 255));
+//        panRight.setBackground(new Color(249, 128, 255));
         add(panRight, BorderLayout.EAST);
 
         boxRight = Box.createVerticalBox();
