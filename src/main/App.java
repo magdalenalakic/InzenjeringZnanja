@@ -14,8 +14,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
-import view.DodatnaIspitivanja;
-import view.MainWindow;
+import view.WelcomeWindow;
 
 
 import javax.swing.*;
@@ -42,7 +41,7 @@ public class App implements StandardCBRApplication {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        MainWindow gp = MainWindow.getInstance();
+        WelcomeWindow gp = WelcomeWindow.getInstance();
         gp.setVisible(true);
 
 //        RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(130,100);
@@ -50,7 +49,6 @@ public class App implements StandardCBRApplication {
 //            System.out.println("null");
 //        }
 //        System.out.println("REZULTAT PRITISKA: "+ rez.toString());
-
 
         App recommender = new App();
         try {
