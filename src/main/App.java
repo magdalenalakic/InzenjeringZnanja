@@ -50,7 +50,6 @@ public class App implements StandardCBRApplication {
 //        }
 //        System.out.println("REZULTAT PRITISKA: "+ rez.toString());
 
-
         App recommender = new App();
         try {
             System.out.println("-----");
