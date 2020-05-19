@@ -183,8 +183,6 @@ public class App implements StandardCBRApplication {
 
     }
 
-
-
     @Override
     public void postCycle() throws ExecutionException {
 
