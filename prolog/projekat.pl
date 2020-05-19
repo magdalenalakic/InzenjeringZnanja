@@ -201,10 +201,10 @@ rezEkg(zdravko, nijeUredan, ubrzan).
 rezErgometrija(petar, niskaOpterecenja).
 rezErgometrija(ana, niskaOpterecenja).
 
-%ehokardiografija rezultati(uredna, nijeUredna)
-rezEhokardiografije(milica, uredna).
+%ehokardiografija rezultati(uredan, nijeUredan)
+rezEhokardiografije(milica, uredan).
 
-%koronarnaAngiografija -> potrebni rezultati ako je rutinski
+%koronarnaAngiografija -> potrebni rezultati ako je rutinsk/// pozitivno/negativno
 rezKA(petar, pozitivno).
 rezKA(ana, pozitivno).
 
@@ -222,6 +222,8 @@ rezHolter24(zdravko, povisen, prisutno, normalan).
 %rezultati CT(uredan, nijeUredan)
 rezCT(milica, uredan).
 rezCR(milan, nijeUredan).
+
+
 
 %DIJAGNOZE ----------------------------------------------------------------------------------------------------------------------
 % hipertenzija
