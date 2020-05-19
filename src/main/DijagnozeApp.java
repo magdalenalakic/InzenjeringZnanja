@@ -16,6 +16,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainWindow;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,23 +65,25 @@ public class DijagnozeApp implements StandardCBRApplication {
             System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
 
         }
-        System.out.println();
-        List<Lekovi> predlozeniLekovi = new ArrayList<>();
 
         System.out.println();
-        System.out.println("Predlozena terapija: ");
+        ArrayList<Dijagnoze> predlozeneDijagnoze = new ArrayList<>();
+        System.out.println();
+        System.out.println("Predlozene dijagnoze: ");
         for(RetrievalResult nse : eval){
             Pacijent p = (Pacijent) nse.get_case().getDescription();
 
-            for(Lekovi d : p.getListaLekova()){
-                if(!predlozeniLekovi.contains(d)){
-                    predlozeniLekovi.add(d);
+            for(Dijagnoze d : p.getListaDijagnoza()){
+                if(!predlozeneDijagnoze.contains(d)){
+                    predlozeneDijagnoze.add(d);
                     System.out.println(d);
                 }
             }
 
         }
+        MainWindow.getInstance().setDijagnoze(predlozeneDijagnoze);
         System.out.println();
+
     }
 
     @Override

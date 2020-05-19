@@ -5,9 +5,14 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 import controller.DodajZdravstveniKartonListener;
+import controller.PacijentController;
 import controller.ZapocniPregledListener;
-import model.Pacijent;
-import model.PolEnum;
+import main.App;
+import main.DijagnozeApp;
+import main.DodatnaIspitivanjaApp;
+import main.TerapijaApp;
+import model.*;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -17,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.List;
 //import com.ugos.jiprolog.engine.JIPEngine;
 //import com.ugos.jiprolog.engine.JIPQuery;
 //import com.ugos.jiprolog.engine.JIPTerm;
@@ -25,6 +31,8 @@ import java.util.ArrayList;
 public class MainWindow extends JFrame {
 
     private static MainWindow instance = null;
+    private static PacijentController pacijentController = new PacijentController();
+    private Pacijent trenutnoAktivanPacijent;
     private JComboBox cbPacijenti;
     private JList listaSimptoma;
     private JButton previous;
@@ -53,6 +61,9 @@ public class MainWindow extends JFrame {
     private JRadioButton alergijaDa;
     private JRadioButton alergijaNe;
     private ArrayList<String> pacijenti;
+    private ArrayList<Lekovi> terapija;
+    private ArrayList<Dijagnoze> dijagnoze;
+    private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja;
 
 
 //    private List<>
@@ -433,6 +444,7 @@ public class MainWindow extends JFrame {
         boxCentar.removeAll();
         boxRight.removeAll();
 
+        pacijenti = dodajPacijente();
         JPanel pan1 = new JPanel();
         pan1.setLayout(new FlowLayout());
         cbPacijenti = new JComboBox();
@@ -460,39 +472,210 @@ public class MainWindow extends JFrame {
         boxRight.removeAll();
 
         boxCentar.add(new JLabel("INFORMACIJE O PACIJENTU"));
-        Pacijent p = null;
+        trenutnoAktivanPacijent = null;
         for(Pacijent pacijent:WelcomeWindow.getInstance().getListaPacijenata()){
             if(pacijent.getIme().equals(String.valueOf(MainWindow.getInstance().getCbPacijenti().getSelectedItem()))){
-                p = pacijent;
+                trenutnoAktivanPacijent = pacijent;
             }
         }
-        JLabel imeP = new JLabel(p.getIme());
+        JLabel imeP = new JLabel(trenutnoAktivanPacijent.getIme());
         imeP.setFont(new Font("Tahoma", Font.BOLD, 14));
 
         boxCentar.add(imeP);
-        boxCentar.add(new JLabel("Godine: " + String.valueOf(p.getGodine())));
-        boxCentar.add(new JLabel("Pol: " + String.valueOf(p.getPol())));
-        boxCentar.add(new JLabel("Tezina: "+ String.valueOf(p.getTezina())));
-        boxCentar.add(new JLabel("Pusac: " + String.valueOf(p.getPusac())));
-        boxCentar.add(new JLabel("Dijabeticar: " + String.valueOf(p.getDijabeticar())));
-        boxCentar.add(new JLabel("Asmaticar: " + String.valueOf(p.getAsmaticar())));
-        boxCentar.add(new JLabel("Fizicka aktivnost: " + String.valueOf(p.getFizickaAktivnost())));
-        if(p.getPol() == PolEnum.Z){
-            boxCentar.add(new JLabel("Trudnoca: " + String.valueOf(p.getTrudnoca())));
+        boxCentar.add(new JLabel("Godine: " + String.valueOf(trenutnoAktivanPacijent.getGodine())));
+        boxCentar.add(new JLabel("Pol: " + String.valueOf(trenutnoAktivanPacijent.getPol())));
+        boxCentar.add(new JLabel("Tezina: "+ String.valueOf(trenutnoAktivanPacijent.getTezina())));
+        boxCentar.add(new JLabel("Pusac: " + String.valueOf(trenutnoAktivanPacijent.getPusac())));
+        boxCentar.add(new JLabel("Dijabeticar: " + String.valueOf(trenutnoAktivanPacijent.getDijabeticar())));
+        boxCentar.add(new JLabel("Asmaticar: " + String.valueOf(trenutnoAktivanPacijent.getAsmaticar())));
+        boxCentar.add(new JLabel("Fizicka aktivnost: " + String.valueOf(trenutnoAktivanPacijent.getFizickaAktivnost())));
+        if(trenutnoAktivanPacijent.getPol() == PolEnum.Z){
+            boxCentar.add(new JLabel("Trudnoca: " + String.valueOf(trenutnoAktivanPacijent.getTrudnoca())));
         }
-        boxCentar.add(new JLabel("Alergija: " + String.valueOf(p.getAlergican())));
+        boxCentar.add(new JLabel("Alergija: " + String.valueOf(trenutnoAktivanPacijent.getAlergican())));
 
         JButton zapocni = new JButton("ZAPOCNI");
         zapocni.setPreferredSize(new Dimension(200,30));
 
         JButton predloziDodatnaIspitivanja = new JButton("Predlozi dodatna ispitivanja");
         predloziDodatnaIspitivanja.setPreferredSize(new Dimension(200,30));
+        predloziDodatnaIspitivanja.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
+
+                try {
+                    System.out.println("-----");
+                    dia.configure();
+                    dia.preCycle();
+                    CBRQuery query = new CBRQuery();
+                    Pacijent pacijent = new Pacijent();
+                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
+                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
+                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
+                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
+                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
+                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
+                    pacijent.getListaSimptoma().add(Simptomi.umor);
+
+                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
+                    java.util.List<String> l = new ArrayList<>();
+                    l.add("10");
+                    l.add("2.1");
+                    l.add("3");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
+                    java.util.List<String> l2 = new ArrayList<>();
+                    l2.add("nijeUredan");
+                    l2.add("usporen");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
+                    List<String> l3 = new ArrayList<>();
+                    l3.add("nijeUredan");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
+
+
+//            pacijent.getListaSimptoma().add(Simptomi.umor);
+
+//            pacijent.setScore(5);
+                    query.setDescription( pacijent );
+                    dia.cycle(query);
+                    dia.postCycle();
+
+                    boxRight.removeAll();
+
+                    for(DodatnaIspitivanjaEnum DI:dodatnaIspitivanja){
+                        JLabel predlog = new JLabel(DI.name());
+                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
+                        boxRight.add(predlog);
+                    }
+
+                    boxRight.revalidate();
+                    boxRight.repaint();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JButton predloziDijagnoze = new JButton("Predlozi Dijagnoze");
         predloziDijagnoze.setPreferredSize(new Dimension(200,30));
+        predloziDijagnoze.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DijagnozeApp da = new DijagnozeApp();
+
+                try {
+                    System.out.println("-----");
+                    da.configure();
+                    da.preCycle();
+                    CBRQuery query = new CBRQuery();
+                    Pacijent pacijent = new Pacijent();
+                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
+                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
+                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
+                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
+                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
+                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
+                    pacijent.getListaSimptoma().add(Simptomi.umor);
+
+                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
+                    java.util.List<String> l = new ArrayList<>();
+                    l.add("10");
+                    l.add("2.1");
+                    l.add("3");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
+                    java.util.List<String> l2 = new ArrayList<>();
+                    l2.add("nijeUredan");
+                    l2.add("usporen");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
+                    List<String> l3 = new ArrayList<>();
+                    l3.add("nijeUredan");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
+
+
+//            pacijent.getListaSimptoma().add(Simptomi.umor);
+
+//            pacijent.setScore(5);
+                    query.setDescription( pacijent );
+                    da.cycle(query);
+                    da.postCycle();
+
+                    boxRight.removeAll();
+
+                    for(Dijagnoze dijagnoze:dijagnoze){
+                        JLabel predlog = new JLabel(dijagnoze.name());
+                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
+                        boxRight.add(predlog);
+                    }
+
+                    boxRight.revalidate();
+                    boxRight.repaint();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JButton predloziTerapiju = new JButton("Predlozi Terapiju");
         predloziTerapiju.setPreferredSize(new Dimension(200,30));
+        predloziTerapiju.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TerapijaApp ta = new TerapijaApp();
+
+                try {
+                    System.out.println("-----");
+                    ta.configure();
+                    ta.preCycle();
+                    CBRQuery query = new CBRQuery();
+                    Pacijent pacijent = new Pacijent();
+                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
+                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
+                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
+                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
+                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
+                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
+                    pacijent.getListaSimptoma().add(Simptomi.umor);
+
+                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
+                    java.util.List<String> l = new ArrayList<>();
+                    l.add("10");
+                    l.add("2.1");
+                    l.add("3");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
+                    java.util.List<String> l2 = new ArrayList<>();
+                    l2.add("nijeUredan");
+                    l2.add("usporen");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
+                    List<String> l3 = new ArrayList<>();
+                    l3.add("nijeUredan");
+                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
+
+
+//            pacijent.getListaSimptoma().add(Simptomi.umor);
+
+//            pacijent.setScore(5);
+                    query.setDescription( pacijent );
+                    ta.cycle(query);
+                    ta.postCycle();
+
+                    boxRight.removeAll();
+
+                    for(Lekovi lek:terapija){
+                        JLabel predlog = new JLabel(lek.name());
+                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
+                        boxRight.add(predlog);
+                    }
+
+                    boxRight.revalidate();
+                    boxRight.repaint();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         JPanel predlozi = new JPanel();
         predlozi.setLayout(new BoxLayout(predlozi,BoxLayout.Y_AXIS));
@@ -516,6 +699,8 @@ public class MainWindow extends JFrame {
         predlozi.add(predloziTerapiju);
 
         boxCentar.add(predlozi);
+
+
 
         boxCentar.revalidate();
         boxCentar.repaint();
@@ -630,4 +815,43 @@ public class MainWindow extends JFrame {
         return alergijaNe;
     }
 
+    public Pacijent getTrenutnoAktivanPacijent() {
+        return trenutnoAktivanPacijent;
+    }
+
+    public void setTrenutnoAktivanPacijent(Pacijent trenutnoAktivanPacijent) {
+        this.trenutnoAktivanPacijent = trenutnoAktivanPacijent;
+    }
+
+    public ArrayList<String> getPacijenti() {
+        return pacijenti;
+    }
+
+    public void setPacijenti(ArrayList<String> pacijenti) {
+        this.pacijenti = pacijenti;
+    }
+
+    public ArrayList<Lekovi> getTerapija() {
+        return terapija;
+    }
+
+    public void setTerapija(ArrayList<Lekovi> terapija) {
+        this.terapija = terapija;
+    }
+
+    public ArrayList<Dijagnoze> getDijagnoze() {
+        return dijagnoze;
+    }
+
+    public void setDijagnoze(ArrayList<Dijagnoze> dijagnoze) {
+        this.dijagnoze = dijagnoze;
+    }
+
+    public ArrayList<DodatnaIspitivanjaEnum> getDodatnaIspitivanja() {
+        return dodatnaIspitivanja;
+    }
+
+    public void setDodatnaIspitivanja(ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja) {
+        this.dodatnaIspitivanja = dodatnaIspitivanja;
+    }
 }
