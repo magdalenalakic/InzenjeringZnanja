@@ -28,7 +28,7 @@ public class TerapijaApp implements StandardCBRApplication {
     NNConfig simConfig;
 
     public void setSimilarityConfigration1() {
-        System.out.println("POZIVA SE KLIKOM NA DUGME");
+//        System.out.println("POZIVA SE KLIKOM NA DUGME");
         simConfig = new NNConfig(); // KNN configuration
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
         simConfig.addMapping(new Attribute("pol", Pacijent.class), new Equal());
@@ -59,7 +59,7 @@ public class TerapijaApp implements StandardCBRApplication {
 
     @Override
     public void cycle(CBRQuery cbrQuery) throws ExecutionException {
-        System.out.println("POZIVA SE KLIKOM NA DUGME**************");
+//        System.out.println("POZIVA SE KLIKOM NA DUGME**************");
         Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), cbrQuery, simConfig);
         eval = SelectCases.selectTopKRR(eval, 5);
         System.out.println("Retrieved cases:");
