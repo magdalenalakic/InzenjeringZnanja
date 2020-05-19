@@ -16,6 +16,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainWindow;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +28,7 @@ public class TerapijaApp implements StandardCBRApplication {
     NNConfig simConfig;
 
     public void setSimilarityConfigration1() {
+        System.out.println("POZIVA SE KLIKOM NA DUGME");
         simConfig = new NNConfig(); // KNN configuration
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
         simConfig.addMapping(new Attribute("pol", Pacijent.class), new Equal());
@@ -57,6 +59,7 @@ public class TerapijaApp implements StandardCBRApplication {
 
     @Override
     public void cycle(CBRQuery cbrQuery) throws ExecutionException {
+        System.out.println("POZIVA SE KLIKOM NA DUGME**************");
         Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), cbrQuery, simConfig);
         eval = SelectCases.selectTopKRR(eval, 5);
         System.out.println("Retrieved cases:");
@@ -64,22 +67,27 @@ public class TerapijaApp implements StandardCBRApplication {
             System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
 
         }
+
         System.out.println();
-        List<Dijagnoze> predlozeneDijagnoze = new ArrayList<>();
+        ArrayList<Lekovi> predlozeniLekovi = new ArrayList<>();
+
         System.out.println();
-        System.out.println("Predlozene dijagnoze: ");
+        System.out.println("Predlozena terapija: ");
         for(RetrievalResult nse : eval){
             Pacijent p = (Pacijent) nse.get_case().getDescription();
 
-            for(Dijagnoze d : p.getListaDijagnoza()){
-                if(!predlozeneDijagnoze.contains(d)){
-                    predlozeneDijagnoze.add(d);
+            for(Lekovi d : p.getListaLekova()){
+                if(!predlozeniLekovi.contains(d)){
+                    predlozeniLekovi.add(d);
                     System.out.println(d);
                 }
             }
 
         }
+        MainWindow.getInstance().setTerapija(predlozeniLekovi);
         System.out.println();
+
+
     }
 
     @Override

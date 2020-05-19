@@ -16,6 +16,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Equal;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.RetrievalResult;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
+import view.MainWindow;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +68,7 @@ public class DodatnaIspitivanjaApp implements StandardCBRApplication {
         }
         System.out.println();
         System.out.println("Predlozena dodatna ispitivanja: ");
-        List<DodatnaIspitivanjaEnum> dodatnaIspitivanja = new ArrayList<>();
+        ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja = new ArrayList<>();
         for(RetrievalResult nse : eval){
             Pacijent p = (Pacijent) nse.get_case().getDescription();
             for(DodatnaIspitivanjaEnum d : p.getListaDodatnihIspitivanja()){
@@ -77,6 +78,7 @@ public class DodatnaIspitivanjaApp implements StandardCBRApplication {
                 }
             }
         }
+        MainWindow.getInstance().setDodatnaIspitivanja(dodatnaIspitivanja);
         System.out.println();
     }
 
