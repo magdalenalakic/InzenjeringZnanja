@@ -3,8 +3,8 @@ package controller;
 import model.Pacijent;
 import model.PolEnum;
 import model.TezinaEnum;
-import view.DodatnaIspitivanja;
 import view.MainWindow;
+import view.WelcomeWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,14 +13,14 @@ public class DodajZdravstveniKartonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("***PODACI***");
-        System.out.println(DodatnaIspitivanja.getInstance().getImePacijenta().getText());
-        String ime = DodatnaIspitivanja.getInstance().getImePacijenta().getText();
+        System.out.println(MainWindow.getInstance().getImePacijenta().getText());
+        String ime = MainWindow.getInstance().getImePacijenta().getText();
 
-        System.out.println(DodatnaIspitivanja.getInstance().getGodinePacijenta().getText());
-        Integer godine = Integer.parseInt(DodatnaIspitivanja.getInstance().getGodinePacijenta().getText());
+        System.out.println(MainWindow.getInstance().getGodinePacijenta().getText());
+        Integer godine = Integer.parseInt(MainWindow.getInstance().getGodinePacijenta().getText());
 
         PolEnum pol = null;
-        if(DodatnaIspitivanja.getInstance().getPolZ().isSelected()){
+        if(MainWindow.getInstance().getPolZ().isSelected()){
             System.out.println("ZENSKO");
             pol = PolEnum.Z;
         }else{
@@ -29,10 +29,10 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         TezinaEnum tezina = null;
-        if(DodatnaIspitivanja.getInstance().getTezinaNormalna().isSelected()){
+        if(MainWindow.getInstance().getTezinaNormalna().isSelected()){
             System.out.println("NORMALNE TEZINE");
             tezina = TezinaEnum.normalnaTezina;
-        }else if(DodatnaIspitivanja.getInstance().getTezinaSmanjena().isSelected()){
+        }else if(MainWindow.getInstance().getTezinaSmanjena().isSelected()){
             System.out.println("MRSAVA");
             tezina = TezinaEnum.smanjenaTezina;
         }else{
@@ -40,7 +40,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
             tezina = TezinaEnum.povecanaTezina;
         }
         Boolean pusac = null;
-        if(DodatnaIspitivanja.getInstance().getPusacDa().isSelected()){
+        if(MainWindow.getInstance().getPusacDa().isSelected()){
             System.out.println("PUSI");
             pusac = new Boolean(true);
         }else{
@@ -49,7 +49,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         Boolean dijabeticar = null;
-        if(DodatnaIspitivanja.getInstance().getDijabeticarDa().isSelected()){
+        if(MainWindow.getInstance().getDijabeticarDa().isSelected()){
             System.out.println("DIJABETICAR");
             dijabeticar = new Boolean(true);
         }else{
@@ -58,7 +58,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         Boolean asmaticar = null;
-        if(DodatnaIspitivanja.getInstance().getAsmaticarDa().isSelected()){
+        if(MainWindow.getInstance().getAsmaticarDa().isSelected()){
             System.out.println("ASMATICAR");
             asmaticar = new Boolean(true);
         }else{
@@ -67,7 +67,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         Boolean fizickaAktivnost = null;
-        if(DodatnaIspitivanja.getInstance().getFizickaAktivnostDa().isSelected()){
+        if(MainWindow.getInstance().getFizickaAktivnostDa().isSelected()){
             System.out.println("FIZICKI AKTIVAN");
             fizickaAktivnost = new Boolean(true);
         }else{
@@ -76,7 +76,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         Boolean trudnoca = null;
-        if(DodatnaIspitivanja.getInstance().getTrudnocaDa().isSelected()){
+        if(MainWindow.getInstance().getTrudnocaDa().isSelected()){
             System.out.println("TRUDNA");
             trudnoca = new Boolean(true);
         }else{
@@ -85,7 +85,7 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
 
         Boolean alergican = null;
-        if(DodatnaIspitivanja.getInstance().getAlergijaDa().isSelected()){
+        if(MainWindow.getInstance().getAlergijaDa().isSelected()){
             System.out.println("ALERGICAR");
             alergican = new Boolean(true);
         }else{
@@ -93,8 +93,8 @@ public class DodajZdravstveniKartonListener implements ActionListener {
             alergican = new Boolean(false);
         }
         Pacijent pacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar, asmaticar, fizickaAktivnost, trudnoca, alergican);
-        MainWindow.getInstance().getListaPacijenata().add(pacijent);
-        System.out.println(MainWindow.getInstance().getListaPacijenata().size());
+        WelcomeWindow.getInstance().getListaPacijenata().add(pacijent);
+        System.out.println(WelcomeWindow.getInstance().getListaPacijenata().size());
         System.out.println(pacijent);
     }
 }

@@ -7,8 +7,7 @@ import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
-import view.DodatnaIspitivanja;
-import view.MainWindow;
+import view.WelcomeWindow;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -219,7 +218,7 @@ public class CsvConnector implements Connector {
         for(int k = 0; k < listaPacijenata.size(); k++){
             CBRCase cbrCase = new CBRCase();
             cbrCase.setDescription(listaPacijenata.get(k));
-            MainWindow.getInstance().getListaPacijenata().add(listaPacijenata.get(k));
+            WelcomeWindow.getInstance().getListaPacijenata().add(listaPacijenata.get(k));
 //            System.out.println("CSV connector");
 //            System.out.println(listaPacijenata.get(k));
             cases.add(cbrCase);
