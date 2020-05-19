@@ -5,6 +5,8 @@ pacijent(milan).
 pacijent(ana).
 pacijent(luka).
 pacijent(zdravko).
+pacijent(slavica).
+pacijent(zeljko).
 
 pol(petar, m).
 pol(milica, z).
@@ -12,13 +14,17 @@ pol(milan, m).
 pol(ana, z).
 pol(luka, m).
 pol(zdravko, m).
+pol(slavica, z).
+pol(zeljko, m).
 
 godine(petar, 36).
-godine(milica, 23).
+godine(milica, 27).
 godine(milan, 37).
 godine(ana, 50).
 godine(luka, 40).
 godine(zdravko, 42).
+godine(slavica, 48).
+godine(zeljko, 41).
 
 pusac(petar,ne).
 pusac(milica,ne).
@@ -26,6 +32,8 @@ pusac(milan,da).
 pusac(ana, da).
 pusac(luka, ne).
 pusac(zdravko, ne).
+pusac(slavica, da).
+pusac(zeljko, da).
 
 tezina(petar, povecanaTezina).
 tezina(milica, smanjenaTezina).
@@ -33,13 +41,17 @@ tezina(milan, normalnaTezina).
 tezina(ana, povecanaTezina).
 tezina(luka, normalnaTezina).
 tezina(zdravko, normalnaTezina).
+tezina(slavica, povecanaTezina).
+tezina(zeljko, povecanaTezina).
 
 dijabeticar(petar,da).
 dijabeticar(milica,da).
 dijabeticar(milan,ne).
-dijabeticar(ana, ne).
-dijabeticar(luka, ne).
-dijabeticar(zdravko, ne).
+dijabeticar(ana,ne).
+dijabeticar(luka,ne).
+dijabeticar(zdravko,ne).
+dijabeticar(slavica,ne).
+dijabeticar(zeljko,ne).
 
 asmaticar(petar, da).
 asmaticar(milica, ne).
@@ -47,6 +59,8 @@ asmaticar(milan, ne).
 asmaticar(ana, ne).
 asmaticar(luka, da).
 asmaticar(zdravko, da).
+asmaticar(slavica, ne).
+asmaticar(zeljko, da).
 
 fizickaAktivnost(petar, ne).
 fizickaAktivnost(milan, ne).
@@ -54,16 +68,21 @@ fizickaAktivnost(milica, ne).
 fizickaAktivnost(ana, da).
 fizickaAktivnost(luka, ne).
 fizickaAktivnost(zdravko, ne).
+fizickaAktivnost(slavica, da).
+fizickaAktivnost(zeljko, da).
 
 trudnoca(milica, da).
 trudnoca(ana, ne).
+trudnoca(slavica, ne).
 
 alergican(petar, ne).
-alergican(milica, da).
+alergican(milica, ne).
 alergican(milan, da).
 alergican(ana, ne).
 alergican(luka, da).
 alergican(zdravko, ne).
+alergican(slavica, ne).
+alergican(zeljko, ne).
 
 porodicneBolesti(petar, [trombofilija]).
 porodicneBolesti(milica, [dijabetes]).
@@ -71,6 +90,8 @@ porodicneBolesti(milan, [artritis]).
 porodicneBolesti(ana, [infarktMiokarda]).
 porodicneBolesti(luka, [infarktMiokarda]).
 porodicneBolesti(zdravko, []).
+porodicneBolesti(slavica, [infarktMiokarda]).
+porodicneBolesti(zeljko, [infarktMiokarda]).
 
 simptom(bolUGrudima).
 simptom(mucnina).
@@ -94,14 +115,18 @@ auskultacija(milan, uredna).
 auskultacija(ana, poremecajRitma).
 auskultacija(luka, uredna).
 auskultacija(zdravko, uredna).
+auskultacija(slavica, poremecajRitma).
+auskultacija(zeljko, poremecajRitma).
 
 %racunanje pritiska
 pritisak(petar,130,100).
 pritisak(milica,120,70).
 pritisak(milan,90,50).
-pritisak(ana, 85, 60).
+pritisak(ana, 85, 59).
 pritisak(luka, 121, 90).
 pritisak(zdravko, 123, 94).
+pritisak(slavica, 86, 57).
+pritisak(zeljko,130,100).
 
 rezPritiska(X,povisen) :- pritisak(X,A,B), A>120, B>80, !.
 rezPritiska(X,nizak) :- pritisak(X,A,B), A<100, B<60, !.
@@ -171,7 +196,7 @@ secernaBolest(X, R) :- (rezAnalizeKrvi(X, Y, H, T), Y>11) -> R = povisen ;
 
 %racunanje holesterola
 rezHolesterola(X, R) :- (rezAnalizeKrvi(X, D, Y, T), Y >= 3.1, Y =< 5.5) -> R = normalan ;
-                        (rezAnalizeKrvi(X, D, Y, T), Y < 3.1) -> R = povisen ;
+                        (rezAnalizeKrvi(X, D, Y, T), Y < 3.1) -> R = nizak;
                         (rezAnalizeKrvi(X, D, Y, T), Y > 5.5) -> R = povisen .
 
 %racunanje triglicerida
@@ -184,9 +209,11 @@ rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.2
 rezAnalizeKrvi(petar, 16, 5.8, 0.88).
 rezAnalizeKrvi(milica, 15, 3.6, 0.25).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
-rezAnalizeKrvi(ana,  10, 2.1, 3).
-rezAnalizeKrvi(luka,  11, 2.5, 3.5).
-rezAnalizeKrvi(zdravko,  11, 2.5, 3.5).
+rezAnalizeKrvi(ana, 10, 2.1, 3).
+rezAnalizeKrvi(luka, 11, 2.5, 3.5).
+rezAnalizeKrvi(zdravko, 11, 2.5, 3.5).
+rezAnalizeKrvi(slavica, 10, 2.2, 3).
+rezAnalizeKrvi(zeljko, 16, 5.8, 0.88).
 
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
 rezEkg(petar, nijeUredan, ubrzan).
@@ -195,11 +222,14 @@ rezEkg(milica, nijeUredan, ubrzan).
 rezEkg(ana, nijeUredan, usporen).
 rezEkg(luka, neodredjen, ubrzan).
 rezEkg(zdravko, nijeUredan, ubrzan).
-
+rezEkg(slavica, nijeUredan, usporen).
+rezEkg(zeljko, nijeUredan, ubrzan).
 
 %ergometrija, rezultati
 rezErgometrija(petar, niskaOpterecenja).
 rezErgometrija(ana, niskaOpterecenja).
+rezErgometrija(slavica, niskaOpterecenja).
+rezErgometrija(zdravko, niskaOpterecenja).
 
 %ehokardiografija rezultati(uredan, nijeUredan)
 rezEhokardiografije(milica, uredan).
@@ -216,12 +246,14 @@ rezRendgen(milica, nijeUredan).
 % srcanaFrekvencija, poremecajRitma, ST segment
 rezHolter24(milan, povisen, prisutno, normalan).
 rezHolter24(ana, snizen, prisutno, normalan).
+rezHolter24(milica, povisen, prisutno, normalan).
 rezHolter24(luka, povisen, prisutno, normalan).
 rezHolter24(zdravko, povisen, prisutno, normalan).
+rezHolter24(slavica, snizen, prisutno, normalan).
 
 %rezultati CT(uredan, nijeUredan)
 rezCT(milica, uredan).
-rezCR(milan, nijeUredan).
+rezCT(milan, nijeUredan).
 
 
 
@@ -258,14 +290,14 @@ listaSvihLekova(X, T, L) :-  pacijent(X),
     ( alergican(X, da) -> (delete(L, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, nitroglicerin, M3), delete(M3, aspirin, M4),
     delete(M4, atenolol, M5), delete(M5, propranolol, M6), delete(M6, rosuvastatin, M7), delete(M7, amlodipin, M8) , delete(M8, micardis, M9),
     delete(M9, promerol, M10), delete(M10, izopamil, M11), delete(M11, valsartan, M12), delete(M12, telmipres, M13), delete(M13, bisprolol, M14),
-    delete(M14, metoprolol, M15), delete(M15, amiodaron, M16), delete(M16, propafen, M17), delete(M17, verapamil, M18), delete(M19, diltiazem, L1));
-    alergican(X, ne) -> append(L, [], L1) ),
+    delete(M14, metoprolol, M15), delete(M15, amiodaron, M16), delete(M16, propafen, M17), delete(M17, verapamil, M18), delete(M18, diltiazem, L1));
+    append(L, [], L1) ),
 
     ( asmaticar(X, da) -> ( delete(L1, aspirin, M1), delete(M1, propranolol, M2), delete(M2, bisprolol, L2)  );
-    asmaticar(X, ne) -> append(L1, [], L2) ),
+     append(L1, [], L2) ),
 
-    ( dijabeticar(X, da) -> ( delete(L2, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, valsartan, L3));
-    dijabeticar(X, ne) -> append(L2, [], L3)),
+    ( dijabeticar(X,da) -> ( delete(L2, lizinopril, M1), delete(M1, kaptopril, M2), delete(M2, valsartan, L3));
+    append(L2, [], L3)),
 
     ( trudnoca(X, da) -> (delete(L3, lizinopril, M1) ,delete(M1, kaptopril, M2), delete(M2, aspirin, M3), delete(M3, propranolol, M4),
     delete(M4, rosuvastatin, M5), delete(M5, micardis, M6), delete(M6, izopamil, M7), delete(M7, valsartan, M8), delete(M8, telmipres, M9),
@@ -312,7 +344,7 @@ terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),
         diltiazem, promerol,izopamil]) -> Z = T.
 
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),
-        listaSvihLekova(X, T, []) -> Z = T.
+        listaSvihLekova(X, T, [zenSenKapsule]) -> Z = T.
 
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),
         listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,
