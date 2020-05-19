@@ -18,6 +18,7 @@ import view.DodatnaIspitivanja;
 import view.MainWindow;
 
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +34,14 @@ public class App implements StandardCBRApplication {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
+        try {
+//            UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+            UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                | UnsupportedLookAndFeelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         MainWindow gp = MainWindow.getInstance();
         gp.setVisible(true);
 
