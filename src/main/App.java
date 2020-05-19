@@ -1,8 +1,6 @@
 package main;
 
-import connector.CsvConnector;
-import connector.ProveraPBUListi;
-import connector.ProveraSimpUListi;
+import connector.*;
 import controller.PacijentController;
 import model.*;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
@@ -54,12 +52,26 @@ public class App implements StandardCBRApplication {
             Pacijent pacijent = new Pacijent();
             pacijent.setPol(PolEnum.M);
             pacijent.setGodine(49);
+            pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
             pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
             pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
             pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
             pacijent.getListaSimptoma().add(Simptomi.umor);
 
             pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
+            List<String> l = new ArrayList<>();
+            l.add("10");
+            l.add("2.1");
+            l.add("3");
+            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
+            List<String> l2 = new ArrayList<>();
+            l2.add("nijeUredan");
+            l2.add("usporen");
+            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
+            List<String> l3 = new ArrayList<>();
+            l3.add("nijeUredan");
+            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
+
 
 //            pacijent.getListaSimptoma().add(Simptomi.umor);
 
@@ -67,50 +79,6 @@ public class App implements StandardCBRApplication {
             query.setDescription( pacijent );
             recommender.cycle(query);
             recommender.postCycle();
-
-//            System.out.println("-----");
-//            recommender.setSimilarityConfigration2();
-//            recommender.preCycle();
-//            pacijent = new MovieDescription();
-//            pacijent.setGenre("Action");
-//            pacijent.setGender("F");
-//            pacijent.setScore(1);
-//            query.setDescription( pacijent );
-//            recommender.cycle(query);
-//            recommender.postCycle();
-//
-//            System.out.println("-----");
-//            recommender.setSimilarityConfigration3();
-//            recommender.preCycle();
-//            pacijent = new MovieDescription();
-//            pacijent.setGenre("Drama");
-//            pacijent.setGender("M");
-//            pacijent.setScore(1);
-//            query.setDescription( pacijent );
-//            recommender.cycle(query);
-//            recommender.postCycle();
-//
-//            System.out.println("-----");
-//            recommender.setSimilarityConfigration4();
-//            recommender.preCycle();
-//            pacijent = new MovieDescription();
-//            pacijent.setTitle("Gladiator");
-//            pacijent.setGender("M");
-//            pacijent.setScore(1);
-//            query.setDescription( pacijent );
-//            recommender.cycle(query);
-//            recommender.postCycle();
-//
-//            System.out.println("-----");
-//            recommender.setSimilarityConfigration5();
-//            recommender.preCycle();
-//            pacijent = new MovieDescription();
-//            pacijent.setTitle("Titanic");
-//            pacijent.setGender("F");
-//            query.setDescription( pacijent );
-//            recommender.cycle(query);
-//            recommender.postCycle();
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,9 +99,14 @@ public class App implements StandardCBRApplication {
         simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
         simConfig.addMapping(new Attribute("pol", Pacijent.class), new Equal());
         simConfig.addMapping(new Attribute("godine", Pacijent.class), new Interval(10));
+        simConfig.addMapping(new Attribute("rezPritiska", Pacijent.class), new Equal());
         simConfig.addMapping(new Attribute("porodicneBolesti", Pacijent.class), new ProveraPBUListi());
         simConfig.addMapping(new Attribute("listaSimptoma", Pacijent.class), new ProveraSimpUListi());
+        simConfig.addMapping(new Attribute("listaRezultataDodatnihIspitivanja", Pacijent.class), new ProveraRezDodIsUListi());
+        simConfig.addMapping(new Attribute("listaDijagnoza", Pacijent.class), new ProveraTerapija());
 
+
+//        simConfig.addMapping(new Attribute("listaLekova", Pacijent.class), new ProveraTerapija());
 //        simConfig.addMapping(new Attribute("age", MovieDescription.class), new Interval(5));
 //        simConfig.addMapping(new Attribute("score", MovieDescription.class), new Interval(1));
 //        simConfig.addMapping(new Attribute("year", MovieDescription.class), new Interval(10));
@@ -163,6 +136,8 @@ public class App implements StandardCBRApplication {
         System.out.println();
         System.out.println("Predlozena dodatna ispitivanja: ");
         List<DodatnaIspitivanjaEnum> dodatnaIspitivanja = new ArrayList<>();
+        List<Dijagnoze> predlozeneDijagnoze = new ArrayList<>();
+        List<Lekovi> predlozeniLekovi = new ArrayList<>();
         for(RetrievalResult nse : eval){
             Pacijent p = (Pacijent) nse.get_case().getDescription();
             for(DodatnaIspitivanjaEnum d : p.getListaDodatnihIspitivanja()){
@@ -171,6 +146,32 @@ public class App implements StandardCBRApplication {
                     System.out.println(d);
                 }
             }
+        }
+        System.out.println();
+        System.out.println("Predlozene dijagnoze: ");
+        for(RetrievalResult nse : eval){
+            Pacijent p = (Pacijent) nse.get_case().getDescription();
+
+            for(Dijagnoze d : p.getListaDijagnoza()){
+                if(!predlozeneDijagnoze.contains(d)){
+                    predlozeneDijagnoze.add(d);
+                    System.out.println(d);
+                }
+            }
+
+        }
+        System.out.println();
+        System.out.println("Predlozena terapija: ");
+        for(RetrievalResult nse : eval){
+            Pacijent p = (Pacijent) nse.get_case().getDescription();
+
+            for(Lekovi d : p.getListaLekova()){
+                if(!predlozeniLekovi.contains(d)){
+                    predlozeniLekovi.add(d);
+                    System.out.println(d);
+                }
+            }
+
         }
 
     }

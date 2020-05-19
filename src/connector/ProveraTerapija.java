@@ -1,25 +1,24 @@
 package connector;
 
-import model.PorodicneBolesti;
+import model.Dijagnoze;
+import model.Lekovi;
 import ucm.gaia.jcolibri.exception.NoApplicableSimilarityFunctionException;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.LocalSimilarityFunction;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProveraPBUListi  implements LocalSimilarityFunction {
-
-
+public class ProveraTerapija implements LocalSimilarityFunction {
     @Override
     public double compute(Object o, Object o1) throws NoApplicableSimilarityFunctionException {
-        List<PorodicneBolesti> lista1 = (List<PorodicneBolesti>) o;
-        List<PorodicneBolesti> lista2 = (List<PorodicneBolesti>) o1;
+        List<Dijagnoze> lista1 = (List<Dijagnoze>) o;
+        List<Dijagnoze> lista2 = (List<Dijagnoze>) o1;
         int brojac = 0;
-
         if(lista2.size()==0){
             return 1.0;
         }
-        for(PorodicneBolesti s : lista2){
-            if(lista1.contains(s)){
+        for(Dijagnoze d : lista2){
+            if(lista1.contains(d)){
                 brojac++;
             }
         }
@@ -31,5 +30,4 @@ public class ProveraPBUListi  implements LocalSimilarityFunction {
     public boolean isApplicable(Object o, Object o1) {
         return false;
     }
-
 }
