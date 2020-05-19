@@ -65,6 +65,9 @@ public class DijagnozeApp implements StandardCBRApplication {
 
         }
         System.out.println();
+        List<Lekovi> predlozeniLekovi = new ArrayList<>();
+
+        System.out.println();
         System.out.println("Predlozena terapija: ");
         for(RetrievalResult nse : eval){
             Pacijent p = (Pacijent) nse.get_case().getDescription();
