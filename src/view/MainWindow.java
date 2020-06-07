@@ -7,7 +7,6 @@ import com.ugos.jiprolog.engine.JIPVariable;
 import controller.DodajZdravstveniKartonListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
-import main.App;
 import main.DijagnozeApp;
 import main.DodatnaIspitivanjaApp;
 import main.TerapijaApp;
@@ -32,6 +31,7 @@ public class MainWindow extends JFrame {
 
     private static MainWindow instance = null;
     private static PacijentController pacijentController = new PacijentController();
+    private IzabranaOpcija izabranaOpcija;
     private Pacijent trenutnoAktivanPacijent;
     private JComboBox cbPacijenti;
     private JList listaSimptoma;
@@ -83,9 +83,9 @@ public class MainWindow extends JFrame {
 
     public void initialise(){
 
-        pacijenti = dodajPacijente();
-
         setSize(1000, 700);
+        JLabel title = new JLabel("Aplikacija za pomoc pri dijagnostici i predlaganju ispitivanja i terapija");
+        title.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
         setTitle("Aplikacija za doktore");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -147,7 +147,7 @@ public class MainWindow extends JFrame {
         JPanel panTop = new JPanel();
         panTop.setPreferredSize(new Dimension(100,50));
 //        panTop.setBackground(new Color(32, 255, 140));
-        panTop.add(new JLabel("Aplikacija za pomoc pri dijagnostici i predlaganju ispitivanja i terapija"));
+        panTop.add(title);
         add(panTop, BorderLayout.NORTH);
 
 //        JPanel panTop = new JPanel();
@@ -282,14 +282,18 @@ public class MainWindow extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                boxCentar.removeAll();
+                boxRight.removeAll();
                 WelcomeWindow wz1 = WelcomeWindow.getInstance();
                 wz1.setVisible(true);
                 instance.setVisible(false);
 
             }
         });
+        panBtm.add(previous);
         panBtm.add(cancel);
-//        panBtm.add(previous);
+
 //        panBtm.add(next);
         add(panBtm, BorderLayout.SOUTH);
     }
@@ -406,45 +410,43 @@ public class MainWindow extends JFrame {
         boxRight.repaint();
     }
 
-    public ArrayList<String> dodajPacijente(){
-        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
+    public ArrayList<String> dodajPacijenteCBR(){
+        System.out.println("CBR");
+
         ArrayList<String> niz = new ArrayList<String>();
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
-//        JIPTerm solution;
-//        System.out.println("ISPISSS");
-//        while ( (solution = query.nextSolution()) != null  ) {
-//            //System.out.println("solution: " + solution);
-//            for (JIPVariable var: solution.getVariables()) {
-//                niz.add(var.getValue().toString());
-//                System.out.println(var.getValue().toString());
-//            }
-//        }
+
         return niz;
 
+    }
 
-//        //labela pacijent
-//        lblPatient = new JLabel("Patient");
-//        lblPatient.setFont(new Font("Tahoma", Font.PLAIN, 20));
-//        lblPatient.setBounds(25, 10, 105, 57);
-//        panel_1.add(lblPatient);
-//
-//        //ComboBox sa pacijentima
-//        comboBoxPatient = new JComboBox();
-//        comboBoxPatient.setBounds(131, 25, 127, 34);
-//        panel_1.add(comboBoxPatient);
-//
-//        for( String ime: niz) {
-//            comboBoxPatient.addItem(ime);
-//        }
+    public ArrayList<String> dodajPacijenteRB(){
+        System.out.println("RB");
+        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
+        ArrayList<String> niz = new ArrayList<String>();
+        JIPTerm solution;
+        while ( (solution = query.nextSolution()) != null  ) {
+            for (JIPVariable var: solution.getVariables()) {
+                niz.add(var.getValue().toString());
+                System.out.println(var.getValue().toString());
+            }
+        }
+        return niz;
+
     }
 
     public void zapocniPregledView(){
         boxCentar.removeAll();
         boxRight.removeAll();
+        if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            pacijenti = dodajPacijenteCBR();
+        }else{
+            pacijenti = dodajPacijenteRB();
+        }
 
-        pacijenti = dodajPacijente();
+
         JPanel pan1 = new JPanel();
         pan1.setLayout(new FlowLayout());
         cbPacijenti = new JComboBox();
@@ -854,4 +856,14 @@ public class MainWindow extends JFrame {
     public void setDodatnaIspitivanja(ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja) {
         this.dodatnaIspitivanja = dodatnaIspitivanja;
     }
+
+
+    public IzabranaOpcija getIzabranaOpcija() {
+        return izabranaOpcija;
+    }
+
+    public void setIzabranaOpcija(IzabranaOpcija izabranaOpcija) {
+        this.izabranaOpcija = izabranaOpcija;
+    }
+
 }

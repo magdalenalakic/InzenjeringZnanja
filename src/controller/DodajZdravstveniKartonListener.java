@@ -14,7 +14,14 @@ public class DodajZdravstveniKartonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 //        System.out.println("***PODACI***");
 //        System.out.println(MainWindow.getInstance().getImePacijenta().getText());
-        String ime = MainWindow.getInstance().getImePacijenta().getText();
+        MainWindow.getInstance().getBoxCentar().removeAll();
+        MainWindow.getInstance().getBoxRight().removeAll();
+        MainWindow.getInstance().getBoxRight().revalidate();
+        MainWindow.getInstance().getBoxRight().repaint();
+        MainWindow.getInstance().getBoxCentar().revalidate();
+        MainWindow.getInstance().getBoxCentar().repaint();
+
+
 
 //        System.out.println(MainWindow.getInstance().getGodinePacijenta().getText());
         Integer godine = Integer.parseInt(MainWindow.getInstance().getGodinePacijenta().getText());
@@ -94,6 +101,12 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
         Pacijent pacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar, asmaticar, fizickaAktivnost, trudnoca, alergican);
         WelcomeWindow.getInstance().getListaPacijenata().add(pacijent);
+
+        MainWindow.getInstance().dodajZdravstveniKartonView();
+        MainWindow.getInstance().getBoxRight().revalidate();
+        MainWindow.getInstance().getBoxRight().repaint();
+        MainWindow.getInstance().getBoxCentar().revalidate();
+        MainWindow.getInstance().getBoxCentar().repaint();
 //        System.out.println(WelcomeWindow.getInstance().getListaPacijenata().size());
 //        System.out.println(pacijent);
     }
