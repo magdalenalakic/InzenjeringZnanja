@@ -1,11 +1,13 @@
 package connector;
 
+import controller.PacijentController;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
+import view.WelcomeWindow;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,6 +18,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CsvConnector implements Connector {
+
+    public static PacijentController pacijentController = new PacijentController();
 
     @Override
     public void initFromXMLfile(URL url) throws InitializingException {
@@ -40,14 +44,14 @@ public class CsvConnector implements Connector {
     @Override
     public Collection<CBRCase> retrieveAllCases() {
         LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
-        CBRCase cbrCase = new CBRCase();
+
         List<Pacijent> listaPacijenata = new ArrayList<>();
         //"csv-files/fizikalni-pregled.csv"
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("csv-files/fizikalni-pregled.csv")));
             if (br == null)
                 throw new Exception("Error opening file");
-            System.out.println("Fizikalni pregled.");
+//            System.out.println("Fizikalni pregled.");
             String line = "";
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("#") || (line.length() == 0))
@@ -69,7 +73,12 @@ public class CsvConnector implements Connector {
                 pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
                 pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
                 pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
-//                pacijent.setRezPritiska(RezPritiskaEnum.valueOf(values[14]));
+                RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
+                if(rez.equals(null)){
+//                    System.out.println("Greska prilikom racunanja pritiska.");
+                }else{
+                    pacijent.setRezPritiska(rez);
+                }
                 String[] listaSimptoma = values[14].split(",");
                 for(int i = 0; i < listaSimptoma.length; i++){
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
@@ -80,7 +89,8 @@ public class CsvConnector implements Connector {
                 }
 
                 listaPacijenata.add(pacijent);
-                System.out.println(pacijent);
+
+//                System.out.println(pacijent);
 
             }
             br.close();
@@ -98,9 +108,8 @@ public class CsvConnector implements Connector {
                 if (line.startsWith("#") || (line.length() == 0))
                     continue;
                 linije.add(line);
-                System.out.println(line);
             }
-            System.out.println("Dodatna ispitivanja");
+//            System.out.println("Dodatna ispitivanja");
             for(int b = 0; b < linije.size(); b++){
                 String[] values = linije.get(b).split(";");
                 for(int k = 0; k < listaPacijenata.size(); k++){
@@ -115,24 +124,32 @@ public class CsvConnector implements Connector {
                             }
 
                             if(rez[0].equals("analizaKrvi")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.analizaKrvi);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, listaRezultata);
                             }else if(rez[0].equals("ekg")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ekg);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, listaRezultata);
                             }else if(rez[0].equals("ehokardiografija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ehokardiografija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, listaRezultata);
                             }else if(rez[0].equals("ergometrija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ergometrija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, listaRezultata);
                             }else if(rez[0].equals("koronarnaAngiografija")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.koronarnaAngiografija);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, listaRezultata);
                             }else if(rez[0].equals("rendgen")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.rendgen);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, listaRezultata);
                             }else if(rez[0].equals("holter24")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.holter24);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, listaRezultata);
                             }else if(rez[0].equals("ct")){
+                                listaPacijenata.get(k).getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.ct);
                                 listaPacijenata.get(k).getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, listaRezultata);
                             }
                         }
-                        System.out.println(listaPacijenata.get(k));
+//                        System.out.println(listaPacijenata.get(k));
                     }
                 }
             }
@@ -152,7 +169,7 @@ public class CsvConnector implements Connector {
                     continue;
                 linije.add(line);
             }
-            System.out.println("Dijagnoze");
+//            System.out.println("Dijagnoze");
             for(int b = 0; b <  linije.size() ; b++){
                 String[] values = linije.get(b).split(";");
                 for(int k = 0; k < listaPacijenata.size(); k++){
@@ -161,7 +178,7 @@ public class CsvConnector implements Connector {
                         for(int i = 0; i < listaDijagnoza.length; i++){
                             listaPacijenata.get(k).getListaDijagnoza().add(Dijagnoze.valueOf(listaDijagnoza[i]));
                         }
-                        System.out.println(listaPacijenata.get(k));
+//                        System.out.println(listaPacijenata.get(k));
                     }
                 }
             }
@@ -181,7 +198,7 @@ public class CsvConnector implements Connector {
                     continue;
                 linije.add(line);
             }
-            System.out.println("Lekovi");
+//            System.out.println("Lekovi");
             for(int b = 0; b < linije.size() ; b++){
                 String[] values = linije.get(b).split(";");
                 for(int k = 0; k < listaPacijenata.size(); k++){
@@ -190,7 +207,7 @@ public class CsvConnector implements Connector {
                         for(int i = 0; i < listaLekova.length; i++){
                             listaPacijenata.get(k).getListaLekova().add(Lekovi.valueOf(listaLekova[i]));
                         }
-                        System.out.println(listaPacijenata.get(k));
+//                        System.out.println(listaPacijenata.get(k));
                     }
                 }
             }
@@ -199,9 +216,23 @@ public class CsvConnector implements Connector {
             e.printStackTrace();
         }
         for(int k = 0; k < listaPacijenata.size(); k++){
+            CBRCase cbrCase = new CBRCase();
             cbrCase.setDescription(listaPacijenata.get(k));
+            WelcomeWindow.getInstance().getListaPacijenata().add(listaPacijenata.get(k));
+//            System.out.println("CSV connector");
+//            System.out.println(listaPacijenata.get(k));
+            cases.add(cbrCase);
         }
-        cases.add(cbrCase);
+//        System.out.println("**************");
+//        for(int k = 0; k < cases.size(); k++){
+//
+//            System.out.println(cases.get(k));
+//
+//        }
+//        System.out.println("**************");
+
+//        System.out.println("Cases size: " + cases.size());
+//        System.out.println();
         return cases;
     }
 

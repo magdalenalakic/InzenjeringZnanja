@@ -3,7 +3,6 @@ package model;
 public enum Lekovi {
     aspirin,
     atenolol,
-    amlopin,
     kaptopril,
     lizinopril,
     nitroglicerin,
@@ -12,5 +11,18 @@ public enum Lekovi {
     dihidroergotamin,
     etilefrin,
     amezinium,
-    mineralokortikoida
+    mineralokortikoida,
+    verapamil,
+    diltiazem,
+    amlodipin,
+    micardis,
+    izopamil,
+    valsartan,
+    telmipres,
+    metoprolol,
+    zenSenKapsule,
+    bisprolol,
+    amiodaron,
+    propafen,
+    promerol
 }
