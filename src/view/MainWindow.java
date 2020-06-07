@@ -4,6 +4,7 @@ import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
+import controller.CuvanjePacijenta;
 import controller.DodajZdravstveniKartonListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
@@ -219,6 +220,11 @@ public class MainWindow extends JFrame {
         JButton izmeni = new JButton("Izmeni zdravstveni karton");
         izmeni.setPreferredSize(new Dimension(200,30));
 
+        JButton cuvanje = new JButton("Cuvanje");
+        cuvanje.setPreferredSize(new Dimension(200,30));
+        cuvanje.addActionListener(new CuvanjePacijenta());
+
+
 
         JButton zapocni = new JButton("Zapocni pregled");
         zapocni.setPreferredSize(new Dimension(200,30));
@@ -231,8 +237,12 @@ public class MainWindow extends JFrame {
         panLeft.add(dodaj);
         panLeft.add(izmeni);
         panLeft.add(zapocni);
+        panLeft.add(cuvanje);
+
         add(panLeft, BorderLayout.WEST);
 //        add(panLeft, FlowLayout.LEFT);
+
+
 
         JPanel panBtm = new JPanel();
         panBtm.setLayout(new FlowLayout(FlowLayout.RIGHT));
