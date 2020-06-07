@@ -22,6 +22,8 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         MainWindow.getInstance().getBoxCentar().repaint();
 
 
+        String ime = MainWindow.getInstance().getImePacijenta().getText();
+
 
 //        System.out.println(MainWindow.getInstance().getGodinePacijenta().getText());
         Integer godine = Integer.parseInt(MainWindow.getInstance().getGodinePacijenta().getText());
