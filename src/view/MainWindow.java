@@ -5,6 +5,7 @@ import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 import controller.DodajZdravstveniKartonListener;
+import controller.FizikalniPregledListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
 import main.App;
@@ -496,6 +497,7 @@ public class MainWindow extends JFrame {
 
         JButton zapocni = new JButton("ZAPOCNI");
         zapocni.setPreferredSize(new Dimension(200,30));
+        zapocni.addActionListener(new FizikalniPregledListener());
 
         JButton predloziDodatnaIspitivanja = new JButton("Predlozi dodatna ispitivanja");
         predloziDodatnaIspitivanja.setPreferredSize(new Dimension(200,30));
