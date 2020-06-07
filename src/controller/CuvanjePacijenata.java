@@ -1,8 +1,6 @@
 package controller;
 
-import model.Dijagnoze;
-import model.DodatnaIspitivanjaEnum;
-import model.Pacijent;
+import model.*;
 import ucm.gaia.jcolibri.util.FileIO;
 import view.WelcomeWindow;
 
@@ -28,7 +26,6 @@ public class CuvanjePacijenata extends AbstractAction {
                 file.createNewFile();
             }
             fileWriter = new FileWriter(file);
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer = new BufferedWriter(fileWriter);
             writer.write("#id;listaDijagnoza\n");
             for(Pacijent pacijent : list){
@@ -37,11 +34,12 @@ public class CuvanjePacijenata extends AbstractAction {
                 for(Dijagnoze dijag : pacijent.getListaDijagnoza()){
                     flag++;
                     if(flag == pacijent.getListaDijagnoza().size()){
-                        line += dijag +"\n";
+                        line += dijag;
                     }else{
-                        line += dijag + ",\n";
+                        line += dijag + ",";
                     }
                 }
+                line += "\n";
                 writer.write(line);
             }
         } catch (Exception e) {
@@ -138,6 +136,159 @@ public class CuvanjePacijenata extends AbstractAction {
         System.out.println("Dodatna ispitivanja sacuvana u csv fajl");
     }
 
+    //"csv-files/fizikalni-pregled.csv"
+    public void cuvanjeFizikalnihPregledaCSV(){
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/fizikalni-pregled.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;ime;pol;godine;tezina;pusac;dijabeticar;asmaticar;fizickaAktivnost;trudnoca;alergican;auskultacija;gornjiPritisak;donjiPritisak;listaSimptoma;porodicneBolesti\n");
+            for(Pacijent pacijent : list){
+                String line = pacijent.getId() + ";";
+                line += pacijent.getIme() + ";";
+                line += pacijent.getPol() + ";";
+                line += pacijent.getGodine() + ";";
+                line += pacijent.getTezina() + ";";
+                if(pacijent.getPusac()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                if(pacijent.getDijabeticar()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                if(pacijent.getAsmaticar()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                if(pacijent.getFizickaAktivnost()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                if(pacijent.getTrudnoca()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                if(pacijent.getAlergican()){
+                    line +=  "da;";
+                }else{
+                    line +=  "ne;";
+                }
+
+                line += pacijent.getAuskultacija() + ";";
+                line += pacijent.getGornjiPritisak() + ";";
+                line += pacijent.getDonjiPritisak() + ";";
+                Integer flag = 0;
+                for(Simptomi simptom : pacijent.getListaSimptoma()){
+                    flag++;
+                    if(flag == pacijent.getListaSimptoma().size()){
+                        line += simptom + ";";
+                    }else{
+                        line += simptom + ",";
+                    }
+                }
+                flag = 0;
+                for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
+                    flag++;
+                    if(flag == pacijent.getPorodicneBolesti().size()){
+                        line += bolest;
+                    }else{
+                        line += bolest + ",";
+                    }
+                }
+                line += "\n";
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Fizikalni pregledi sacuvani u csv fajl");
+    }
+
+    //"csv-files/lekovi.csv"
+    public void cuvanjeLekovaCSV(){
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/lekovi-prim.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;listaTerapija\n");
+            for(Pacijent pacijent : list){
+                String line = pacijent.getId() + ";";
+                Integer flag = 0;
+                System.out.println(pacijent.getListaLekova());
+
+                for(Lekovi lek : pacijent.getListaLekova()){
+                    flag++;
+                    if(flag == pacijent.getListaLekova().size()){
+                        line += lek;
+                    }else{
+                        line += lek + ",";
+                    }
+                }
+
+                line += "\n";
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Lekovi sacuvani u csv fajl");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         File f = new File("database/pacijenti.txt");
@@ -157,6 +308,8 @@ public class CuvanjePacijenata extends AbstractAction {
         }
         this.cuvanjeDijagnozaCSV();
         this.cuvanjeDodatnihIspitivanjaCSV();
+        this.cuvanjeFizikalnihPregledaCSV();
+        this.cuvanjeLekovaCSV();
 
     }
 }
