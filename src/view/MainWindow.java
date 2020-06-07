@@ -2,13 +2,10 @@ package view;
 
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
-import com.ugos.jiprolog.engine.JIPTerm;
-import com.ugos.jiprolog.engine.JIPVariable;
-import controller.CuvanjePacijenta;
+import controller.CuvanjePacijenata;
 import controller.DodajZdravstveniKartonListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
-import main.App;
 import main.DijagnozeApp;
 import main.DodatnaIspitivanjaApp;
 import main.TerapijaApp;
@@ -222,7 +219,7 @@ public class MainWindow extends JFrame {
 
         JButton cuvanje = new JButton("Cuvanje");
         cuvanje.setPreferredSize(new Dimension(200,30));
-        cuvanje.addActionListener(new CuvanjePacijenta());
+        cuvanje.addActionListener(new CuvanjePacijenata());
 
 
 
@@ -506,6 +503,7 @@ public class MainWindow extends JFrame {
 
         JButton zapocni = new JButton("ZAPOCNI");
         zapocni.setPreferredSize(new Dimension(200,30));
+
 
         JButton predloziDodatnaIspitivanja = new JButton("Predlozi dodatna ispitivanja");
         predloziDodatnaIspitivanja.setPreferredSize(new Dimension(200,30));
