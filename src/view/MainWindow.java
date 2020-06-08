@@ -1,6 +1,5 @@
 package view;
 
-//import com.sun.org.apache.xpath.internal.operations.Variable;
 import com.ugos.jiprolog.engine.*;
 import controller.CuvanjePacijenata;
 import controller.DodajZdravstveniKartonListener;
@@ -12,10 +11,8 @@ import main.DijagnozeApp;
 import main.DodatnaIspitivanjaApp;
 import main.TerapijaApp;
 import model.*;
-import org.jpl7.*;
 import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
-//import javax.management.Query;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -23,11 +20,6 @@ import java.awt.event.*;
 import java.lang.Integer;
 import java.util.*;
 import java.util.List;
-//import com.ugos.jiprolog.engine.JIPEngine;
-//import com.ugos.jiprolog.engine.JIPQuery;
-//import com.ugos.jiprolog.engine.JIPTerm;
-//import com.ugos.jiprolog.engine.JIPVariable;
-
 
 
 public class MainWindow extends JFrame {
