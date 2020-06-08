@@ -5,7 +5,9 @@ import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
+import main.DodatnaIspitivanjaApp;
 import model.*;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 import view.FizikalniPregledWindow;
 import view.MainWindow;
 import view.PredloziDodatnaIspitivanjaWindow;
@@ -25,8 +27,29 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
     public static PacijentController pacijentController = new PacijentController();
 
     public void dodatnaIspitivanjaCBR(){
-        //pozvati funkciju
+        DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
+
+        try {
+            System.out.println("UDJE LI VODJEEEEEEEEEEEEEE");
+            dia.configure();
+            dia.preCycle();
+            CBRQuery query = new CBRQuery();
+
+
+            System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().toString());
+
+            query.setDescription(  MainWindow.getInstance().getTrenutnoAktivanPacijent() );
+            dia.cycle(query);
+            dia.postCycle();
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
     }
+
+
     public void dodatnaIspitivanjaRB(){
         JIPEngine engine = new JIPEngine();
 
@@ -48,7 +71,8 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         while ( (solution = query.nextSolution()) != null  ) {
             JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
-            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+            MainWindow.getInstance().getDodatnaIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
         }
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
 

@@ -55,10 +55,10 @@ public class MainWindow extends JFrame {
     private JRadioButton trudnocaNe;
     private JRadioButton alergijaDa;
     private JRadioButton alergijaNe;
-    private ArrayList<String> pacijenti;
-    private ArrayList<Lekovi> terapija;
-    private ArrayList<Dijagnoze> dijagnoze;
-    private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja;
+    private ArrayList<String> pacijenti  = new ArrayList<>();
+    private ArrayList<Lekovi> terapija = new ArrayList<>();
+    private ArrayList<Dijagnoze> dijagnoze = new ArrayList<>();
+    private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja = new ArrayList<>();
     private  JPanel panCenter;
 
 //    private List<>
@@ -1057,18 +1057,6 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-        //DIJAGNOZE PREDLOZENE
-        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
-
-            String dijag = "dijagnoza(" + p.getIme() + ", Y)";
-            JIPQuery query22 = engine.openSynchronousQuery(dijag);
-            JIPTerm solution22;
-
-            while ( (solution22 = query22.nextSolution()) != null  ) {
-                JIPVariable dijagnoza = solution22.getVariables()[0];
-                p.getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
-            }
-        }
 
 
 
