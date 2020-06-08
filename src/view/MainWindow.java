@@ -1120,6 +1120,24 @@ public class MainWindow extends JFrame {
             }
         }
 
+        //REZ
+        JIPQuery query22 = engine.openSynchronousQuery("dijagnoza(X, Y)");
+        JIPTerm solution22;
+        while ( (solution22 = query22.nextSolution()) != null  ) {
+            JIPVariable ime = solution22.getVariables()[0];
+            JIPVariable dijagnoze = solution22.getVariables()[1];
+//            JIPEngine engine = new JIPEngine();
+//            JIPTermParser termParser = engine.getTermParser();
+//
+//            JIPList dijagnoze = (JIPList)termParser.parseTerm(String.valueOf(solution22.getVariables()[1]));
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("dijagnoze : "+ dijagnoze.getValue().toString());
+
+
+        }
+
+
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
