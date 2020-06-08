@@ -28,7 +28,9 @@ public class CuvanjePacijenata extends AbstractAction {
             fileWriter = new FileWriter(file);
             writer = new BufferedWriter(fileWriter);
             writer.write("#id;listaDijagnoza\n");
+            Integer fl = 0;
             for(Pacijent pacijent : list){
+                fl++;
                 String line = pacijent.getId() + ";";
                 Integer flag = 0;
                 for(Dijagnoze dijag : pacijent.getListaDijagnoza()){
@@ -39,7 +41,9 @@ public class CuvanjePacijenata extends AbstractAction {
                         line += dijag + ",";
                     }
                 }
-                line += "\n";
+                if(fl != list.size()){
+                    line += "\n";
+                }
                 writer.write(line);
             }
         } catch (Exception e) {
@@ -77,8 +81,9 @@ public class CuvanjePacijenata extends AbstractAction {
             fileWriter = new FileWriter(file);
             writer = new BufferedWriter(fileWriter);
             writer.write("#id;listaRezultataDodatnihIspitivanja\n");
-
+            Integer fl = 0;
             for(Pacijent pacijent : list){
+                fl++;
                 String line = pacijent.getId() + ";";
                 Integer flag = 0;
                 for(DodatnaIspitivanjaEnum die : pacijent.getListaRezultataDodatnihIspitivanja().keySet()){
@@ -110,7 +115,9 @@ public class CuvanjePacijenata extends AbstractAction {
                     }
 
                 }
-                line += "\n";
+                if(fl != list.size()){
+                    line += "\n";
+                }
                 writer.write(line);
             }
         } catch (Exception e) {
@@ -148,7 +155,9 @@ public class CuvanjePacijenata extends AbstractAction {
             fileWriter = new FileWriter(file);
             writer = new BufferedWriter(fileWriter);
             writer.write("#id;ime;pol;godine;tezina;pusac;dijabeticar;asmaticar;fizickaAktivnost;trudnoca;alergican;auskultacija;gornjiPritisak;donjiPritisak;listaSimptoma;porodicneBolesti\n");
+            Integer fl = 0;
             for(Pacijent pacijent : list){
+                fl++;
                 String line = pacijent.getId() + ";";
                 line += pacijent.getIme() + ";";
                 line += pacijent.getPol() + ";";
@@ -156,62 +165,86 @@ public class CuvanjePacijenata extends AbstractAction {
                 line += pacijent.getTezina() + ";";
                 if(pacijent.getPusac()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getPusac()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getDijabeticar()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getDijabeticar()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getAsmaticar()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getAsmaticar()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getFizickaAktivnost()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getFizickaAktivnost()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getTrudnoca()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getTrudnoca()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getAlergican()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getAlergican()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 line += pacijent.getAuskultacija() + ";";
                 line += pacijent.getGornjiPritisak() + ";";
                 line += pacijent.getDonjiPritisak() + ";";
                 Integer flag = 0;
-                for(Simptomi simptom : pacijent.getListaSimptoma()){
-                    flag++;
-                    if(flag == pacijent.getListaSimptoma().size()){
-                        line += simptom + ";";
-                    }else{
-                        line += simptom + ",";
+                if(pacijent.getListaSimptoma().isEmpty()){
+                    line += ";";
+                }else{
+                    for(Simptomi simptom : pacijent.getListaSimptoma()){
+                        flag++;
+                        if(flag == pacijent.getListaSimptoma().size()){
+                            line += simptom + ";";
+                        }else{
+                            line += simptom + ",";
+                        }
                     }
                 }
+
                 flag = 0;
-                for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
-                    flag++;
-                    if(flag == pacijent.getPorodicneBolesti().size()){
-                        line += bolest;
-                    }else{
-                        line += bolest + ",";
+                if(pacijent.getPorodicneBolesti().isEmpty()){
+                    line += ";";
+                }else{
+                    for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
+                        flag++;
+                        if(flag == pacijent.getPorodicneBolesti().size()){
+                            line += bolest;
+                        }else{
+                            line += bolest + ",";
+                        }
                     }
                 }
-                line += "\n";
+
+                if(fl != list.size()){
+                    line += "\n";
+                }
                 writer.write(line);
             }
         } catch (Exception e) {
@@ -249,7 +282,9 @@ public class CuvanjePacijenata extends AbstractAction {
             fileWriter = new FileWriter(file);
             writer = new BufferedWriter(fileWriter);
             writer.write("#id;listaTerapija\n");
+            Integer fl = 0;
             for(Pacijent pacijent : list){
+                fl++;
                 String line = pacijent.getId() + ";";
                 Integer flag = 0;
 //                System.out.println(pacijent.getListaLekova());
@@ -263,7 +298,9 @@ public class CuvanjePacijenata extends AbstractAction {
                     }
                 }
 
-                line += "\n";
+                if(fl != list.size()){
+                    line += "\n";
+                }
                 writer.write(line);
             }
         } catch (Exception e) {
