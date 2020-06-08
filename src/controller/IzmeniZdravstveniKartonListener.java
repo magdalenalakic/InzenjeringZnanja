@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class IzmeniZdravstveniKartonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
+        MainWindow.getInstance().getStatusLinija().setForeground(new Color(255, 0,0));
 
         if(MainWindow.getInstance().getImePacijenta() == null || MainWindow.getInstance().getImePacijenta().getText().equals("") ||
                 MainWindow.getInstance().getGodinePacijenta().getText().equals("") || MainWindow.getInstance().getGodinePacijenta() == null){

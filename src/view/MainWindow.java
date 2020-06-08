@@ -199,7 +199,7 @@ public class MainWindow extends JFrame {
 
         JPanel panLeft = new JPanel();
         panLeft.setPreferredSize(new Dimension(250,200));
-        panLeft.setBackground(new Color(240, 255, 107));
+        panLeft.setBackground(new Color(26, 26, 22));
 
         JButton dodaj = new JButton("Dodaj zdravstveni karton");
         dodaj.setPreferredSize(new Dimension(200,30));
@@ -1171,7 +1171,7 @@ public class MainWindow extends JFrame {
     public void setPanCenter(JPanel panCenter) {
         this.panCenter = panCenter;
 
-
+    }
     public IzabranaOpcija getIzabranaOpcija() {
         return izabranaOpcija;
     }
