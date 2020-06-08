@@ -3,11 +3,12 @@ package model;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Pacijent implements CaseComponent {
+public class Pacijent implements CaseComponent, Serializable {
     private Long id;
     private String ime;
     private PolEnum pol;
