@@ -553,7 +553,7 @@ public class MainWindow extends JFrame {
         trudnocaNe = new JRadioButton("ne");
         trudnocaButtonGroup.add(trudnocaDa);
         trudnocaButtonGroup.add(trudnocaNe);
-        if(trenutnoAktivanPacijent.getFizickaAktivnost().equals(true)){
+        if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
             trudnocaDa.setSelected(true);
         }else{
             trudnocaNe.setSelected(true);
@@ -635,7 +635,6 @@ public class MainWindow extends JFrame {
     }
 
     public ArrayList<String> dodajPacijenteCBR(){
-        System.out.println("CBR");
 
         ArrayList<String> niz = new ArrayList<String>();
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
@@ -646,7 +645,7 @@ public class MainWindow extends JFrame {
     }
 
     public ArrayList<String> dodajPacijenteRB(){
-        System.out.println("RB");
+
         JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
         ArrayList<String> niz = new ArrayList<String>();
         JIPTerm solution;
@@ -705,20 +704,57 @@ public class MainWindow extends JFrame {
             }
         }
         JLabel imeP = new JLabel(trenutnoAktivanPacijent.getIme());
-        imeP.setFont(new Font("Tahoma", Font.BOLD, 14));
+        imeP.setFont(new Font("Tahoma", Font.BOLD, 18));
 
         boxCentar.add(imeP);
         boxCentar.add(new JLabel("Godine: " + String.valueOf(trenutnoAktivanPacijent.getGodine())));
-        boxCentar.add(new JLabel("Pol: " + String.valueOf(trenutnoAktivanPacijent.getPol())));
-        boxCentar.add(new JLabel("Tezina: "+ String.valueOf(trenutnoAktivanPacijent.getTezina())));
-        boxCentar.add(new JLabel("Pusac: " + String.valueOf(trenutnoAktivanPacijent.getPusac())));
-        boxCentar.add(new JLabel("Dijabeticar: " + String.valueOf(trenutnoAktivanPacijent.getDijabeticar())));
-        boxCentar.add(new JLabel("Asmaticar: " + String.valueOf(trenutnoAktivanPacijent.getAsmaticar())));
-        boxCentar.add(new JLabel("Fizicka aktivnost: " + String.valueOf(trenutnoAktivanPacijent.getFizickaAktivnost())));
-        if(trenutnoAktivanPacijent.getPol() == PolEnum.Z){
-            boxCentar.add(new JLabel("Trudnoca: " + String.valueOf(trenutnoAktivanPacijent.getTrudnoca())));
+
+        if(trenutnoAktivanPacijent.getTezina().equals(TezinaEnum.normalnaTezina)){
+            boxCentar.add(new JLabel("Tezina: "+ "NORMALNA"));
+        }else if(trenutnoAktivanPacijent.getTezina().equals(TezinaEnum.smanjenaTezina)){
+            boxCentar.add(new JLabel("Tezina: "+ "SMANJENA"));
+        }else{
+            boxCentar.add(new JLabel("Tezina: "+ "POVECANA"));
         }
-        boxCentar.add(new JLabel("Alergija: " + String.valueOf(trenutnoAktivanPacijent.getAlergican())));
+
+        if(trenutnoAktivanPacijent.getPusac().equals(true)){
+            boxCentar.add(new JLabel("Pusac: " + "DA"));
+        }else{
+            boxCentar.add(new JLabel("Pusac: " + "NE"));
+        }
+
+        if(trenutnoAktivanPacijent.getDijabeticar().equals(true)){
+            boxCentar.add(new JLabel("Dijabeticar: " + "DA"));
+        }else{
+            boxCentar.add(new JLabel("Dijabeticar: " + "NE"));
+        }
+
+        if(trenutnoAktivanPacijent.getAsmaticar().equals(true)){
+            boxCentar.add(new JLabel("Asmaticar: " + "DA"));
+        }else{
+            boxCentar.add(new JLabel("Asmaticar: " + "NE"));
+        }
+
+        if(trenutnoAktivanPacijent.getFizickaAktivnost().equals(true)){
+            boxCentar.add(new JLabel("Fizicka aktivnost: " + "DA"));
+        }else{
+            boxCentar.add(new JLabel("Fizicka aktivnost: " + "NE"));
+        }
+
+        if(trenutnoAktivanPacijent.getPol() == PolEnum.Z){
+            if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
+                boxCentar.add(new JLabel("Trudnoca: " + "DA"));
+            }else{
+                boxCentar.add(new JLabel("Trudnoca: " + "NE"));
+            }
+
+        }
+
+        if(trenutnoAktivanPacijent.getAlergican().equals(true)){
+            boxCentar.add(new JLabel("Alergija: " + "DA"));
+        }else{
+            boxCentar.add(new JLabel("Alergija: " + "NE"));
+        }
 
         JButton zapocni = new JButton("ZAPOCNI");
         zapocni.setPreferredSize(new Dimension(200,30));
