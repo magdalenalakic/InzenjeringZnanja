@@ -719,20 +719,19 @@ public class MainWindow extends JFrame {
                 pacijent.setIme(var.getValue().toString());
                 i++;
                 pacijenti.add(pacijent);
-                System.out.println(var.getValue().toString());
+//                System.out.println(var.getValue().toString());
             }
         }
-
 
         //POL
         JIPQuery query2 = engine.openSynchronousQuery("pol(X, Y)");
         JIPTerm solution2;
         while ( (solution2 = query2.nextSolution()) != null  ) {
-            System.out.println(solution2);
+//            System.out.println(solution2);
             JIPVariable ime = solution2.getVariables()[0];
             JIPVariable pol = solution2.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("pol : "+ pol.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("pol : "+ pol.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     p.setPol(PolEnum.valueOf(pol.getValue().toString()));
@@ -744,11 +743,11 @@ public class MainWindow extends JFrame {
         JIPQuery query3 = engine.openSynchronousQuery("godine(X, Y)");
         JIPTerm solution3;
         while ( (solution3 = query3.nextSolution()) != null  ) {
-            System.out.println(solution3);
+//            System.out.println(solution3);
             JIPVariable ime = solution3.getVariables()[0];
             JIPVariable godine = solution3.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("godine : "+ godine.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("godine : "+ godine.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     p.setGodine(Integer.parseInt(godine.getValue().toString()));
@@ -760,11 +759,11 @@ public class MainWindow extends JFrame {
         JIPQuery query4 = engine.openSynchronousQuery("pusac(X, Y)");
         JIPTerm solution4;
         while ( (solution4 = query4.nextSolution()) != null  ) {
-            System.out.println(solution4);
+//            System.out.println(solution4);
             JIPVariable ime = solution4.getVariables()[0];
             JIPVariable pusac = solution4.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("pusac : "+ pusac.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("pusac : "+ pusac.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(pusac.getValue().toString().equals("da")){
@@ -780,26 +779,27 @@ public class MainWindow extends JFrame {
         JIPQuery query5 = engine.openSynchronousQuery("tezina(X, Y)");
         JIPTerm solution5;
         while ( (solution5 = query5.nextSolution()) != null  ) {
-            System.out.println(solution5);
+//            System.out.println(solution5);
             JIPVariable ime = solution5.getVariables()[0];
             JIPVariable tezina = solution5.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("tezina : "+ tezina.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("tezina : "+ tezina.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     p.setTezina(TezinaEnum.valueOf(tezina.getValue().toString()));
                 }
             }
         }
+
         //DIJABETICAR
         JIPQuery query6 = engine.openSynchronousQuery("dijabeticar(X, Y)");
         JIPTerm solution6;
         while ( (solution6 = query6.nextSolution()) != null  ) {
-            System.out.println(solution6);
+//            System.out.println(solution6);
             JIPVariable ime = solution6.getVariables()[0];
             JIPVariable dijabeticar = solution6.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("dijabeticar : "+ dijabeticar.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("dijabeticar : "+ dijabeticar.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(dijabeticar.getValue().toString().equals("da")){
@@ -814,11 +814,11 @@ public class MainWindow extends JFrame {
         JIPQuery query7 = engine.openSynchronousQuery("asmaticar(X, Y)");
         JIPTerm solution7;
         while ( (solution7 = query7.nextSolution()) != null  ) {
-            System.out.println(solution7);
+//            System.out.println(solution7);
             JIPVariable ime = solution7.getVariables()[0];
             JIPVariable asmaticar = solution7.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("asmaticar : "+ asmaticar.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("asmaticar : "+ asmaticar.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(asmaticar.getValue().toString().equals("da")){
@@ -833,11 +833,11 @@ public class MainWindow extends JFrame {
         JIPQuery query8 = engine.openSynchronousQuery("fizickaAktivnost(X, Y)");
         JIPTerm solution8;
         while ( (solution8 = query8.nextSolution()) != null  ) {
-            System.out.println(solution8);
+//            System.out.println(solution8);
             JIPVariable ime = solution8.getVariables()[0];
             JIPVariable fizickaAktivnost = solution8.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("fizickaAktivnost : "+ fizickaAktivnost.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("fizickaAktivnost : "+ fizickaAktivnost.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(fizickaAktivnost.getValue().toString().equals("da")){
@@ -853,11 +853,11 @@ public class MainWindow extends JFrame {
         JIPQuery query9 = engine.openSynchronousQuery("trudnoca(X, Y)");
         JIPTerm solution9;
         while ( (solution9 = query9.nextSolution()) != null  ) {
-            System.out.println(solution9);
+//            System.out.println(solution9);
             JIPVariable ime = solution9.getVariables()[0];
             JIPVariable trudnoca = solution9.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("trudnoca : "+ trudnoca.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("trudnoca : "+ trudnoca.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(trudnoca.getValue().toString().equals("da")){
@@ -873,11 +873,11 @@ public class MainWindow extends JFrame {
         JIPQuery query10 = engine.openSynchronousQuery("alergican(X, Y)");
         JIPTerm solution10;
         while ( (solution10 = query10.nextSolution()) != null  ) {
-            System.out.println(solution10);
+//            System.out.println(solution10);
             JIPVariable ime = solution10.getVariables()[0];
             JIPVariable alergican = solution10.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("alergican : "+ alergican.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("alergican : "+ alergican.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     if(alergican.getValue().toString().equals("da")){
@@ -895,55 +895,31 @@ public class MainWindow extends JFrame {
         while ( (solution11 = query11.nextSolution()) != null  ) {
             System.out.println(solution11);
             JIPVariable ime = solution11.getVariables()[0];
-            JIPVariable porodicneBolesti = solution11.getVariables()[1];
 
-//            JIPList ppp = solution11.getVariables()[1];
+            JIPEngine engine = new JIPEngine();
+            JIPTermParser termParser = engine.getTermParser();
 
-
-            System.out.println("*****************************");
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("porodicneBolesti : "+ porodicneBolesti.getValue().toString());
-//            for(Pacijent p : pacijenti){
-//                if(p.getIme().equals(ime.getValue().toString())){
-//                    if(alergican.getValue().toString().equals("da")){
-//                        p.setAlergican(true);
-//                    }else{
-//                        p.setAlergican(false);
-//                    }
-//                }
-//            }
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution11.getVariables()[1]));
+                    p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
+                    while(!list.getTail().toString().equals("[]")){
+                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+                        p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
+                    }
+                }
+            }
         }
-
-//        ArrayList<String> categories = new ArrayList<String>();
-//
-//        Variable X = new Variable("X");
-//        Variable Y = new Variable("Y");
-//        Query q4 =
-//                new Query(
-//                        "porodicneBolesti",
-//                        new Term[] {X, Y}
-//                );
-//
-//        Map<String, Term>[] solutions = q4.allSolutions();
-//
-//        for ( int k =0 ; k<solutions.length ; k++ ) {
-//            System.out.println( "X = " + solutions[k].get("X"));
-//            System.out.println( "Y = " + solutions[k].get("Y"));
-//            categories.add(solutions[k].get("X").toString());
-//        }
-
-
-
 
         //ASKULTACIJA
         JIPQuery query12 = engine.openSynchronousQuery("auskultacija(X, Y)");
         JIPTerm solution12;
         while ( (solution12 = query12.nextSolution()) != null  ) {
-            System.out.println(solution12);
+//            System.out.println(solution12);
             JIPVariable ime = solution12.getVariables()[0];
             JIPVariable auskultacija = solution12.getVariables()[1];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("auskultacija : "+ auskultacija.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("auskultacija : "+ auskultacija.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                    p.setAuskultacija(AuskultacijaEnum.valueOf(auskultacija.getValue().toString()));
@@ -955,13 +931,13 @@ public class MainWindow extends JFrame {
         JIPQuery query13 = engine.openSynchronousQuery("pritisak(X, Y, Z)");
         JIPTerm solution13;
         while ( (solution13 = query13.nextSolution()) != null  ) {
-            System.out.println(solution13);
+//            System.out.println(solution13);
             JIPVariable ime = solution13.getVariables()[0];
             JIPVariable pritisakG = solution13.getVariables()[1];
             JIPVariable pritisakD = solution13.getVariables()[2];
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("pritisakG : "+ pritisakG.getValue().toString());
-            System.out.println("pritisakD : "+ pritisakD.getValue().toString());
+//            System.out.println("ime : "+ ime.getValue().toString());
+//            System.out.println("pritisakG : "+ pritisakG.getValue().toString());
+//            System.out.println("pritisakD : "+ pritisakD.getValue().toString());
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     p.setGornjiPritisak(Integer.parseInt(pritisakG.getValue().toString()));
