@@ -12,7 +12,6 @@ import main.DijagnozeApp;
 import main.DodatnaIspitivanjaApp;
 import main.TerapijaApp;
 import model.*;
-import org.jpl7.*;
 import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 //import javax.management.Query;
