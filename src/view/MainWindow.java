@@ -6,6 +6,7 @@ import com.ugos.jiprolog.engine.JIPTerm;
 import com.ugos.jiprolog.engine.JIPVariable;
 import controller.CuvanjePacijenata;
 import controller.DodajZdravstveniKartonListener;
+import controller.FizikalniPregledListener;
 import controller.IzmeniZdravstveniKartonListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
@@ -63,9 +64,14 @@ public class MainWindow extends JFrame {
     private ArrayList<Lekovi> terapija;
     private ArrayList<Dijagnoze> dijagnoze;
     private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja;
+    private  JPanel panCenter;
+
+//    private List<>
+
     private JLabel statusLinija;
     private JLabel trudnoca;
     private ButtonGroup trudnocaButtonGroup;
+
 
     public static MainWindow getInstance(){
         if (instance == null) {
@@ -149,7 +155,31 @@ public class MainWindow extends JFrame {
         panTop.add(title);
         add(panTop, BorderLayout.NORTH);
 
+
+//        JPanel panTop = new JPanel();
+//        panTop.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JLabel licence = new JLabel("Izaberi Pacijenta");
+        licence.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
+//        panTop.add(licence);
+        JPanel panPacijenti = new JPanel();
+
+
+//        ArrayList<String> pacijenti = new ArrayList<String>();
+//        pacijenti.add("Milan");
+//        pacijenti.add("Milica");
+//        pacijenti.add("Petar");
+
+
+        ArrayList<String> simptomi = new ArrayList<String>();
+//        simptomi.add("otezano disanje");
+//        simptomi.add("bol u grudima");
+        listaSimptoma = new JList(simptomi.toArray());
+        listaSimptoma.setSize(100,20);
+        listaSimptoma.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//        panPacijenti.add(cbPacijenti);
+        panCenter = new JPanel();
         JPanel panCenter = new JPanel();
+
 
         boxCentar = Box.createVerticalBox();
         boxCentar.add(Box.createVerticalStrut(20));
@@ -736,6 +766,7 @@ public class MainWindow extends JFrame {
 
         JButton zapocni = new JButton("ZAPOCNI");
         zapocni.setPreferredSize(new Dimension(200,30));
+        zapocni.addActionListener(new FizikalniPregledListener());
 
 
         JButton predloziDodatnaIspitivanja = new JButton("Predlozi dodatna ispitivanja");
@@ -1096,6 +1127,13 @@ public class MainWindow extends JFrame {
     public void setDodatnaIspitivanja(ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja) {
         this.dodatnaIspitivanja = dodatnaIspitivanja;
     }
+
+    public JPanel getPanCenter() {
+        return panCenter;
+    }
+
+    public void setPanCenter(JPanel panCenter) {
+        this.panCenter = panCenter;
 
 
     public IzabranaOpcija getIzabranaOpcija() {
