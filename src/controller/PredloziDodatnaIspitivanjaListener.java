@@ -1,6 +1,10 @@
 package controller;
 
-import model.AuskultacijaEnum;
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
+import model.*;
 import view.FizikalniPregledWindow;
 import view.MainWindow;
 import view.PredloziDodatnaIspitivanjaWindow;
@@ -9,10 +13,42 @@ import view.WelcomeWindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
     public static PacijentController pacijentController = new PacijentController();
+
+    public void dodatnaIspitivanjaCBR(){
+        //pozvati funkciju
+    }
+    public void dodatnaIspitivanjaRB(){
+        JIPEngine engine = new JIPEngine();
+
+        String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
+        List<Simptomi> simptomi = MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma();
+        List<String> lista = new ArrayList<>();
+        for(Simptomi s : simptomi){
+            lista.add(s.toString());
+        }
+
+        System.out.println("****************************************");
+        System.out.println(lista);
+        String temp = "dodatnoIspitivanje(listaSimptoma(" + pacijent +"," + lista + "), Y)";
+
+        System.out.println(temp);
+
+        JIPQuery query = engine.openSynchronousQuery(temp);
+        JIPTerm solution;
+
+        while ( (solution = query.nextSolution()) != null  ) {
+            JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
+            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+        }
+        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -51,6 +87,13 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Podaci su sacuvani!");
+
+
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            dodatnaIspitivanjaCBR();
+        }else{
+            dodatnaIspitivanjaRB();
+        }
 
         PredloziDodatnaIspitivanjaWindow wz1 = PredloziDodatnaIspitivanjaWindow.getInstance();
         wz1.setVisible(true);

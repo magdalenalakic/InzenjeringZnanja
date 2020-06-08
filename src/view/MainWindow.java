@@ -1069,28 +1069,8 @@ public class MainWindow extends JFrame {
             }
         }
 
-        //DODATNA ISPITIVANJA
-        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
-//            dodatnoIspitivanje(listaSimptoma(X, S), Y)
 
 
-            List<String> simptomiii = new ArrayList<>();
-            simptomiii.add("umor");
-            simptomiii.add("znojenje");
-            System.out.println("****************************************");
-            System.out.println(simptomiii);
-            String dijag = "dodatnoIspitivanje(listaSimptoma(" + p.getIme() +"," + simptomiii + "), Y)";
-
-            System.out.println(dijag);
-
-            JIPQuery query23 = engine.openSynchronousQuery(dijag);
-            JIPTerm solution23;
-
-            while ( (solution23 = query23.nextSolution()) != null  ) {
-                JIPVariable dodatnoIspitivanje = solution23.getVariables()[0];
-                p.getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-            }
-        }
         //TERAPIJE
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
 
