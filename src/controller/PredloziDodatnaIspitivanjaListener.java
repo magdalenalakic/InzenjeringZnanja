@@ -66,10 +66,6 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         MainWindow.getInstance().getBoxCentar().removeAll();
         MainWindow.getInstance().getBoxRight().removeAll();
-//        MainWindow.getInstance().getBoxRight().revalidate();
-//        MainWindow.getInstance().getBoxRight().repaint();
-
-
 
         wz1.init();
     }
