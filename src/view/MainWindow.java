@@ -810,6 +810,7 @@ public class MainWindow extends JFrame {
                 }
             }
         }
+
         //ASMATICAR
         JIPQuery query7 = engine.openSynchronousQuery("asmaticar(X, Y)");
         JIPTerm solution7;
@@ -829,6 +830,7 @@ public class MainWindow extends JFrame {
                 }
             }
         }
+
         //FIZICKA AKTIVNOST
         JIPQuery query8 = engine.openSynchronousQuery("fizickaAktivnost(X, Y)");
         JIPTerm solution8;
@@ -893,7 +895,7 @@ public class MainWindow extends JFrame {
         JIPQuery query11 = engine.openSynchronousQuery("porodicneBolesti(X, Y)");
         JIPTerm solution11;
         while ( (solution11 = query11.nextSolution()) != null  ) {
-            System.out.println(solution11);
+
             JIPVariable ime = solution11.getVariables()[0];
 
             JIPEngine engine = new JIPEngine();
@@ -947,6 +949,173 @@ public class MainWindow extends JFrame {
                         p.setRezPritiska(rez);
                     }
 
+                }
+            }
+        }
+
+        //REZ ANALIZE KRVI
+        JIPQuery query14 = engine.openSynchronousQuery("rezAnalizeKrvi(X, Y, Z, F)");
+        JIPTerm solution14;
+        while ( (solution14 = query14.nextSolution()) != null  ) {
+            JIPVariable ime = solution14.getVariables()[0];
+            JIPVariable nivoSeceraUKrvi = solution14.getVariables()[1];
+            JIPVariable nivoHolesterola = solution14.getVariables()[2];
+            JIPVariable nivoTriglecirida = solution14.getVariables()[3];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("nivoSeceraUKrvi : "+ nivoSeceraUKrvi.getValue().toString());
+            System.out.println("nivoHolesterola : "+ nivoHolesterola.getValue().toString());
+            System.out.println("nivoTriglecirida : "+ nivoTriglecirida.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(nivoSeceraUKrvi.getValue().toString());
+                    rezultati.add(nivoHolesterola.getValue().toString());
+                    rezultati.add(nivoTriglecirida.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, rezultati);
+                }
+            }
+        }
+
+        //REZ EKG
+        JIPQuery query15 = engine.openSynchronousQuery("rezEkg(X, Y, Z)");
+        JIPTerm solution15;
+        while ( (solution15 = query15.nextSolution()) != null  ) {
+            JIPVariable ime = solution15.getVariables()[0];
+            JIPVariable nalaz = solution15.getVariables()[1];
+            JIPVariable puls = solution15.getVariables()[2];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("nalaz : "+ nalaz.getValue().toString());
+            System.out.println("puls : "+ puls.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(nalaz.getValue().toString());
+                    rezultati.add(puls.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, rezultati);
+                }
+            }
+        }
+
+        //REZ ERGOMETRIJA
+        JIPQuery query16 = engine.openSynchronousQuery("rezErgometrija(X, Y)");
+        JIPTerm solution16;
+        while ( (solution16 = query16.nextSolution()) != null  ) {
+            JIPVariable ime = solution16.getVariables()[0];
+            JIPVariable ergometrija = solution16.getVariables()[1];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("ergometrija : "+ ergometrija.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(ergometrija.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, rezultati);
+                }
+            }
+        }
+
+        //REZ EHOKARDIOGRAFIJA
+        JIPQuery query17 = engine.openSynchronousQuery("rezEhokardiografije(X, Y)");
+        JIPTerm solution17;
+        while ( (solution17 = query17.nextSolution()) != null  ) {
+            JIPVariable ime = solution17.getVariables()[0];
+            JIPVariable ehokardiografija = solution17.getVariables()[1];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("ehokardiografija : "+ ehokardiografija.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(ehokardiografija.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, rezultati);
+                }
+            }
+        }
+
+        //REZ KORONARNA ANGIOGRAFIJA
+        JIPQuery query18 = engine.openSynchronousQuery("rezKA(X, Y)");
+        JIPTerm solution18;
+        while ( (solution18 = query18.nextSolution()) != null  ) {
+            JIPVariable ime = solution18.getVariables()[0];
+            JIPVariable koronarnaAngiografija = solution18.getVariables()[1];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("koronarnaAngiografija : "+ koronarnaAngiografija.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(koronarnaAngiografija.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, rezultati);
+                }
+            }
+        }
+
+        //REZ RENDGENA
+        JIPQuery query19 = engine.openSynchronousQuery("rezRendgen(X, Y)");
+        JIPTerm solution19;
+        while ( (solution19 = query19.nextSolution()) != null  ) {
+            JIPVariable ime = solution19.getVariables()[0];
+            JIPVariable rendgena = solution19.getVariables()[1];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("rendgena : "+ rendgena.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(rendgena.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, rezultati);
+                }
+            }
+        }
+
+        //REZ HOLTER 24
+        JIPQuery query20 = engine.openSynchronousQuery("rezHolter24(X, Y, Z, H)");
+        JIPTerm solution20;
+        while ( (solution20 = query20.nextSolution()) != null  ) {
+            JIPVariable ime = solution20.getVariables()[0];
+            JIPVariable srcanaFrekvencija = solution20.getVariables()[1];
+            JIPVariable poremecajRitma = solution20.getVariables()[2];
+            JIPVariable segment = solution20.getVariables()[3];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("srcanaFrekvencija : "+ srcanaFrekvencija.getValue().toString());
+            System.out.println("poremecajRitma : "+ poremecajRitma.getValue().toString());
+            System.out.println("segment : "+ segment.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(srcanaFrekvencija.getValue().toString());
+                    rezultati.add(poremecajRitma.getValue().toString());
+                    rezultati.add(segment.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, rezultati);
+                }
+            }
+        }
+
+        //REZ CT
+        JIPQuery query21 = engine.openSynchronousQuery("rezCT(X, Y)");
+        JIPTerm solution21;
+        while ( (solution21 = query21.nextSolution()) != null  ) {
+            JIPVariable ime = solution21.getVariables()[0];
+            JIPVariable ct = solution21.getVariables()[1];
+
+            System.out.println("ime : "+ ime.getValue().toString());
+            System.out.println("ct : "+ ct.getValue().toString());
+
+            for(Pacijent p : pacijenti){
+                if(p.getIme().equals(ime.getValue().toString())){
+                    List<String> rezultati = new ArrayList<>();
+                    rezultati.add(ct.getValue().toString());
+                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, rezultati);
                 }
             }
         }

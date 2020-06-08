@@ -165,61 +165,83 @@ public class CuvanjePacijenata extends AbstractAction {
                 line += pacijent.getTezina() + ";";
                 if(pacijent.getPusac()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getPusac()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getDijabeticar()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getDijabeticar()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getAsmaticar()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getAsmaticar()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getFizickaAktivnost()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getFizickaAktivnost()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getTrudnoca()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getTrudnoca()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 if(pacijent.getAlergican()){
                     line +=  "da;";
-                }else{
+                }else if(!pacijent.getAlergican()){
                     line +=  "ne;";
+                }else{
+                    line += ";";
                 }
 
                 line += pacijent.getAuskultacija() + ";";
                 line += pacijent.getGornjiPritisak() + ";";
                 line += pacijent.getDonjiPritisak() + ";";
                 Integer flag = 0;
-                for(Simptomi simptom : pacijent.getListaSimptoma()){
-                    flag++;
-                    if(flag == pacijent.getListaSimptoma().size()){
-                        line += simptom + ";";
-                    }else{
-                        line += simptom + ",";
+                if(pacijent.getListaSimptoma().isEmpty()){
+                    line += ";";
+                }else{
+                    for(Simptomi simptom : pacijent.getListaSimptoma()){
+                        flag++;
+                        if(flag == pacijent.getListaSimptoma().size()){
+                            line += simptom + ";";
+                        }else{
+                            line += simptom + ",";
+                        }
                     }
                 }
+
                 flag = 0;
-                for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
-                    flag++;
-                    if(flag == pacijent.getPorodicneBolesti().size()){
-                        line += bolest;
-                    }else{
-                        line += bolest + ",";
+                if(pacijent.getPorodicneBolesti().isEmpty()){
+                    line += ";";
+                }else{
+                    for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
+                        flag++;
+                        if(flag == pacijent.getPorodicneBolesti().size()){
+                            line += bolest;
+                        }else{
+                            line += bolest + ",";
+                        }
                     }
                 }
+
                 if(fl != list.size()){
                     line += "\n";
                 }
