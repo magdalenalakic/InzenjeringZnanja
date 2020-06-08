@@ -6,7 +6,7 @@
 5;nevena;Z;27;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;125;82;bolUGrudima,zamucenjeVida;trombofilija
 6;ana;Z;50;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;85;60;umor,znojenje;infarktMiokarda
 7;katarina;Z;52;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;85;62;umor,znojenje;infarktMiokarda
-8;sara;Z;54;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;88;65;umor,znojenje;
+8;sara;Z;54;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;88;65;umor,znojenje;;
 9;zeljko;Z;52;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;85;63;umor,znojenje;infarktMiokarda
 10;filip;M;37;normalnaTezina;ne;ne;ne;ne;ne;ne;uredna;90;50;povracanje,umor,kratakDah;artritis
 11;danilo;M;38;normalnaTezina;ne;ne;ne;ne;ne;ne;uredna;90;50;povracanje,umor,kratakDah;artritis,trombofilija
@@ -17,10 +17,10 @@
 16;olivera;Z;49;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;88;62;pritiskanje,kratakDah,otezanoDisanje,gubitakSvesti;infarktMiokarda,trombofilija
 17;stefan;M;49;normalnaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;130;95;vrtoglavica,gubitakSvesti,otezanoDisanje,umor;infarktMiokarda
 18;sdragan;M;53;povecanaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;135;95;vrtoglavica,gubitakSvesti,otezanoDisanje;infarktMiokarda
-19;mila;Z;46;normalnaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;130;98;vrtoglavica,gubitakSvesti,otezanoDisanje,umor;
+19;mila;Z;46;normalnaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;130;98;vrtoglavica,gubitakSvesti,otezanoDisanje,umor;;
 20;elena;Z;45;normalnaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;132;92;vrtoglavica,gubitakSvesti,otezanoDisanje,umor;infarktMiokarda
-21;vanja;Z;27;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;
-22;marina;Z;30;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;90;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor;
-23;tanja;Z;29;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;95;gubitakSvesti,malaksalost,zamucenjeVida,umor,znojenje;
-24;bojan;M;33;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;130;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;
+21;vanja;Z;27;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;;
+22;marina;Z;30;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;90;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor;;
+23;tanja;Z;29;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;135;95;gubitakSvesti,malaksalost,zamucenjeVida,umor,znojenje;;
+24;bojan;M;33;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;130;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;;
 25;igor;M;31;povecanaTezina;ne;ne;ne;ne;ne;ne;postojiSum;138;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;dijabetes
