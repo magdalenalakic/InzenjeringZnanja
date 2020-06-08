@@ -65,7 +65,7 @@ public class MainWindow extends JFrame {
     private ArrayList<Lekovi> terapija;
     private ArrayList<Dijagnoze> dijagnoze;
     private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja;
-
+    private  JPanel panCenter;
 
 //    private List<>
 
@@ -172,7 +172,7 @@ public class MainWindow extends JFrame {
         listaSimptoma.setSize(100,20);
         listaSimptoma.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //        panPacijenti.add(cbPacijenti);
-        JPanel panCenter = new JPanel();
+        panCenter = new JPanel();
 
         boxCentar = Box.createVerticalBox();
         boxCentar.setBackground(new Color(255, 200, 56));
@@ -855,5 +855,13 @@ public class MainWindow extends JFrame {
 
     public void setDodatnaIspitivanja(ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja) {
         this.dodatnaIspitivanja = dodatnaIspitivanja;
+    }
+
+    public JPanel getPanCenter() {
+        return panCenter;
+    }
+
+    public void setPanCenter(JPanel panCenter) {
+        this.panCenter = panCenter;
     }
 }
