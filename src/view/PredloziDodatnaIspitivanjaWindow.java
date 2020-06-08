@@ -36,7 +36,10 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
         MainWindow.getInstance().getBoxCentar().removeAll();
         MainWindow.getInstance().getBoxRight().removeAll();
 
-        MainWindow.getInstance().getBoxCentar().add(new Label("- DODATNA ISPITIVANJA -"));
+        JLabel naslov = new JLabel("- DODATNA ISPITIVANJA -");
+        naslov.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        MainWindow.getInstance().getBoxCentar().add(naslov);
+
 
         JButton dalje = new JButton("DALJE");
         dalje.setPreferredSize(new Dimension(200,30));
