@@ -10,12 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DodajZdravstveniKartonListener implements ActionListener {
+public class IzmeniZdravstveniKartonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if(MainWindow.getInstance().getImePacijenta() == null || MainWindow.getInstance().getImePacijenta().getText().equals("") ||
-           MainWindow.getInstance().getGodinePacijenta().getText().equals("") || MainWindow.getInstance().getGodinePacijenta() == null){
+                MainWindow.getInstance().getGodinePacijenta().getText().equals("") || MainWindow.getInstance().getGodinePacijenta() == null){
             MainWindow.getInstance().getStatusLinija().setText("Popunite sva polja!");
             return;
         }
@@ -133,11 +133,26 @@ public class DodajZdravstveniKartonListener implements ActionListener {
             MainWindow.getInstance().getStatusLinija().setText("Popunite sva polja!");
             return;
         }
-        Pacijent pacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar, asmaticar, fizickaAktivnost, trudnoca, alergican);
-        WelcomeWindow.getInstance().getListaPacijenata().add(pacijent);
+        Pacijent noviPacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar,
+                asmaticar, fizickaAktivnost, trudnoca, alergican);
+
+        for(Pacijent pacijent:WelcomeWindow.getInstance().getListaPacijenata()){
+            if(pacijent.getIme().equals(String.valueOf(ime))){
+                pacijent.setGodine(godine);
+                pacijent.setPol(pol);
+                pacijent.setTezina(tezina);
+                pacijent.setPusac(pusac);
+                pacijent.setDijabeticar(dijabeticar);
+                pacijent.setAsmaticar(asmaticar);
+                pacijent.setFizickaAktivnost(fizickaAktivnost);
+                pacijent.setTrudnoca(trudnoca);
+                pacijent.setAlergican(alergican);
+                break;
+            }
+        }
 
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
-        MainWindow.getInstance().getStatusLinija().setText("Pacijent uspesno dodat!");
+        MainWindow.getInstance().getStatusLinija().setText("Pacijent uspesno izmenjen!");
 
         MainWindow.getInstance().getBoxCentar().removeAll();
         MainWindow.getInstance().getBoxRight().removeAll();
@@ -146,11 +161,12 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         MainWindow.getInstance().getBoxCentar().revalidate();
         MainWindow.getInstance().getBoxCentar().repaint();
 
-        MainWindow.getInstance().dodajZdravstveniKartonView();
+        MainWindow.getInstance().OdabirPacijentaZaIzmenuZK();
         MainWindow.getInstance().getBoxRight().revalidate();
         MainWindow.getInstance().getBoxRight().repaint();
         MainWindow.getInstance().getBoxCentar().revalidate();
         MainWindow.getInstance().getBoxCentar().repaint();
+
 
     }
 }
