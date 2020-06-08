@@ -1,5 +1,7 @@
 package view;
 
+import controller.DodajZdravstveniKartonListener;
+import controller.PredloziDodatnaIspitivanjaListener;
 import model.PorodicneBolesti;
 import model.Simptomi;
 import sun.applet.Main;
@@ -101,7 +103,7 @@ public class FizikalniPregledWindow extends JFrame {
 
                     if (!e.getValueIsAdjusting()) {
                         JList<Simptomi> list = (JList)e.getSource();
-                        System.out.println(list.getSelectedValue());
+//                        System.out.println(list.getSelectedValue());
 
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().add(list.getSelectedValue());
@@ -144,7 +146,7 @@ public class FizikalniPregledWindow extends JFrame {
 
                     if (!e.getValueIsAdjusting()) {
                         JList<PorodicneBolesti> list = (JList)e.getSource();
-                        System.out.println(list.getSelectedValue());
+//                        System.out.println(list.getSelectedValue());
 
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getPorodicneBolesti().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getPorodicneBolesti().add(list.getSelectedValue());
@@ -174,6 +176,7 @@ public class FizikalniPregledWindow extends JFrame {
 
         JButton dalje = new JButton("DALJE");
         dalje.setPreferredSize(new Dimension(200,30));
+        dalje.addActionListener(new PredloziDodatnaIspitivanjaListener());
 
         JPanel panE = new JPanel();
         panE.setPreferredSize(new Dimension(220,30));
