@@ -1170,7 +1170,7 @@ public class MainWindow extends JFrame {
 
     public void setPanCenter(JPanel panCenter) {
         this.panCenter = panCenter;
-
+    }
 
     public IzabranaOpcija getIzabranaOpcija() {
         return izabranaOpcija;

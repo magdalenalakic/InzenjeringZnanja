@@ -1,6 +1,7 @@
 package connector;
 
 import controller.PacijentController;
+import jdk.nashorn.internal.objects.NativeRegExp;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
@@ -83,9 +84,14 @@ public class CsvConnector implements Connector {
                 for(int i = 0; i < listaSimptoma.length; i++){
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
                 }
-                String[] porodicneBolesti = values[15].split(",");
-                for(int i = 0; i < porodicneBolesti.length; i++){
-                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
+                System.out.println(values.length);
+                if(values.length == 16){
+                    System.out.println("*****************************************************");
+                    System.out.println(values[15]);
+                    String[] porodicneBolesti   = values[15].split(",");
+                    for(int i = 0; i < porodicneBolesti.length; i++){
+                        pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
+                    }
                 }
 
                 listaPacijenata.add(pacijent);
