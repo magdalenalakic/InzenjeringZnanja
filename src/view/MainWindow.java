@@ -207,6 +207,7 @@ public class MainWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+
                 dodajZdravstveniKartonView();
 
 
@@ -215,6 +216,14 @@ public class MainWindow extends JFrame {
 
         JButton izmeni = new JButton("Izmeni zdravstveni karton");
         izmeni.setPreferredSize(new Dimension(200,30));
+        izmeni.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                instance.getStatusLinija().setText("");
+                OdabirPacijentaZaIzmenuZK();
+            }
+        });
 
 
         JButton cuvanje = new JButton("Cuvanje");
@@ -222,21 +231,12 @@ public class MainWindow extends JFrame {
         cuvanje.addActionListener(new CuvanjePacijenata());
 
 
-
-        izmeni.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                instance.getStatusLinija().setText("");
-                OdabirPacijentaZaIzmenuZK();
-            }
-        });
-
-
         JButton zapocni = new JButton("Zapocni pregled");
         zapocni.setPreferredSize(new Dimension(200,30));
         zapocni.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 instance.getStatusLinija().setText("");
                 zapocniPregledView();
             }

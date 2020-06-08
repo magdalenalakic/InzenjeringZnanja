@@ -1,8 +1,8 @@
 #id;listaRezultataDodatnihIspitivanja
-1;rendgen=nijeUredan,ct=uredan,ekg=nijeUredan&ubrzan,ehokardiografija=nijeUredan
-2;ct=uredan,ekg=nijeUredan&ubrzan,ehokardiografija=uredan
-3;ct=nijeUredan,ekg=nijeUredan&ubrzan,ehokardiografija=uredan
-4;ct=uredan,ekg=nijeUredan&ubrzan,ehokardiografija=uredan
-5;ct=uredan,ekg=nijeUredan&ubrzan,ehokardiografija=uredan
-6;ekg=nijeUredan&usporen,holter24=snizen&prisutno&normalan,analizaKrvi=10&2.1&3
-7;ekg=nijeUredan&usporen,holter24=snizen&prisutno&normalan,analizaKrvi=10&2.1&3.2
+1;ehokardiografija=nijeUredan,rendgen=nijeUredan,ekg=nijeUredan&ubrzan,ct=uredan
+2;ehokardiografija=uredan,ekg=nijeUredan&ubrzan,ct=uredan
+3;ehokardiografija=uredan,ekg=nijeUredan&ubrzan,ct=nijeUredan
+4;ehokardiografija=uredan,ekg=nijeUredan&ubrzan,ct=uredan
+5;ehokardiografija=uredan,ekg=nijeUredan&ubrzan,ct=uredan
+6;holter24=snizen&prisutno&normalan,ekg=nijeUredan&usporen,analizaKrvi=10&2.1&3
+7;holter24=snizen&prisutno&normalan,ekg=nijeUredan&usporen,analizaKrvi=10&2.1&3.2
