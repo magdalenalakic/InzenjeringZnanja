@@ -12,8 +12,7 @@ public class FizikalniPregledListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         FizikalniPregledWindow wz1 = FizikalniPregledWindow.getInstance();
-        wz1.setVisible(true);
-        WelcomeWindow.getInstance().setVisible(false);
+        wz1.init();
 
     }
 }

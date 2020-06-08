@@ -3,7 +3,7 @@
 out/
 
 .idea/
-
+database/
 # Package Files #
 *.jar
 *.war

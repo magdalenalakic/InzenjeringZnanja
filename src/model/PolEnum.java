@@ -2,5 +2,7 @@ package model;
 
 public enum PolEnum {
     M,
-    Z
+    Z,
+    m,
+    z
 }

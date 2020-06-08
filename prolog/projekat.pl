@@ -71,9 +71,15 @@ fizickaAktivnost(zdravko, ne).
 fizickaAktivnost(slavica, da).
 fizickaAktivnost(zeljko, da).
 
+
+trudnoca(petar, ne).
 trudnoca(milica, da).
+trudnoca(milan, ne).
 trudnoca(ana, ne).
+trudnoca(luka, ne).
+trudnoca(zdravko, ne).
 trudnoca(slavica, ne).
+trudnoca(zeljko, ne).
 
 alergican(petar, ne).
 alergican(milica, ne).
@@ -89,7 +95,7 @@ porodicneBolesti(milica, [dijabetes]).
 porodicneBolesti(milan, [artritis]).
 porodicneBolesti(ana, [infarktMiokarda]).
 porodicneBolesti(luka, [infarktMiokarda]).
-porodicneBolesti(zdravko, []).
+porodicneBolesti(zdravko, [trombofilija,artritis]).
 porodicneBolesti(slavica, [infarktMiokarda]).
 porodicneBolesti(zeljko, [infarktMiokarda]).
 

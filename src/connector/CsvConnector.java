@@ -1,6 +1,7 @@
 package connector;
 
 import controller.PacijentController;
+import jdk.nashorn.internal.objects.NativeRegExp;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
@@ -74,23 +75,23 @@ public class CsvConnector implements Connector {
                 pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
                 pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
                 RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
-                if(rez.equals(null)){
-//                    System.out.println("Greska prilikom racunanja pritiska.");
-                }else{
+                if(!rez.equals(null)){
                     pacijent.setRezPritiska(rez);
                 }
                 String[] listaSimptoma = values[14].split(",");
                 for(int i = 0; i < listaSimptoma.length; i++){
                     pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
                 }
-                String[] porodicneBolesti = values[15].split(",");
-                for(int i = 0; i < porodicneBolesti.length; i++){
-                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
+                if(values.length == 16){
+                    String[] porodicneBolesti   = values[15].split(",");
+                    for(int i = 0; i < porodicneBolesti.length; i++){
+                        pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
+                    }
                 }
 
                 listaPacijenata.add(pacijent);
 
-//                System.out.println(pacijent);
+                System.out.println(pacijent);
 
             }
             br.close();

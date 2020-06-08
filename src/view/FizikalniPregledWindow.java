@@ -1,13 +1,10 @@
 package view;
 
-import controller.DodajZdravstveniKartonListener;
 import controller.PredloziDodatnaIspitivanjaListener;
 import model.PorodicneBolesti;
 import model.Simptomi;
-import sun.applet.Main;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -22,7 +19,7 @@ public class FizikalniPregledWindow extends JFrame {
     public static FizikalniPregledWindow getInstance() {
         if (instance == null) {
             instance = new FizikalniPregledWindow();
-            instance.init();
+//            instance.init();
         }
 
         return instance;
@@ -33,8 +30,8 @@ public class FizikalniPregledWindow extends JFrame {
         instance = newInstance;
     }
 
-    private JTextField prtisiakG;
-    private JTextField prtisiakD;
+    private JTextField pritisakG;
+    private JTextField pritisakD;
     private JRadioButton uredna;
     private JRadioButton postojiSum;
     private JRadioButton poremecajRitma;
@@ -52,12 +49,12 @@ public class FizikalniPregledWindow extends JFrame {
         pp = new JPanel(new FlowLayout());
 
         pG = new JLabel("gornji: ");
-        prtisiakG = new JTextField();
-        prtisiakG.setPreferredSize(new Dimension(80,30));
+        pritisakG = new JTextField();
+        pritisakG.setPreferredSize(new Dimension(80,30));
 
         pD = new JLabel("donji: ");
-        prtisiakD = new JTextField();
-        prtisiakD.setPreferredSize(new Dimension(80,30));
+        pritisakD = new JTextField();
+        pritisakD.setPreferredSize(new Dimension(80,30));
 
         ButtonGroup auskultacija = new ButtonGroup();
         uredna = new JRadioButton("uredna");
@@ -76,9 +73,9 @@ public class FizikalniPregledWindow extends JFrame {
         MainWindow.getInstance().getBoxCentar().add(naslov);
         MainWindow.getInstance().getBoxCentar().add(new Label("Unesigte pritisak:"));
         pp.add(pG);
-        pp.add(prtisiakG);
+        pp.add(pritisakG);
         pp.add(pD);
-        pp.add(prtisiakD);
+        pp.add(pritisakD);
         MainWindow.getInstance().getBoxCentar().add(pp);
         MainWindow.getInstance().getBoxCentar().add(new Label("Auskultacija"));
 
@@ -190,4 +187,107 @@ public class FizikalniPregledWindow extends JFrame {
 
     }
 
+    public JButton getNext() {
+        return next;
+    }
+
+    public void setNext(JButton next) {
+        this.next = next;
+    }
+
+    public JButton getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(JButton cancel) {
+        this.cancel = cancel;
+    }
+
+    public JTextField getPritisakG() {
+        return pritisakG;
+    }
+
+    public void setPritisakG(JTextField pritisakG) {
+        this.pritisakG = pritisakG;
+    }
+
+    public JTextField getPritisakD() {
+        return pritisakD;
+    }
+
+    public void setPritisakD(JTextField pritisakD) {
+        this.pritisakD = pritisakD;
+    }
+
+    public JRadioButton getUredna() {
+        return uredna;
+    }
+
+    public void setUredna(JRadioButton uredna) {
+        this.uredna = uredna;
+    }
+
+    public JRadioButton getPostojiSum() {
+        return postojiSum;
+    }
+
+    public void setPostojiSum(JRadioButton postojiSum) {
+        this.postojiSum = postojiSum;
+    }
+
+    public JRadioButton getPoremecajRitma() {
+        return poremecajRitma;
+    }
+
+    public void setPoremecajRitma(JRadioButton poremecajRitma) {
+        this.poremecajRitma = poremecajRitma;
+    }
+
+    public JPanel getPritisakGD() {
+        return pritisakGD;
+    }
+
+    public void setPritisakGD(JPanel pritisakGD) {
+        this.pritisakGD = pritisakGD;
+    }
+
+    public JPanel getPp() {
+        return pp;
+    }
+
+    public void setPp(JPanel pp) {
+        this.pp = pp;
+    }
+
+    public JLabel getpG() {
+        return pG;
+    }
+
+    public void setpG(JLabel pG) {
+        this.pG = pG;
+    }
+
+    public JLabel getpD() {
+        return pD;
+    }
+
+    public void setpD(JLabel pD) {
+        this.pD = pD;
+    }
+
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public void setScrollPane(JScrollPane scrollPane) {
+        this.scrollPane = scrollPane;
+    }
+
+    public JScrollPane getScrollPane2() {
+        return scrollPane2;
+    }
+
+    public void setScrollPane2(JScrollPane scrollPane2) {
+        this.scrollPane2 = scrollPane2;
+    }
 }
