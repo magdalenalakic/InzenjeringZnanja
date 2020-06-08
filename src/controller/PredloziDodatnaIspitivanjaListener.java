@@ -1,14 +1,22 @@
 package controller;
 
-import model.AuskultacijaEnum;
+import main.DodatnaIspitivanjaApp;
+import model.*;
+import sun.applet.Main;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 import view.FizikalniPregledWindow;
 import view.MainWindow;
 import view.PredloziDodatnaIspitivanjaWindow;
 import view.WelcomeWindow;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
@@ -52,8 +60,13 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Podaci su sacuvani!");
 
+
         PredloziDodatnaIspitivanjaWindow wz1 = PredloziDodatnaIspitivanjaWindow.getInstance();
-        wz1.setVisible(true);
-        WelcomeWindow.getInstance().setVisible(false);
+
+
+        MainWindow.getInstance().getBoxCentar().removeAll();
+        MainWindow.getInstance().getBoxRight().removeAll();
+
+        wz1.init();
     }
 }
