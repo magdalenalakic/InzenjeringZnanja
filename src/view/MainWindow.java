@@ -869,11 +869,14 @@ public class MainWindow extends JFrame {
             for(Pacijent p : pacijenti){
                 if(p.getIme().equals(ime.getValue().toString())){
                     JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution11.getVariables()[1]));
-                    p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
-                    while(!list.getTail().toString().equals("[]")){
-                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+                    if(list.getHead() != null){
                         p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
+                        while(!list.getTail().toString().equals("[]")){
+                            list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+                            p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
+                        }
                     }
+
                 }
             }
         }
@@ -1050,26 +1053,76 @@ public class MainWindow extends JFrame {
             }
         }
 
-        //REZ
-        JIPQuery query22 = engine.openSynchronousQuery("dijagnoza(X, Y)");
-        JIPTerm solution22;
-        while ( (solution22 = query22.nextSolution()) != null  ) {
-            JIPVariable ime = solution22.getVariables()[0];
-            JIPVariable dijagnoze = solution22.getVariables()[1];
-//            JIPEngine engine = new JIPEngine();
-//            JIPTermParser termParser = engine.getTermParser();
-//
-//            JIPList dijagnoze = (JIPList)termParser.parseTerm(String.valueOf(solution22.getVariables()[1]));
-
-            System.out.println("ime : "+ ime.getValue().toString());
-            System.out.println("dijagnoze : "+ dijagnoze.getValue().toString());
-
-
-        }
-
-
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
+
+        //DIJAGNOZE PREDLOZENE
+        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
+
+            String dijag = "dijagnoza(" + p.getIme() + ", Y)";
+            JIPQuery query22 = engine.openSynchronousQuery(dijag);
+            JIPTerm solution22;
+
+            while ( (solution22 = query22.nextSolution()) != null  ) {
+                JIPVariable dijagnoza = solution22.getVariables()[0];
+                p.getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            }
+        }
+
+        //DODATNA ISPITIVANJA
+        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
+//            dodatnoIspitivanje(listaSimptoma(X, S), Y)
+
+
+            List<String> simptomiii = new ArrayList<>();
+            simptomiii.add("umor");
+            simptomiii.add("znojenje");
+            System.out.println("****************************************");
+            System.out.println(simptomiii);
+            String dijag = "dodatnoIspitivanje(listaSimptoma(" + p.getIme() +"," + simptomiii + "), Y)";
+
+            System.out.println(dijag);
+
+            JIPQuery query23 = engine.openSynchronousQuery(dijag);
+            JIPTerm solution23;
+
+            while ( (solution23 = query23.nextSolution()) != null  ) {
+                JIPVariable dodatnoIspitivanje = solution23.getVariables()[0];
+                p.getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+            }
+        }
+        //TERAPIJE
+        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
+
+
+            String dijag = "terapija(" + p.getIme() +"," + "hipertenzija" + ",Y)";
+            System.out.println(dijag);
+
+            JIPQuery query24 = engine.openSynchronousQuery(dijag);
+            JIPTerm solution24;
+
+            while ( (solution24 = query24.nextSolution()) != null  ) {
+                JIPEngine engine = new JIPEngine();
+                JIPTermParser termParser = engine.getTermParser();
+
+
+                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
+                if(list.getHead() != null){
+                    p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+                    while(!list.getTail().toString().equals("[]")){
+                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+                        p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+                    }
+                }
+
+//
+//
+//
+//                JIPVariable terapija = solution24.getVariables()[0];
+//                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
+            }
+        }
+
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
         }
