@@ -242,7 +242,7 @@ public class CuvanjePacijenata extends AbstractAction {
         BufferedWriter writer = null;
         FileWriter fileWriter = null;
         try {
-            File file = new File("csv-files/lekovi-prim.csv");
+            File file = new File("csv-files/lekovi.csv");
             if(!file.exists()){
                 file.createNewFile();
             }
@@ -252,7 +252,7 @@ public class CuvanjePacijenata extends AbstractAction {
             for(Pacijent pacijent : list){
                 String line = pacijent.getId() + ";";
                 Integer flag = 0;
-                System.out.println(pacijent.getListaLekova());
+//                System.out.println(pacijent.getListaLekova());
 
                 for(Lekovi lek : pacijent.getListaLekova()){
                     flag++;
