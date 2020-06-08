@@ -1,5 +1,6 @@
 package controller;
 
+
 import com.ugos.jiprolog.engine.JIPEngine;
 import com.ugos.jiprolog.engine.JIPQuery;
 import com.ugos.jiprolog.engine.JIPTerm;
@@ -10,6 +11,9 @@ import view.MainWindow;
 import view.PredloziDodatnaIspitivanjaWindow;
 import view.WelcomeWindow;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,7 +92,6 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Podaci su sacuvani!");
 
-
         if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             dodatnaIspitivanjaCBR();
         }else{
@@ -96,7 +99,11 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         }
 
         PredloziDodatnaIspitivanjaWindow wz1 = PredloziDodatnaIspitivanjaWindow.getInstance();
-        wz1.setVisible(true);
-        WelcomeWindow.getInstance().setVisible(false);
+
+
+        MainWindow.getInstance().getBoxCentar().removeAll();
+        MainWindow.getInstance().getBoxRight().removeAll();
+
+        wz1.init();
     }
 }

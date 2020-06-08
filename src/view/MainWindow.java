@@ -436,6 +436,7 @@ public class MainWindow extends JFrame {
         dodajZK.addActionListener(new DodajZdravstveniKartonListener());
         dodajZK.setPreferredSize(new Dimension(200,50));
 
+
         JPanel panE = new JPanel();
         panE.setPreferredSize(new Dimension(100,50));
         boxCentar.add(panE);
