@@ -1051,66 +1051,25 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-
-//        //DODATNA ISPITIVANJA
-//        String temp = "dodatnoIspitivanje(listaSimptoma(slavica,[mucnina, vrtoglavica, otezanoDisanje, malaksalost, zamucenjeVida, hladnoZnojenje]), Y)";
-//
-//        System.out.println(temp);
-//
-//        JIPQuery primQueru = engine.openSynchronousQuery(temp);
-//        JIPTerm primSolution;
-//
-//        while ( (primSolution = primQueru.nextSolution()) != null  ) {
-//            JIPVariable dodatnoIspitivanje = primSolution.getVariables()[0];
-//            System.out.println("--------------------");
-//            System.out.println(dodatnoIspitivanje.getValue().toString());
-////            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-////            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-//        }
-////        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+        String temp = "dijagnoza(petar, Y)";
+        JIPQuery mica = engine.openSynchronousQuery(temp);
+        JIPTerm gica;
+        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
+        System.out.println("dijagnoze predlozeneeee");
+        while ( (gica = mica.nextSolution()) != null  ) {
 
 
+            JIPVariable dijagnoza = gica.getVariables()[0];
+            System.out.println(dijagnoza.getValue().toString());
 
-//        //TERAPIJE
-//        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
-//
-//
-//            String dijag = "terapija(" + p.getIme() +"," + "hipertenzija" + ",Y)";
-//            System.out.println(dijag);
-//
-//            JIPQuery query24 = engine.openSynchronousQuery(dijag);
-//            JIPTerm solution24;
-//
-//            while ( (solution24 = query24.nextSolution()) != null  ) {
-//                JIPEngine engine = new JIPEngine();
-//                JIPTermParser termParser = engine.getTermParser();
-//
-//
-//                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
-//                if(list.getHead() != null){
-//                    p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-//                    while(!list.getTail().toString().equals("[]")){
-//                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
-//                        p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-//                    }
-//                }
-//
-////
-////
-////
-////                JIPVariable terapija = solution24.getVariables()[0];
-////                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
-//            }
-//        }
+
+//            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+        }
 
 
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
-        }
-        try {
-            upisiUPrologFile("rezErgometrija(petar", "rezErgometrija(petar, niskaOpterecenja).");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

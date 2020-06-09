@@ -49,7 +49,7 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
 
     public void dodatnaIspitivanjaRB(){
-        JIPEngine engine = new JIPEngine();
+
 
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
         List<Simptomi> simptomi = MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma();
@@ -101,21 +101,23 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         System.out.println(temp);
 
+        JIPEngine engine = new JIPEngine();
+        engine.consultFile("prolog/projekat.pl");
         JIPQuery query = engine.openSynchronousQuery(temp);
         JIPTerm solution;
-
-//        MainWindow.getInstance().setDodatnaIspitivanja(new ArrayList<>());
+        MainWindow.getInstance().setDodatnaIspitivanja(new ArrayList<>());
         while ( (solution = query.nextSolution()) != null  ) {
             JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
-            System.out.println(dodatnoIspitivanje.getValue().toString());
+            System.out.println("dod ispit: "+ dodatnoIspitivanje.getValue().toString());
             MainWindow.getInstance().getDodatnaIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
 //            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
         }
 
 //        MainWindow.getInstance().setDodatnaIspitivanja(dodatnaIspitivanja);
+
         System.out.println(MainWindow.getInstance().getDodatnaIspitivanja());
-        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+//        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
 
     }
 

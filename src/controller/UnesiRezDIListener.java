@@ -47,17 +47,21 @@ public class UnesiRezDIListener implements ActionListener {
 
     public void dijagnozaRB(){
         JIPEngine engine = new JIPEngine();
+        engine.consultFile("prolog/projekat.pl");
 
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
 
         String temp = "dijagnoza(" + pacijent + ", Y)";
         JIPQuery query = engine.openSynchronousQuery(temp);
         JIPTerm solution;
-
+        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
+        System.out.println("dijagnoze predlozeneeee");
         while ( (solution = query.nextSolution()) != null  ) {
+
+            System.out.println(solution.getVariables()[0]);
             JIPVariable dijagnoza = solution.getVariables()[0];
             System.out.println(dijagnoza.getValue().toString());
-//            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
         }
         System.out.println(temp);

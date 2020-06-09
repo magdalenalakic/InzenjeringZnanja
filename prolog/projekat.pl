@@ -89,10 +89,10 @@ alergican(zdravko, ne).
 alergican(slavica, ne).
 alergican(zeljko, ne).
 %
-porodicneBolesti(petar,[trombofilija, dijabetes, artritis]).
-porodicneBolesti(milica,[dijabetes, trombofilija]).
+porodicneBolesti(petar,[trombofilija, dijabetes, artritis, infarktMiokarda]).
+porodicneBolesti(milica,[dijabetes, trombofilija, artritis, infarktMiokarda, tahikardija]).
 porodicneBolesti(milan,[artritis, trombofilija, dijabetes]).
-porodicneBolesti(ana, [infarktMiokarda]).
+porodicneBolesti(ana,[infarktMiokarda, trombofilija]).
 porodicneBolesti(luka, [infarktMiokarda]).
 porodicneBolesti(zdravko, []).
 porodicneBolesti(slavica, [infarktMiokarda]).
@@ -113,19 +113,19 @@ simptom(povracanje).
 simptom(kratakDah).
 simptom(povisenaTemperatura).
 %PREGLED -> rutinske stvari i rezultati racunanja osnovnih stvari ---------------------------------------------------------------------------
-auskultacija(petar,postojiSum).
-auskultacija(milica,uredna).
+auskultacija(petar,poremecajRitma).
+auskultacija(milica,postojiSum).
 auskultacija(milan,poremecajRitma).
-auskultacija(ana, poremecajRitma).
+auskultacija(ana,poremecajRitma).
 auskultacija(luka, uredna).
 auskultacija(zdravko, uredna).
 auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
-pritisak(petar,121,120).
-pritisak(milica,125,120).
-pritisak(milan,154,120).
-pritisak(ana, 85, 59).
+pritisak(petar,130,100).
+pritisak(milica,124,100).
+pritisak(milan,123,243).
+pritisak(ana,130,100).
 pritisak(luka, 121, 90).
 pritisak(zdravko, 123, 94).
 pritisak(slavica, 86, 57).
@@ -173,19 +173,19 @@ rezHolesterola(X, R) :- (rezAnalizeKrvi(X, D, Y, T), Y >= 3.1, Y =< 5.5) -> R = 
 rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.28)-> R = normalan ;(rezAnalizeKrvi(X, D, H, Y), Y < 0.46) -> R = nizak;(rezAnalizeKrvi(X, D, H, Y), Y > 2.28) -> R = povisen.
 %REZULTATI DODATNIH ISPITIVANJA ------------------------------------------------------------------------------------------------------
 %rezAnalizeKrvi:  pacijent, nivoSeceraUKrvi, nivoHolesterola, nivoTriglecirida
-rezAnalizeKrvi(petar, 16, 5.8, 0.88).
-rezAnalizeKrvi(milica, 15, 3.6, 0.25).
+rezAnalizeKrvi(petar,16,5.8,0.88).
+rezAnalizeKrvi(milica,10,2,3).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
-rezAnalizeKrvi(ana, 10, 2.1, 3).
+rezAnalizeKrvi(ana,16,5.8,0.88).
 rezAnalizeKrvi(luka, 11, 2.5, 3.5).
 rezAnalizeKrvi(zdravko, 11, 2.5, 3.5).
 rezAnalizeKrvi(slavica, 10, 2.2, 3).
 rezAnalizeKrvi(zeljko, 16, 5.8, 0.88).
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
-rezEkg(petar, nijeUredan, ubrzan).
+rezEkg(petar,nijeUredan,ubrzan).
 rezEkg(milan, nijeUredan, usporen).
-rezEkg(milica, nijeUredan, ubrzan).
-rezEkg(ana, nijeUredan, usporen).
+rezEkg(milica,nijeUredan,normalan).
+rezEkg(ana,nijeUredan,ubrzan).
 rezEkg(luka, neodredjen, ubrzan).
 rezEkg(zdravko, nijeUredan, ubrzan).
 rezEkg(slavica, nijeUredan, usporen).
@@ -196,7 +196,7 @@ rezErgometrija(ana, niskaOpterecenja).
 rezErgometrija(slavica, niskaOpterecenja).
 rezErgometrija(zdravko, niskaOpterecenja).
 %ehokardiografija rezultati(uredan, nijeUredan)
-rezEhokardiografije(milica, uredan).
+rezEhokardiografije(milica,nijeUredan).
 %koronarnaAngiografija -> potrebni rezultati ako je rutinsk/// pozitivno/negativno
 rezKA(petar, pozitivno).
 rezKA(ana, pozitivno).
@@ -206,13 +206,13 @@ rezRendgen(milica, nijeUredan).
 %rezultati holtera 24
 % srcanaFrekvencija, poremecajRitma, ST segment
 rezHolter24(milan, povisen, prisutno, normalan).
-rezHolter24(ana, snizen, prisutno, normalan).
-rezHolter24(milica, povisen, prisutno, normalan).
+rezHolter24(ana,povisen,prisutno,normalan).
+rezHolter24(milica,povisen,nijePrisutno,normalan).
 rezHolter24(luka, povisen, prisutno, normalan).
 rezHolter24(zdravko, povisen, prisutno, normalan).
 rezHolter24(slavica, snizen, prisutno, normalan).
 %rezultati CT(uredan, nijeUredan)
-rezCT(milica, uredan).
+rezCT(milica,nijeUredan).
 rezCT(milan, nijeUredan).
 %DIJAGNOZE ----------------------------------------------------------------------------------------------------------------------
 % hipertenzija
