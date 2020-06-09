@@ -95,7 +95,7 @@ porodicneBolesti(milica, [dijabetes]).
 porodicneBolesti(milan, [artritis]).
 porodicneBolesti(ana, [infarktMiokarda]).
 porodicneBolesti(luka, [infarktMiokarda]).
-porodicneBolesti(zdravko, [trombofilija,artritis]).
+porodicneBolesti(zdravko, []).
 porodicneBolesti(slavica, [infarktMiokarda]).
 porodicneBolesti(zeljko, [infarktMiokarda]).
 
@@ -289,6 +289,7 @@ dijagnoza(X, Y) :-
 %tahikardija
 dijagnoza(X, Y) :-
          (rezEkg(X, nijeUredan, ubrzan), rezPritiska(X, R), (R = normalan; R = povisen), pacijent(X), rezHolter24(X, povisen, prisutno, normalan))  -> Y = tahikardija.
+
 
 %TERAPIJE ------------------------------------------------------------------------------------------------------------------------------
 listaSvihLekova(X, T, L) :-  pacijent(X),

@@ -104,9 +104,6 @@ public class FizikalniPregledWindow extends JFrame {
 
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().add(list.getSelectedValue());
-//                            panSimptomi = new JPanel(new FlowLayout());
-//                            panSimptomi.setBackground(new Color(255,0,0));
-//                            panSimptomi.setSize(200,400);
                             panSimptomi.add(new JLabel(String.valueOf(list.getSelectedValue())));
                             MainWindow.getInstance().getBoxRight().add(panSimptomi);
 
