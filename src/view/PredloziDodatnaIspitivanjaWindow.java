@@ -1,5 +1,6 @@
 package view;
 
+import controller.PredloziDijagnozuListener;
 import controller.PredloziDodatnaIspitivanjaListener;
 import controller.UnesiRezDIListener;
 import main.DodatnaIspitivanjaApp;

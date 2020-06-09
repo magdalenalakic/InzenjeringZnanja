@@ -2,10 +2,7 @@ package controller;
 
 import model.DodatnaIspitivanjaEnum;
 import sun.applet.Main;
-import view.FizikalniPregledWindow;
-import view.MainWindow;
-import view.UnesiRezDIWindow;
-import view.WelcomeWindow;
+import view.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -208,8 +205,12 @@ public class PredloziDijagnozuListener implements ActionListener {
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Rezultati ispitivanja uspesno sacuvani!");
 
-//        FizikalniPregledWindow wz1 = FizikalniPregledWindow.getInstance();
-//        wz1.init();
+        PredloziDijagnozuWindow wz1 = PredloziDijagnozuWindow.getInstance();
+
+        MainWindow.getInstance().getBoxCentar().removeAll();
+        MainWindow.getInstance().getBoxRight().removeAll();
+        wz1.init();
+
 
     }
 }
