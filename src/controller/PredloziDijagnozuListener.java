@@ -14,6 +14,9 @@ public class PredloziDijagnozuListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        System.out.println("+++++++++++++++");
+        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(255,0,0));
 
         UnesiRezDIWindow udi = UnesiRezDIWindow.getInstance();

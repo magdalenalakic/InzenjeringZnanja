@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FizikalniPregledWindow extends JFrame {
 
@@ -85,8 +87,13 @@ public class FizikalniPregledWindow extends JFrame {
             JPanel panel = new JPanel();
             LayoutManager layout = new FlowLayout();
             panel.setLayout(layout);
-            Simptomi[] listS =  Simptomi.values();
-            JList<Simptomi> listBox = new JList<>(listS);
+            List<Simptomi> listS = new ArrayList<>();
+            for(Simptomi s: Simptomi.values()){
+                if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(s)){
+                    listS.add(s);
+                }
+            }
+            JList<Simptomi> listBox = new JList(listS.toArray());
             JPanel panSimptomi = new JPanel();
             panSimptomi.setLayout(new BoxLayout(panSimptomi, BoxLayout.Y_AXIS));
 //            panSimptomi.setPreferredSize(new Dimension(150, 100));
@@ -94,6 +101,13 @@ public class FizikalniPregledWindow extends JFrame {
             Label textS = new Label("Lista izabranih simptoma:");
             textS.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
             panSimptomi.add(textS);
+
+            for(Simptomi simptom: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma()){
+                panSimptomi.add(new JLabel(simptom.toString()));
+            }
+            MainWindow.getInstance().getBoxRight().add(panSimptomi);
+            MainWindow.getInstance().getBoxRight().revalidate();
+            MainWindow.getInstance().getBoxRight().repaint();
             listBox.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
@@ -105,9 +119,9 @@ public class FizikalniPregledWindow extends JFrame {
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().add(list.getSelectedValue());
                             panSimptomi.add(new JLabel(String.valueOf(list.getSelectedValue())));
-                            MainWindow.getInstance().getBoxRight().add(panSimptomi);
 
                         }
+
                         MainWindow.getInstance().getBoxRight().revalidate();
                         MainWindow.getInstance().getBoxRight().repaint();
                     }
