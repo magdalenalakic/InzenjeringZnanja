@@ -67,7 +67,10 @@ public class UnesiRezDIListener implements ActionListener {
             JIPVariable dijagnoza = solution.getVariables()[0];
             System.out.println(dijagnoza.getValue().toString());
             MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
-            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().contains(Dijagnoze.valueOf(dijagnoza.getValue().toString()))){
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            }
+
         }
         System.out.println(temp);
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza());

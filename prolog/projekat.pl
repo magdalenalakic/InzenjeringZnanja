@@ -89,7 +89,7 @@ alergican(zdravko, ne).
 alergican(slavica, ne).
 alergican(zeljko, ne).
 %
-porodicneBolesti(petar,[trombofilija, dijabetes, artritis, infarktMiokarda]).
+porodicneBolesti(petar,[trombofilija, dijabetes, artritis, infarktMiokarda, tahikardija]).
 porodicneBolesti(milica,[dijabetes, trombofilija, artritis, infarktMiokarda, tahikardija]).
 porodicneBolesti(milan,[artritis, trombofilija, dijabetes]).
 porodicneBolesti(ana,[infarktMiokarda, trombofilija]).
@@ -271,3 +271,4 @@ terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),listaSvihLekova(X, T, [
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),listaSvihLekova(X, T, [zenSenKapsule]) -> Z = T.
 %
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,promerol, valsartan ]) -> Z = T.
+rezHolter24(petar,povisen,prisutno,normalan).

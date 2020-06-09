@@ -83,9 +83,11 @@ public class PredloziTerapijuListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Dijagnoze selektovanaDijag = (Dijagnoze) PredloziDijagnozuWindow.getInstance().getDijagnoze().getSelectedItem();
-        MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(selektovanaDijag);
-        System.out.println("Selektovana dijagnoza : " + selektovanaDijag.toString());
 
+        System.out.println("Selektovana dijagnoza : " + selektovanaDijag.toString());
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().contains(selektovanaDijag)){
+            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(selektovanaDijag);
+        }
         if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             predloziTerapijuCBR();
         }else{
