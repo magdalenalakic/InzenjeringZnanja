@@ -1,8 +1,12 @@
 package controller;
 
+
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
 import main.DodatnaIspitivanjaApp;
 import model.*;
-import sun.applet.Main;
 import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 import view.FizikalniPregledWindow;
 import view.MainWindow;
@@ -21,6 +25,58 @@ import java.util.List;
 public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
     public static PacijentController pacijentController = new PacijentController();
+
+    public void dodatnaIspitivanjaCBR(){
+        DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
+
+        try {
+            System.out.println("UDJE LI VODJEEEEEEEEEEEEEE");
+            dia.configure();
+            dia.preCycle();
+            CBRQuery query = new CBRQuery();
+
+
+            System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().toString());
+
+            query.setDescription(  MainWindow.getInstance().getTrenutnoAktivanPacijent() );
+            dia.cycle(query);
+            dia.postCycle();
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    public void dodatnaIspitivanjaRB(){
+        JIPEngine engine = new JIPEngine();
+
+        String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
+        List<Simptomi> simptomi = MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma();
+        List<String> lista = new ArrayList<>();
+        for(Simptomi s : simptomi){
+            lista.add(s.toString());
+        }
+
+        System.out.println("****************************************");
+        System.out.println(lista);
+        String temp = "dodatnoIspitivanje(listaSimptoma(" + pacijent +"," + lista + "), Y)";
+
+        System.out.println(temp);
+
+        JIPQuery query = engine.openSynchronousQuery(temp);
+        JIPTerm solution;
+
+        while ( (solution = query.nextSolution()) != null  ) {
+            JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+            MainWindow.getInstance().getDodatnaIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+        }
+        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -60,6 +116,11 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Podaci su sacuvani!");
 
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            dodatnaIspitivanjaCBR();
+        }else{
+            dodatnaIspitivanjaRB();
+        }
 
         PredloziDodatnaIspitivanjaWindow wz1 = PredloziDodatnaIspitivanjaWindow.getInstance();
 

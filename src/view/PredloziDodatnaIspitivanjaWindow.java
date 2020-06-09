@@ -39,31 +39,9 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
 
     public void init() {
 
-//        MainWindow.getInstance().getBoxCentar().removeAll();
-//        MainWindow.getInstance().getBoxRight().removeAll();
-//
-//        JLabel naslov = new JLabel("- DODATNA ISPITIVANJA -");
-//        naslov.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
-//        MainWindow.getInstance().getBoxCentar().add(naslov);
-
         JLabel naslov = new JLabel("- DODATNA ISPITIVANJA -");
         naslov.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
         MainWindow.getInstance().getBoxCentar().add(naslov);
-
-        DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
-
-        try {
-            System.out.println("UDJE LI VODJEEEEEEEEEEEEEE");
-            dia.configure();
-            dia.preCycle();
-            CBRQuery query = new CBRQuery();
-
-
-            System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().toString());
-
-            query.setDescription(  MainWindow.getInstance().getTrenutnoAktivanPacijent() );
-            dia.cycle(query);
-            dia.postCycle();
 
             JPanel panel = new JPanel();
             LayoutManager layout = new FlowLayout();
@@ -105,14 +83,6 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
             MainWindow.getInstance().getBoxCentar().add(scrollPane);
 
 
-//            MainWindow.getInstance().getBoxCentar().revalidate();
-//            MainWindow.getInstance().getBoxCentar().repaint();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
         JButton dalje = new JButton("DALJE");
         dalje.setPreferredSize(new Dimension(200,30));
         dalje.addActionListener(new UnesiRezDIListener());
@@ -127,6 +97,5 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
         MainWindow.getInstance().getBoxCentar().repaint();
 
     }
-
 
 }
