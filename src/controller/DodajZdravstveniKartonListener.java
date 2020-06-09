@@ -1,5 +1,6 @@
 package controller;
 
+import model.IzabranaOpcija;
 import model.Pacijent;
 import model.PolEnum;
 import model.TezinaEnum;
@@ -9,6 +10,7 @@ import view.WelcomeWindow;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class DodajZdravstveniKartonListener implements ActionListener {
     @Override
@@ -137,6 +139,89 @@ public class DodajZdravstveniKartonListener implements ActionListener {
         }
         Pacijent pacijent = new Pacijent(ime, pol, godine, tezina, pusac, dijabeticar, asmaticar, fizickaAktivnost, trudnoca, alergican);
         WelcomeWindow.getInstance().getListaPacijenata().add(pacijent);
+
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.RB)){
+
+            try {
+                MainWindow.getInstance().upisiUPrologFile("pacijent("+ ime, "pacijent(" + ime + ").");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(pol == PolEnum.Z){
+                    MainWindow.getInstance().upisiUPrologFile("pol("+ ime, "pol(" + ime +",z"+  ").");
+                }else if(pol == PolEnum.M){
+                    MainWindow.getInstance().upisiUPrologFile("pol("+ ime, "pol(" + ime +",m"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                MainWindow.getInstance().upisiUPrologFile("godine("+ ime, "godine(" + ime + ","+godine.toString()+ ").");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                MainWindow.getInstance().upisiUPrologFile("tezina("+ ime, "tezina(" + ime + ","+tezina.toString()+ ").");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(pusac == true){
+                    MainWindow.getInstance().upisiUPrologFile("pusac("+ ime, "pusac(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("pusac("+ ime, "pusac(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(dijabeticar == true){
+                    MainWindow.getInstance().upisiUPrologFile("dijabeticar("+ ime, "dijabeticar(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("dijabeticar("+ ime, "dijabeticar(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(asmaticar == true){
+                    MainWindow.getInstance().upisiUPrologFile("asmaticar("+ ime, "asmaticar(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("asmaticar("+ ime, "asmaticar(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(fizickaAktivnost == true){
+                    MainWindow.getInstance().upisiUPrologFile("fizickaAktivnost("+ ime, "fizickaAktivnost(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("fizickaAktivnost("+ ime, "fizickaAktivnost(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(trudnoca == true){
+                    MainWindow.getInstance().upisiUPrologFile("trudnoca("+ ime, "trudnoca(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("trudnoca("+ ime, "trudnoca(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                if(alergican == true){
+                    MainWindow.getInstance().upisiUPrologFile("alergican("+ ime, "alergican(" + ime +",da"+  ").");
+                }else{
+                    MainWindow.getInstance().upisiUPrologFile("alergican("+ ime, "alergican(" + ime +",ne"+ ").");
+                }
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+        }
 
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Pacijent uspesno dodat!");

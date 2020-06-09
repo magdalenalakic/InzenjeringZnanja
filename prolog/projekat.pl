@@ -89,9 +89,9 @@ alergican(zdravko, ne).
 alergican(slavica, ne).
 alergican(zeljko, ne).
 %
-porodicneBolesti(petar, [trombofilija]).
-porodicneBolesti(milica, [dijabetes]).
-porodicneBolesti(milan, [artritis]).
+porodicneBolesti(petar,[trombofilija, dijabetes, artritis]).
+porodicneBolesti(milica,[dijabetes, trombofilija]).
+porodicneBolesti(milan,[artritis, trombofilija, dijabetes]).
 porodicneBolesti(ana, [infarktMiokarda]).
 porodicneBolesti(luka, [infarktMiokarda]).
 porodicneBolesti(zdravko, []).
@@ -113,18 +113,18 @@ simptom(povracanje).
 simptom(kratakDah).
 simptom(povisenaTemperatura).
 %PREGLED -> rutinske stvari i rezultati racunanja osnovnih stvari ---------------------------------------------------------------------------
-auskultacija(petar, poremecajRitma).
-auskultacija(milica, postojiSum).
-auskultacija(milan, uredna).
+auskultacija(petar,postojiSum).
+auskultacija(milica,uredna).
+auskultacija(milan,poremecajRitma).
 auskultacija(ana, poremecajRitma).
 auskultacija(luka, uredna).
 auskultacija(zdravko, uredna).
 auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
-pritisak(petar,130,100).
-pritisak(milica,120,70).
-pritisak(milan,90,50).
+pritisak(petar,121,120).
+pritisak(milica,125,120).
+pritisak(milan,154,120).
 pritisak(ana, 85, 59).
 pritisak(luka, 121, 90).
 pritisak(zdravko, 123, 94).

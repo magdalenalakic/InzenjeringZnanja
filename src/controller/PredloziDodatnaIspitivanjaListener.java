@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,43 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
         List<Simptomi> simptomi = MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma();
+        List<String> simp = new ArrayList<>();
+        for(Simptomi p : simptomi){
+            simp.add(p.toString());
+        }
+        String pritG = FizikalniPregledWindow.getInstance().getPritisakG().getText();
+        String pritD = FizikalniPregledWindow.getInstance().getPritisakD().getText();
+        String ask = "";
+        if(FizikalniPregledWindow.getInstance().getUredna().isSelected()){
+            ask = AuskultacijaEnum.uredna.toString();
+        }else if(FizikalniPregledWindow.getInstance().getPostojiSum().isSelected()){
+            ask = AuskultacijaEnum.postojiSum.toString();
+        }else if(FizikalniPregledWindow.getInstance().getPoremecajRitma().isSelected()){
+            ask = AuskultacijaEnum.poremecajRitma.toString();
+        }
+
+        List<PorodicneBolesti> pb = MainWindow.getInstance().getTrenutnoAktivanPacijent().getPorodicneBolesti();
+        List<String> pbs = new ArrayList<>();
+        for(PorodicneBolesti p : pb){
+            pbs.add(p.toString());
+        }
+        try {
+            MainWindow.getInstance().upisiUPrologFile("pritisak("+ pacijent, "pritisak(" + pacijent +","+pritG +","+pritD +  ").");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        try {
+            MainWindow.getInstance().upisiUPrologFile("auskultacija("+ pacijent, "auskultacija(" + pacijent +"," + ask +  ").");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        try {
+            System.out.println("por bol: "+pbs);
+            MainWindow.getInstance().upisiUPrologFile("porodicneBolesti("+ pacijent, "porodicneBolesti(" + pacijent +"," + pbs +  ").");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
         List<String> lista = new ArrayList<>();
         for(Simptomi s : simptomi){
             lista.add(s.toString());
@@ -66,12 +104,17 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         JIPQuery query = engine.openSynchronousQuery(temp);
         JIPTerm solution;
 
+//        MainWindow.getInstance().setDodatnaIspitivanja(new ArrayList<>());
         while ( (solution = query.nextSolution()) != null  ) {
             JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
             System.out.println(dodatnoIspitivanje.getValue().toString());
+            MainWindow.getInstance().getDodatnaIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
 //            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
         }
+
+//        MainWindow.getInstance().setDodatnaIspitivanja(dodatnaIspitivanja);
+        System.out.println(MainWindow.getInstance().getDodatnaIspitivanja());
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
 
     }
