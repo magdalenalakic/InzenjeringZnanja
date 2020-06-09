@@ -78,6 +78,7 @@ public class DodatnaIspitivanjaApp implements StandardCBRApplication {
                 }
             }
         }
+//        MainWindow.getInstance().setDodatnaIspitivanja(new ArrayList<>());
         MainWindow.getInstance().setDodatnaIspitivanja(dodatnaIspitivanja);
         System.out.println();
     }

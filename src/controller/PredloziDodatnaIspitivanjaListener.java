@@ -30,14 +30,11 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
         DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
 
         try {
-            System.out.println("UDJE LI VODJEEEEEEEEEEEEEE");
+
             dia.configure();
             dia.preCycle();
             CBRQuery query = new CBRQuery();
-
-
             System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().toString());
-
             query.setDescription(  MainWindow.getInstance().getTrenutnoAktivanPacijent() );
             dia.cycle(query);
             dia.postCycle();

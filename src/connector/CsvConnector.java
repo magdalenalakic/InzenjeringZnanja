@@ -216,6 +216,7 @@ public class CsvConnector implements Connector {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        WelcomeWindow.getInstance().setListaPacijenata(new ArrayList<>());
         for(int k = 0; k < listaPacijenata.size(); k++){
             CBRCase cbrCase = new CBRCase();
             cbrCase.setDescription(listaPacijenata.get(k));

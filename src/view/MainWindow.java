@@ -1052,9 +1052,6 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-
-
-
         //TERAPIJE
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
 
@@ -1380,6 +1377,9 @@ public class MainWindow extends JFrame {
             }
         });
 
+
+
+
         JPanel predlozi = new JPanel();
         predlozi.setLayout(new BoxLayout(predlozi,BoxLayout.Y_AXIS));
 
@@ -1394,12 +1394,12 @@ public class MainWindow extends JFrame {
 
         predlozi.add(panE1);
         predlozi.add(zapocni);
-        predlozi.add(panE2);
-        predlozi.add(predloziDodatnaIspitivanja);
-        predlozi.add(panE3);
-        predlozi.add(predloziDijagnoze);
-        predlozi.add(panE4);
-        predlozi.add(predloziTerapiju);
+//        predlozi.add(panE2);
+//        predlozi.add(predloziDodatnaIspitivanja);
+//        predlozi.add(panE3);
+//        predlozi.add(predloziDijagnoze);
+//        predlozi.add(panE4);
+//        predlozi.add(predloziTerapiju);
 
         boxCentar.add(predlozi);
 
