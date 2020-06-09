@@ -441,6 +441,7 @@ public class MainWindow extends JFrame {
 
         boxCentar.removeAll();
         boxRight.removeAll();
+        pacijenti = new ArrayList<>();
 
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
@@ -669,20 +670,25 @@ public class MainWindow extends JFrame {
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
+        System.out.println("DODAJ CBR");
+        System.out.println(niz);
 
         return niz;
     }
 
     public ArrayList<String> dodajPacijenteRB(){
-        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
+//        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
         ArrayList<String> niz = new ArrayList<String>();
-        JIPTerm solution;
-        while ( (solution = query.nextSolution()) != null  ) {
-            for (JIPVariable var: solution.getVariables()) {
-                niz.add(var.getValue().toString());
-            }
+//        JIPTerm solution;
+//        while ( (solution = query.nextSolution()) != null  ) {
+//            for (JIPVariable var: solution.getVariables()) {
+//                niz.add(var.getValue().toString());
+//            }
+//        }
+        for(Pacijent p: WelcomeWindow.getInstance().getListaPacijenata()){
+            niz.add(p.getIme());
         }
-        ucitajPrologFile();
+//        ucitajPrologFile();
         return niz;
     }
 
@@ -1090,6 +1096,9 @@ public class MainWindow extends JFrame {
     public void zapocniPregledView(){
         boxCentar.removeAll();
         boxRight.removeAll();
+        pacijenti = new ArrayList<>();
+        System.out.println("PACIJeNTI:::");
+        System.out.println(pacijenti);
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
         }else{
@@ -1100,6 +1109,7 @@ public class MainWindow extends JFrame {
         JPanel pan1 = new JPanel();
         pan1.setLayout(new FlowLayout());
         cbPacijenti = new JComboBox();
+        cbPacijenti.removeAllItems();
         cbPacijenti.setPreferredSize(new Dimension(150,20));
         for( String ime: pacijenti) {
             cbPacijenti.addItem(ime);
