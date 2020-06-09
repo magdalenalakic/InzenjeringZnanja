@@ -13,6 +13,7 @@ public class RBCheckedListener implements ActionListener {
 
         MainWindow wz2 = MainWindow.getInstance();
         MainWindow.getInstance().setIzabranaOpcija(IzabranaOpcija.RB);
+        MainWindow.getInstance().ucitajPrologFile();
         wz2.setVisible(true);
         WelcomeWindow.getInstance().setVisible(false);
 
