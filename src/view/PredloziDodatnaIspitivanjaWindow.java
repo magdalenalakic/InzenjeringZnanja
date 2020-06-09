@@ -49,7 +49,9 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
 
             List<DodatnaIspitivanjaEnum> lis = new ArrayList<>();
             for(DodatnaIspitivanjaEnum DI:MainWindow.getInstance().getDodatnaIspitivanja()){
-                lis.add(DI);
+                if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DI)){
+                    lis.add(DI);
+                }
             }
 
             JList<DodatnaIspitivanjaEnum> listBox = new JList(lis.toArray());
@@ -58,6 +60,13 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
             pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
             pan.setBackground(new Color(255, 255, 255));
             JScrollPane scrollPane;
+
+            for(DodatnaIspitivanjaEnum di: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja()){
+                pan.add(new JLabel(di.toString()));
+            }
+            MainWindow.getInstance().getBoxRight().add(pan);
+            MainWindow.getInstance().getBoxRight().revalidate();
+            MainWindow.getInstance().getBoxRight().repaint();
 
             listBox.addListSelectionListener(new ListSelectionListener() {
                 @Override
@@ -69,8 +78,9 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(list.getSelectedValue());
                             pan.add(new JLabel(String.valueOf(list.getSelectedValue())));
-                            MainWindow.getInstance().getBoxRight().add(pan);
+
                         }
+
                         MainWindow.getInstance().getBoxRight().revalidate();
                         MainWindow.getInstance().getBoxRight().repaint();
                     }

@@ -275,7 +275,7 @@ public class MainWindow extends JFrame {
 
             }
         });
-        previous = new JButton("Prethodno");
+        previous = new JButton("Vrati se");
         previous.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
         previous.setPreferredSize(new Dimension(95, 25));
         previous.addActionListener(new ActionListener() {

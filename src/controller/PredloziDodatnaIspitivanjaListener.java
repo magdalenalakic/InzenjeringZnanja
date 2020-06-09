@@ -79,6 +79,7 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(255,0,0));
 
+
         if(FizikalniPregledWindow.getInstance().getPritisakG() == null || FizikalniPregledWindow.getInstance().getPritisakG().getText().equals("") ||
                 FizikalniPregledWindow.getInstance().getPritisakD() == null || FizikalniPregledWindow.getInstance().getPritisakD().getText().equals("")){
             MainWindow.getInstance().getStatusLinija().setText("Popunite sva polja!");
