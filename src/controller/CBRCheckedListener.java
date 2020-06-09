@@ -25,11 +25,12 @@ public class CBRCheckedListener implements ActionListener {
         WelcomeWindow.getInstance().setVisible(false);
 
 
-//        App recommender = new App();
-//        try {
-//            System.out.println("-----");
-//            recommender.configure();
-//            recommender.preCycle();
+        App recommender = new App();
+        try {
+            System.out.println("-----");
+            recommender.configure();
+            recommender.preCycle();
+
 //            CBRQuery query = new CBRQuery();
 //            Pacijent pacijent = new Pacijent();
 //            pacijent.setPol(PolEnum.M);
@@ -57,11 +58,11 @@ public class CBRCheckedListener implements ActionListener {
 //            query.setDescription( pacijent );
 //            recommender.cycle(query);
 //            recommender.postCycle();
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//
-//
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 }
