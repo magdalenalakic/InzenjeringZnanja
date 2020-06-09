@@ -13,10 +13,15 @@ import main.TerapijaApp;
 import model.*;
 import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
+//import javax.management.Query;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.Integer;
 import java.util.*;
 import java.util.List;
@@ -60,8 +65,8 @@ public class MainWindow extends JFrame {
     private ArrayList<Dijagnoze> dijagnoze = new ArrayList<>();
     private ArrayList<DodatnaIspitivanjaEnum> dodatnaIspitivanja = new ArrayList<>();
     private  JPanel panCenter;
+    private BufferedImage image;
 
-//    private List<>
 
     private JLabel statusLinija;
     private JLabel trudnoca;
@@ -82,7 +87,13 @@ public class MainWindow extends JFrame {
         engine.consultFile("prolog/projekat.pl");
     }
 
-    public void initialise(){
+    public void initialise()  {
+
+        try {
+            image = ImageIO.read(new File("images/download.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         setSize(1000, 700);
         JLabel title = new JLabel("Aplikacija za pomoc pri dijagnostici i predlaganju ispitivanja i terapija");
@@ -150,35 +161,13 @@ public class MainWindow extends JFrame {
         panTop.add(title);
         add(panTop, BorderLayout.NORTH);
 
-
-//        JPanel panTop = new JPanel();
-//        panTop.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel licence = new JLabel("Izaberi Pacijenta");
-        licence.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 18));
-//        panTop.add(licence);
-        JPanel panPacijenti = new JPanel();
-
-
-//        ArrayList<String> pacijenti = new ArrayList<String>();
-//        pacijenti.add("Milan");
-//        pacijenti.add("Milica");
-//        pacijenti.add("Petar");
-
-
-        ArrayList<String> simptomi = new ArrayList<String>();
-//        simptomi.add("otezano disanje");
-//        simptomi.add("bol u grudima");
-        listaSimptoma = new JList(simptomi.toArray());
-        listaSimptoma.setSize(100,20);
-        listaSimptoma.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//        panPacijenti.add(cbPacijenti);
         panCenter = new JPanel();
         JPanel panCenter = new JPanel();
-
 
         boxCentar = Box.createVerticalBox();
         boxCentar.add(Box.createVerticalStrut(20));
         boxCentar.add(Box.createGlue());
+
         panCenter.add(boxCentar);
 
         add(panCenter, BorderLayout.CENTER);
@@ -452,6 +441,7 @@ public class MainWindow extends JFrame {
 
         boxCentar.removeAll();
         boxRight.removeAll();
+        pacijenti = new ArrayList<>();
 
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
@@ -680,20 +670,25 @@ public class MainWindow extends JFrame {
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
+        System.out.println("DODAJ CBR");
+        System.out.println(niz);
 
         return niz;
     }
 
     public ArrayList<String> dodajPacijenteRB(){
-        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
+//        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
         ArrayList<String> niz = new ArrayList<String>();
-        JIPTerm solution;
-        while ( (solution = query.nextSolution()) != null  ) {
-            for (JIPVariable var: solution.getVariables()) {
-                niz.add(var.getValue().toString());
-            }
+//        JIPTerm solution;
+//        while ( (solution = query.nextSolution()) != null  ) {
+//            for (JIPVariable var: solution.getVariables()) {
+//                niz.add(var.getValue().toString());
+//            }
+//        }
+        for(Pacijent p: WelcomeWindow.getInstance().getListaPacijenata()){
+            niz.add(p.getIme());
         }
-        ucitajPrologFile();
+//        ucitajPrologFile();
         return niz;
     }
 
@@ -1101,6 +1096,9 @@ public class MainWindow extends JFrame {
     public void zapocniPregledView(){
         boxCentar.removeAll();
         boxRight.removeAll();
+        pacijenti = new ArrayList<>();
+        System.out.println("PACIJeNTI:::");
+        System.out.println(pacijenti);
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
         }else{
@@ -1111,6 +1109,7 @@ public class MainWindow extends JFrame {
         JPanel pan1 = new JPanel();
         pan1.setLayout(new FlowLayout());
         cbPacijenti = new JComboBox();
+        cbPacijenti.removeAllItems();
         cbPacijenti.setPreferredSize(new Dimension(150,20));
         for( String ime: pacijenti) {
             cbPacijenti.addItem(ime);

@@ -2,6 +2,7 @@ package view;
 
 import controller.PredloziDijagnozuListener;
 import controller.PredloziDodatnaIspitivanjaListener;
+import model.DodatnaIspitivanjaEnum;
 import model.PorodicneBolesti;
 import model.Simptomi;
 
@@ -9,12 +10,40 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class UnesiRezDIWindow  extends JFrame {
 
     private static UnesiRezDIWindow instance = null;
     private JButton next;
     private JButton cancel;
+    private ArrayList<DodatnaIspitivanjaEnum> unetiRezDI = new ArrayList<DodatnaIspitivanjaEnum>();
+    private JTextField rezNivoSecera;
+    private JTextField rezNivoHol;
+    private JTextField rezNivoTrig;
+    private JRadioButton uredan;
+    private JRadioButton nijeUredan;
+    private JRadioButton neodredjen;
+    private JRadioButton ubrzan;
+    private JRadioButton usporen;
+    private JRadioButton normalan;
+    private JRadioButton uredanEh;
+    private JRadioButton nijeUredanEh;
+    private JRadioButton niskaOpt;
+    private JRadioButton visokaOpt;
+    private JRadioButton pozitivno;
+    private JRadioButton negativno;
+    private JRadioButton uredanRend;
+    private JRadioButton nijeUredanRend;
+    private JRadioButton uredanCT;
+    private JRadioButton nijeUredanCT;
+    private JRadioButton povisen;
+    private JRadioButton snizen;
+    private JRadioButton prisutno;
+    private JRadioButton nijePr;
+    private JRadioButton normalanST;
+    private JRadioButton nijeNorST;
+
 
 
     public static UnesiRezDIWindow getInstance() {
@@ -35,6 +64,8 @@ public class UnesiRezDIWindow  extends JFrame {
 
     public void init() {
 
+        MainWindow.getInstance().getStatusLinija().setText("");
+
         MainWindow.getInstance().getBoxCentar().removeAll();
         MainWindow.getInstance().getBoxRight().removeAll();
 
@@ -46,116 +77,209 @@ public class UnesiRezDIWindow  extends JFrame {
 
         JPanel panelNivoSec = new JPanel(new FlowLayout());
         Label nivoSecera =  new Label("     nivo secera:");
-        JTextField rezNivoSecera = new JTextField();
+        rezNivoSecera = new JTextField();
         rezNivoSecera.setPreferredSize(new Dimension(50,30));
 
         JPanel panelNivoHol = new JPanel(new FlowLayout());
         Label nivoHol = new Label("nivo holesterola:");
-        JTextField rezNivoHol = new JTextField();
+        rezNivoHol = new JTextField();
         rezNivoHol.setPreferredSize(new Dimension(50,30));
 
         JPanel panelNivoTrig = new JPanel(new FlowLayout());
         Label nivoTrig = new Label("nivo triglicerida:");
-        JTextField rezNivoTrig = new JTextField();
+        rezNivoTrig = new JTextField();
         rezNivoTrig.setPreferredSize(new Dimension(50,30));
 
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.analizaKrvi)){
+
+            analizaKrvi.setEnabled(false);
+            nivoSecera.setEnabled(false);
+            nivoHol.setEnabled(false);
+            nivoTrig.setEnabled(false);
+            rezNivoSecera.setEnabled(false);
+            rezNivoHol.setEnabled(false);
+            rezNivoTrig.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.analizaKrvi);
+        }
+
         Label ekg = new Label("         Ekg");
+
 
         JPanel panelNalaz = new JPanel(new FlowLayout());
         JLabel nalaz =  new JLabel("nalaz:");
         ButtonGroup nalazBGroup = new ButtonGroup();
-        JRadioButton uredan = new JRadioButton("uredan");
-        JRadioButton nijeUredan = new JRadioButton("nije uredan");
-        JRadioButton neodredjen = new JRadioButton("neodredjen");
+        uredan = new JRadioButton("uredan");
+        neodredjen = new JRadioButton("neodredjen");
+        nijeUredan = new JRadioButton("nije uredan");
         nalazBGroup.add(uredan);
         nalazBGroup.add(nijeUredan);
         nalazBGroup.add(neodredjen);
 
+
         JPanel panelRitam = new JPanel(new FlowLayout());
         JLabel ritam =  new JLabel("ritam:");
         ButtonGroup ritamBGroup = new ButtonGroup();
-        JRadioButton ubrzan = new JRadioButton("ubrzan");
-        JRadioButton usporen = new JRadioButton("usporen");
-        JRadioButton normalan = new JRadioButton("normalan");
+        ubrzan = new JRadioButton("ubrzan");
+        usporen = new JRadioButton("usporen");
+        normalan = new JRadioButton("normalan");
         ritamBGroup.add(ubrzan);
         ritamBGroup.add(usporen);
         ritamBGroup.add(normalan);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ekg)){
+
+            ekg.setEnabled(false);
+            nalaz.setEnabled(false);
+            ritam.setEnabled(false);
+            uredan.setEnabled(false);
+            nijeUredan.setEnabled(false);
+            neodredjen.setEnabled(false);
+            ubrzan.setEnabled(false);
+            usporen.setEnabled(false);
+            normalan.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ekg);
+        }
 
         Label ehokardiografija = new Label("Ehokardiografija");
 
         JPanel panelNalazEh = new JPanel(new FlowLayout());
         JLabel nalazEh =  new JLabel("nalaz:");
         ButtonGroup nalazEhBGroup = new ButtonGroup();
-        JRadioButton uredanEh = new JRadioButton("uredan");
-        JRadioButton nijeUredanEh = new JRadioButton("nije uredan");
+        uredanEh = new JRadioButton("uredan");
+        nijeUredanEh = new JRadioButton("nije uredan");
         nalazEhBGroup.add(uredanEh);
         nalazEhBGroup.add(nijeUredanEh);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ehokardiografija)){
+
+            ehokardiografija.setEnabled(false);
+            nalazEh.setEnabled(false);
+            uredanEh.setEnabled(false);
+            nijeUredanEh.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ehokardiografija);
+        }
 
         Label ergometrija = new Label("        Ergometrija");
 
         JPanel panelNalazErg = new JPanel(new FlowLayout());
 //        JLabel opterecenja =  new JLabel("podnosi:");
         ButtonGroup podnosiBGroup = new ButtonGroup();
-        JRadioButton niskaOpt = new JRadioButton("niska opterecenja");
-        JRadioButton visokaOpt = new JRadioButton("visoka opterecenja");
+        niskaOpt = new JRadioButton("niska opterecenja");
+        visokaOpt = new JRadioButton("visoka opterecenja");
         podnosiBGroup.add(niskaOpt);
         podnosiBGroup.add(visokaOpt);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ergometrija)){
+
+            ergometrija.setEnabled(false);
+            niskaOpt.setEnabled(false);
+            visokaOpt.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ergometrija);
+        }
 
         Label koronarnaA = new Label("Koronarna angiografija");
 
         JPanel panelKA = new JPanel(new FlowLayout());
         ButtonGroup kaBGroup = new ButtonGroup();
-        JRadioButton pozitivno = new JRadioButton("pozitivno");
-        JRadioButton negativno = new JRadioButton("negativno");
+        pozitivno = new JRadioButton("pozitivno");
+        negativno = new JRadioButton("negativno");
         kaBGroup.add(pozitivno);
         kaBGroup.add(negativno);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.koronarnaAngiografija)){
+
+            koronarnaA.setEnabled(false);
+            pozitivno.setEnabled(false);
+            negativno.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.koronarnaAngiografija);
+        }
 
         Label rendgen = new Label("Rendgen");
 
         JPanel panelR = new JPanel(new FlowLayout());
         ButtonGroup rBGroup = new ButtonGroup();
-        JRadioButton uredanRend = new JRadioButton("uredan");
-        JRadioButton nijeUredanRend = new JRadioButton("nije uredan");
+        uredanRend = new JRadioButton("uredan");
+        nijeUredanRend = new JRadioButton("nije uredan");
         rBGroup.add(uredanRend);
         rBGroup.add(nijeUredanRend);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.rendgen)){
+
+            rendgen.setEnabled(false);
+            uredanRend.setEnabled(false);
+            nijeUredanRend.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.rendgen);
+        }
 
         Label ct = new Label("CT");
 
         JPanel panelCT = new JPanel(new FlowLayout());
         ButtonGroup ctBGroup = new ButtonGroup();
-        JRadioButton uredanCT = new JRadioButton("uredan");
-        JRadioButton nijeUredanCT = new JRadioButton("nije uredan");
+        uredanCT = new JRadioButton("uredan");
+        nijeUredanCT = new JRadioButton("nije uredan");
         ctBGroup.add(uredanCT);
         ctBGroup.add(nijeUredanCT);
+
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ct)){
+
+            ct.setEnabled(false);
+            uredanCT.setEnabled(false);
+            nijeUredanCT.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ct);
+        }
+
 
         Label holter24 = new Label("        Holter24");
 
         JPanel panelFrek = new JPanel(new FlowLayout());
         JLabel srcanaFrekvencija =  new JLabel("Srcana frekvencija:");
         ButtonGroup frekvBGroup = new ButtonGroup();
-        JRadioButton povisen = new JRadioButton("povisen");
-        JRadioButton snizen = new JRadioButton("snizen");
+        povisen = new JRadioButton("povisen");
+        snizen = new JRadioButton("snizen");
         frekvBGroup.add(povisen);
         frekvBGroup.add(snizen);
 
         JPanel panelPoremecajRitma = new JPanel(new FlowLayout());
         JLabel poremecajRitma =  new JLabel("Poremecaj ritma:");
         ButtonGroup porRitBGroup = new ButtonGroup();
-        JRadioButton prisutno = new JRadioButton("prisutno");
-        JRadioButton nijePr = new JRadioButton("nije prisutno");
+        prisutno = new JRadioButton("prisutno");
+        nijePr = new JRadioButton("nije prisutno");
         porRitBGroup.add(prisutno);
         porRitBGroup.add(nijePr);
 
         JPanel panelST = new JPanel(new FlowLayout());
         JLabel st =  new JLabel("ST segment:");
         ButtonGroup stBGroup = new ButtonGroup();
-        JRadioButton normalanST = new JRadioButton("normalan");
-        JRadioButton nijeNorST = new JRadioButton("nije normalan");
+        normalanST = new JRadioButton("normalan");
+        nijeNorST = new JRadioButton("nije normalan");
         stBGroup.add(normalanST);
         stBGroup.add(nijeNorST);
 
+        if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.holter24)){
 
-        // -------------------------------------------
+            holter24.setEnabled(false);
+            srcanaFrekvencija.setEnabled(false);
+            poremecajRitma.setEnabled(false);
+            st.setEnabled(false);
+            povisen.setEnabled(false);
+            snizen.setEnabled(false);
+            prisutno.setEnabled(false);
+            nijePr.setEnabled(false);
+            normalanST.setEnabled(false);
+            nijeNorST.setEnabled(false);
+        }else{
+            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.holter24);
+        }
+
+
+
 
         MainWindow.getInstance().getBoxCentar().revalidate();
         MainWindow.getInstance().getBoxCentar().repaint();
@@ -252,4 +376,227 @@ public class UnesiRezDIWindow  extends JFrame {
 
     }
 
+    public ArrayList<DodatnaIspitivanjaEnum> getUnetiRezDI() {
+        return unetiRezDI;
+    }
+
+    public void setUnetiRezDI(ArrayList<DodatnaIspitivanjaEnum> unetiRezDI) {
+        this.unetiRezDI = unetiRezDI;
+    }
+
+    public JButton getNext() {
+        return next;
+    }
+
+    public void setNext(JButton next) {
+        this.next = next;
+    }
+
+    public JButton getCancel() {
+        return cancel;
+    }
+
+    public void setCancel(JButton cancel) {
+        this.cancel = cancel;
+    }
+
+    public JTextField getRezNivoSecera() {
+        return rezNivoSecera;
+    }
+
+    public void setRezNivoSecera(JTextField rezNivoSecera) {
+        this.rezNivoSecera = rezNivoSecera;
+    }
+
+    public JTextField getRezNivoHol() {
+        return rezNivoHol;
+    }
+
+    public void setRezNivoHol(JTextField rezNivoHol) {
+        this.rezNivoHol = rezNivoHol;
+    }
+
+    public JTextField getRezNivoTrig() {
+        return rezNivoTrig;
+    }
+
+    public void setRezNivoTrig(JTextField rezNivoTrig) {
+        this.rezNivoTrig = rezNivoTrig;
+    }
+
+    public JRadioButton getUredan() {
+        return uredan;
+    }
+
+    public void setUredan(JRadioButton uredan) {
+        this.uredan = uredan;
+    }
+
+    public JRadioButton getNijeUredan() {
+        return nijeUredan;
+    }
+
+    public void setNijeUredan(JRadioButton nijeUredan) {
+        this.nijeUredan = nijeUredan;
+    }
+
+    public JRadioButton getNeodredjen() {
+        return neodredjen;
+    }
+
+    public void setNeodredjen(JRadioButton neodredjen) {
+        this.neodredjen = neodredjen;
+    }
+
+    public JRadioButton getUbrzan() {
+        return ubrzan;
+    }
+
+    public void setUbrzan(JRadioButton ubrzan) {
+        this.ubrzan = ubrzan;
+    }
+
+    public JRadioButton getUsporen() {
+        return usporen;
+    }
+
+    public void setUsporen(JRadioButton usporen) {
+        this.usporen = usporen;
+    }
+
+    public JRadioButton getNormalan() {
+        return normalan;
+    }
+
+    public void setNormalan(JRadioButton normalan) {
+        this.normalan = normalan;
+    }
+
+    public JRadioButton getUredanEh() {
+        return uredanEh;
+    }
+
+    public void setUredanEh(JRadioButton uredanEh) {
+        this.uredanEh = uredanEh;
+    }
+
+    public JRadioButton getNijeUredanEh() {
+        return nijeUredanEh;
+    }
+
+    public void setNijeUredanEh(JRadioButton nijeUredanEh) {
+        this.nijeUredanEh = nijeUredanEh;
+    }
+
+    public JRadioButton getNiskaOpt() {
+        return niskaOpt;
+    }
+
+    public void setNiskaOpt(JRadioButton niskaOpt) {
+        this.niskaOpt = niskaOpt;
+    }
+
+    public JRadioButton getVisokaOpt() {
+        return visokaOpt;
+    }
+
+    public void setVisokaOpt(JRadioButton visokaOpt) {
+        this.visokaOpt = visokaOpt;
+    }
+
+    public JRadioButton getPozitivno() {
+        return pozitivno;
+    }
+
+    public void setPozitivno(JRadioButton pozitivno) {
+        this.pozitivno = pozitivno;
+    }
+
+    public JRadioButton getNegativno() {
+        return negativno;
+    }
+
+    public void setNegativno(JRadioButton negativno) {
+        this.negativno = negativno;
+    }
+
+    public JRadioButton getUredanRend() {
+        return uredanRend;
+    }
+
+    public void setUredanRend(JRadioButton uredanRend) {
+        this.uredanRend = uredanRend;
+    }
+
+    public JRadioButton getNijeUredanRend() {
+        return nijeUredanRend;
+    }
+
+    public void setNijeUredanRend(JRadioButton nijeUredanRend) {
+        this.nijeUredanRend = nijeUredanRend;
+    }
+
+    public JRadioButton getUredanCT() {
+        return uredanCT;
+    }
+
+    public void setUredanCT(JRadioButton uredanCT) {
+        this.uredanCT = uredanCT;
+    }
+
+    public JRadioButton getNijeUredanCT() {
+        return nijeUredanCT;
+    }
+
+    public void setNijeUredanCT(JRadioButton nijeUredanCT) {
+        this.nijeUredanCT = nijeUredanCT;
+    }
+
+    public JRadioButton getPovisen() {
+        return povisen;
+    }
+
+    public void setPovisen(JRadioButton povisen) {
+        this.povisen = povisen;
+    }
+
+    public JRadioButton getSnizen() {
+        return snizen;
+    }
+
+    public void setSnizen(JRadioButton snizen) {
+        this.snizen = snizen;
+    }
+
+    public JRadioButton getPrisutno() {
+        return prisutno;
+    }
+
+    public void setPrisutno(JRadioButton prisutno) {
+        this.prisutno = prisutno;
+    }
+
+    public JRadioButton getNijePr() {
+        return nijePr;
+    }
+
+    public void setNijePr(JRadioButton nijePr) {
+        this.nijePr = nijePr;
+    }
+
+    public JRadioButton getNormalanST() {
+        return normalanST;
+    }
+
+    public void setNormalanST(JRadioButton normalanST) {
+        this.normalanST = normalanST;
+    }
+
+    public JRadioButton getNijeNorST() {
+        return nijeNorST;
+    }
+
+    public void setNijeNorST(JRadioButton nijeNorST) {
+        this.nijeNorST = nijeNorST;
+    }
 }
