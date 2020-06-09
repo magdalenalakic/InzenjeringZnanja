@@ -17,9 +17,13 @@ public class PredloziDijagnozuListener implements ActionListener {
         System.out.println("+++++++++++++++");
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
 
+
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(255,0,0));
 
         UnesiRezDIWindow udi = UnesiRezDIWindow.getInstance();
+        System.out.println("+++++++++++++++unetirez");
+        System.out.println(udi.getUnetiRezDI());
+
 
         // -------------------------------------------
 

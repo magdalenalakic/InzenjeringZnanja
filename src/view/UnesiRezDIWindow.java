@@ -100,7 +100,9 @@ public class UnesiRezDIWindow  extends JFrame {
             rezNivoHol.setEnabled(false);
             rezNivoTrig.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.analizaKrvi);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.analizaKrvi) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.analizaKrvi))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.analizaKrvi);
         }
 
         Label ekg = new Label("         Ekg");
@@ -139,7 +141,9 @@ public class UnesiRezDIWindow  extends JFrame {
             usporen.setEnabled(false);
             normalan.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ekg);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ekg) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.ekg))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ekg);
         }
 
         Label ehokardiografija = new Label("Ehokardiografija");
@@ -159,7 +163,9 @@ public class UnesiRezDIWindow  extends JFrame {
             uredanEh.setEnabled(false);
             nijeUredanEh.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ehokardiografija);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ehokardiografija) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.ehokardiografija))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ehokardiografija);
         }
 
         Label ergometrija = new Label("        Ergometrija");
@@ -178,7 +184,9 @@ public class UnesiRezDIWindow  extends JFrame {
             niskaOpt.setEnabled(false);
             visokaOpt.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ergometrija);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ergometrija) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.ergometrija))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ergometrija);
         }
 
         Label koronarnaA = new Label("Koronarna angiografija");
@@ -196,7 +204,9 @@ public class UnesiRezDIWindow  extends JFrame {
             pozitivno.setEnabled(false);
             negativno.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.koronarnaAngiografija);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.koronarnaAngiografija) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.koronarnaAngiografija))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.koronarnaAngiografija);
         }
 
         Label rendgen = new Label("Rendgen");
@@ -214,7 +224,9 @@ public class UnesiRezDIWindow  extends JFrame {
             uredanRend.setEnabled(false);
             nijeUredanRend.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.rendgen);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.rendgen) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.rendgen))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.rendgen);
         }
 
         Label ct = new Label("CT");
@@ -232,7 +244,9 @@ public class UnesiRezDIWindow  extends JFrame {
             uredanCT.setEnabled(false);
             nijeUredanCT.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ct);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.ct) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.ct))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.ct);
         }
 
 
@@ -275,7 +289,9 @@ public class UnesiRezDIWindow  extends JFrame {
             normalanST.setEnabled(false);
             nijeNorST.setEnabled(false);
         }else{
-            instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.holter24);
+            if(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DodatnaIspitivanjaEnum.holter24) &&
+                    !instance.getUnetiRezDI().contains(DodatnaIspitivanjaEnum.holter24))
+                instance.getUnetiRezDI().add(DodatnaIspitivanjaEnum.holter24);
         }
 
 

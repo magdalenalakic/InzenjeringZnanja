@@ -228,7 +228,7 @@ public class MainWindow extends JFrame {
         panLeft.add(dodaj);
         panLeft.add(izmeni);
         panLeft.add(zapocni);
-        panLeft.add(cuvanje);
+//        panLeft.add(cuvanje);
 
         add(panLeft, BorderLayout.WEST);
 
@@ -485,6 +485,7 @@ public class MainWindow extends JFrame {
         for(Pacijent pacijent:WelcomeWindow.getInstance().getListaPacijenata()){
             if(pacijent.getIme().equals(String.valueOf(MainWindow.getInstance().getCbPacijenti().getSelectedItem()))){
                 trenutnoAktivanPacijent = pacijent;
+
             }
         }
 
@@ -1105,6 +1106,7 @@ public class MainWindow extends JFrame {
         for(Pacijent pacijent:WelcomeWindow.getInstance().getListaPacijenata()){
             if(pacijent.getIme().equals(String.valueOf(MainWindow.getInstance().getCbPacijenti().getSelectedItem()))){
                 trenutnoAktivanPacijent = pacijent;
+                UnesiRezDIWindow.getInstance().setUnetiRezDI(new ArrayList<>());
             }
         }
         JLabel imeP = new JLabel(trenutnoAktivanPacijent.getIme());
