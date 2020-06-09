@@ -20,8 +20,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.Integer;
 import java.util.*;
 import java.util.List;
@@ -1052,6 +1051,25 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
+        //DODATNA ISPITIVANJA
+        String temp = "dodatnoIspitivanje(listaSimptoma(slavica,[mucnina, vrtoglavica, otezanoDisanje, malaksalost, zamucenjeVida, hladnoZnojenje]), Y)";
+
+        System.out.println(temp);
+
+        JIPQuery primQueru = engine.openSynchronousQuery(temp);
+        JIPTerm primSolution;
+
+        while ( (primSolution = primQueru.nextSolution()) != null  ) {
+            JIPVariable dodatnoIspitivanje = primSolution.getVariables()[0];
+            System.out.println("--------------------");
+            System.out.println(dodatnoIspitivanje.getValue().toString());
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+        }
+//        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
+
+
+
         //TERAPIJE
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
 
@@ -1087,6 +1105,76 @@ public class MainWindow extends JFrame {
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
         }
+        try {
+            upisiUPrologFile("rezErgometrija(petar", "rezErgometrija(petar, niskaOpterecenja).");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void upisiUPrologFile(String provera, String linija) throws IOException {
+        System.out.println("------------- CITANJE -----------------");
+        List<String> prologFajl = new ArrayList<>();
+        try{
+            File file=new File("prolog/projekat.pl");
+            FileReader fr=new FileReader(file);
+            BufferedReader br=new BufferedReader(fr);
+            String line;
+            while((line=br.readLine())!=null)
+            {
+//                System.out.println(line);
+                prologFajl.add(line);
+            }
+            fr.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        System.out.println("------------------------------");
+        System.out.println("prologfile : " + prologFajl);
+
+        System.out.println("---------------- PISANJE --------------");
+        Boolean flag = false;
+        int izmena = -1;
+        for(int i = 0 ; i < prologFajl.size(); i++){
+            if(prologFajl.get(i).contains(provera)){
+                System.out.println("vec ima");
+                flag = true;
+                izmena = i;
+            }
+        }
+        if(izmena != -1){
+            prologFajl.set(izmena, linija);
+        }
+
+        if(flag == true){
+            try {
+                FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl");
+                System.out.println("izmena");
+                for(int i = 0; i < prologFajl.size(); i++){
+                    if(i == prologFajl.size()-1){
+                        exampleFileWriter.append(prologFajl.get(i) );
+                    }else{
+                        exampleFileWriter.append(prologFajl.get(i) + "\n" );
+                    }
+
+                }
+                exampleFileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl", true);
+                System.out.println("upis");
+                exampleFileWriter.append("\n" +linija);
+                exampleFileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
     }
 

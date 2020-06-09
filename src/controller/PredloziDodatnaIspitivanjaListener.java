@@ -68,7 +68,8 @@ public class PredloziDodatnaIspitivanjaListener implements ActionListener {
 
         while ( (solution = query.nextSolution()) != null  ) {
             JIPVariable dodatnoIspitivanje = solution.getVariables()[0];
-//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+            System.out.println(dodatnoIspitivanje.getValue().toString());
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
         }
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
