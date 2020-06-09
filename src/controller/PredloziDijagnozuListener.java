@@ -5,10 +5,13 @@ import sun.applet.Main;
 import view.FizikalniPregledWindow;
 import view.MainWindow;
 import view.UnesiRezDIWindow;
+import view.WelcomeWindow;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
 public class PredloziDijagnozuListener implements ActionListener {
     @Override
@@ -98,32 +101,105 @@ public class PredloziDijagnozuListener implements ActionListener {
 
         for(DodatnaIspitivanjaEnum di: udi.getUnetiRezDI()){
             if(di.equals(DodatnaIspitivanjaEnum.analizaKrvi)){
-
+                List<String> lista = new ArrayList<>();
+                lista.add(UnesiRezDIWindow.getInstance().getRezNivoSecera().getText());
+                lista.add(UnesiRezDIWindow.getInstance().getRezNivoHol().getText());
+                lista.add(UnesiRezDIWindow.getInstance().getRezNivoTrig().getText());
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, lista);
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ekg)){
 
+                List<String> lista = new ArrayList<>();
+                if(udi.getUredan().isSelected()){
+                    lista.add("uredan");
+                }else if(udi.getNeodredjen().isSelected()){
+                    lista.add("neodredjen");
+                }else{
+                    lista.add("nijeUredan");
+                }
+
+                if(udi.getUbrzan().isSelected()){
+                    lista.add("ubrzan");
+                }else if(udi.getUsporen().isSelected()){
+                    lista.add("usporen");
+                }else{
+                    lista.add("normalan");
+                }
+
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, lista);
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ehokardiografija)){
-
+                List<String> lista = new ArrayList<>();
+                if(udi.getUredanEh().isSelected()){
+                    lista.add("uredan");
+                }else {
+                    lista.add("nijeUredan");
+                }
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, lista);
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ergometrija)){
-
+                List<String> lista = new ArrayList<>();
+                if(udi.getNiskaOpt().isSelected()){
+                    lista.add("niskaOpterecenja");
+                }else {
+                    lista.add("visokaOpterecenja");
+                }
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, lista);
 
             }else if(di.equals(DodatnaIspitivanjaEnum.koronarnaAngiografija)){
-
+                List<String> lista = new ArrayList<>();
+                if(udi.getPozitivno().isSelected()){
+                    lista.add("pozitivno");
+                }else {
+                    lista.add("negativno");
+                }
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, lista);
 
             }else if(di.equals(DodatnaIspitivanjaEnum.rendgen)){
+                List<String> lista = new ArrayList<>();
+                if(udi.getUredanRend().isSelected()){
+                    lista.add("uredan");
+                }else {
+                    lista.add("nijeUredan");
+                }
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, lista);
 
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ct)){
+                List<String> lista = new ArrayList<>();
+                if(udi.getUredanCT().isSelected()){
+                    lista.add("uredan");
+                }else {
+                    lista.add("nijeUredan");
+                }
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, lista);
 
 
             }else if(di.equals(DodatnaIspitivanjaEnum.holter24)){
+                List<String> lista = new ArrayList<>();
+                if(udi.getPovisen().isSelected()){
+                    lista.add("povisen");
+                }else {
+                    lista.add("snizen");
+                }
 
+                if(udi.getPrisutno().isSelected()){
+                    lista.add("prisutno");
+                }else {
+                    lista.add("nijePrisutno");
+                }
+                if(udi.getNormalanST().isSelected()){
+                    lista.add("normalan");
+                }else {
+                    lista.add("nijeNormalan");
+                }
+
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, lista);
 
             }
         }
-
+        System.out.println("DODATNA ISPITIVANJAA");
+        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja());
 
 
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));

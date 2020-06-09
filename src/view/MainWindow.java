@@ -1046,9 +1046,6 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-
-
-
         //TERAPIJE
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
 
