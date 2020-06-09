@@ -24,6 +24,8 @@ import java.util.List;
 
 public class UnesiRezDIListener implements ActionListener {
 
+    private JIPEngine engine = new JIPEngine();
+
     public void dijagnozaCBR(){
         DijagnozeApp dia = new DijagnozeApp();
 
@@ -46,6 +48,7 @@ public class UnesiRezDIListener implements ActionListener {
 
 
     public void dijagnozaRB(){
+        engine.consultFile("prolog/projekat.pl");
         JIPEngine engine = new JIPEngine();
         engine.consultFile("prolog/projekat.pl");
 
@@ -57,8 +60,10 @@ public class UnesiRezDIListener implements ActionListener {
         MainWindow.getInstance().setDijagnoze(new ArrayList<>());
         System.out.println("dijagnoze predlozeneeee");
         while ( (solution = query.nextSolution()) != null  ) {
-
             System.out.println(solution.getVariables()[0]);
+
+            engine.consultFile("prolog/projekat.pl");
+
             JIPVariable dijagnoza = solution.getVariables()[0];
             System.out.println(dijagnoza.getValue().toString());
             MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
