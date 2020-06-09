@@ -14,6 +14,8 @@ import java.util.List;
 
 public class PredloziTerapijuListener implements ActionListener {
 
+    private JIPEngine engine = new JIPEngine();
+
     public void predloziTerapijuCBR(){
         TerapijaApp dia = new TerapijaApp();
 
@@ -36,6 +38,8 @@ public class PredloziTerapijuListener implements ActionListener {
 
 
     public void predloziTerapijuRB(){
+
+        engine.consultFile("prolog/projekat.pl");
         JIPEngine engine = new JIPEngine();
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
         String dijagnoza = PredloziDijagnozuWindow.getInstance().getDijagnoze().getSelectedItem().toString();
