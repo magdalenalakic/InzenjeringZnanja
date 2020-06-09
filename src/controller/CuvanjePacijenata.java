@@ -328,25 +328,27 @@ public class CuvanjePacijenata extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        File f = new File("database/pacijenti.txt");
-//        System.out.println(f.getAbsolutePath());
-        try{
-            FileOutputStream fileOutputStream = new FileOutputStream(f);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(WelcomeWindow.getInstance().getListaPacijenata());
-            objectOutputStream.close();
-            System.out.println("sacuvana lista pacijenata");
-
-        } catch (FileNotFoundException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
         this.cuvanjeDijagnozaCSV();
         this.cuvanjeDodatnihIspitivanjaCSV();
         this.cuvanjeFizikalnihPregledaCSV();
         this.cuvanjeLekovaCSV();
+
+//        File f = new File("database/pacijenti.txt");
+////        System.out.println(f.getAbsolutePath());
+//        try{
+//            FileOutputStream fileOutputStream = new FileOutputStream(f);
+//            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+//            objectOutputStream.writeObject(WelcomeWindow.getInstance().getListaPacijenata());
+//            objectOutputStream.close();
+//            System.out.println("sacuvana lista pacijenata");
+//
+//        } catch (FileNotFoundException fileNotFoundException) {
+//            fileNotFoundException.printStackTrace();
+//
+//        } catch (IOException ioException) {
+//            ioException.printStackTrace();
+//        }
+
 
     }
 }
