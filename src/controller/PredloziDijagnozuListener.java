@@ -7,6 +7,7 @@ import view.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -102,15 +103,20 @@ public class PredloziDijagnozuListener implements ActionListener {
         }
 
         System.out.println("USPESNO//");
-
+        String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
         for(DodatnaIspitivanjaEnum di: udi.getUnetiRezDI()){
             if(di.equals(DodatnaIspitivanjaEnum.analizaKrvi)){
+
                 List<String> lista = new ArrayList<>();
                 lista.add(UnesiRezDIWindow.getInstance().getRezNivoSecera().getText());
                 lista.add(UnesiRezDIWindow.getInstance().getRezNivoHol().getText());
                 lista.add(UnesiRezDIWindow.getInstance().getRezNivoTrig().getText());
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, lista);
-
+                try {
+                    MainWindow.getInstance().upisiUPrologFile("rezAnalizeKrvi("+ pacijent, "rezAnalizeKrvi(" + pacijent +","+UnesiRezDIWindow.getInstance().getRezNivoSecera().getText() +","+UnesiRezDIWindow.getInstance().getRezNivoHol().getText()+","+UnesiRezDIWindow.getInstance().getRezNivoTrig().getText() +  ").");
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }else if(di.equals(DodatnaIspitivanjaEnum.ekg)){
 
                 List<String> lista = new ArrayList<>();
@@ -131,6 +137,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                 }
 
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, lista);
+                try {
+                    String izmena = "rezEkg(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezEkg("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ehokardiografija)){
                 List<String> lista = new ArrayList<>();
@@ -140,7 +160,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                     lista.add("nijeUredan");
                 }
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, lista);
-
+                try {
+                    String izmena = "rezEhokardiografije(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezEhokardiografije("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }else if(di.equals(DodatnaIspitivanjaEnum.ergometrija)){
                 List<String> lista = new ArrayList<>();
                 if(udi.getNiskaOpt().isSelected()){
@@ -149,7 +182,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                     lista.add("visokaOpterecenja");
                 }
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, lista);
-
+                try {
+                    String izmena = "rezErgometrija(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezErgometrija("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }else if(di.equals(DodatnaIspitivanjaEnum.koronarnaAngiografija)){
                 List<String> lista = new ArrayList<>();
                 if(udi.getPozitivno().isSelected()){
@@ -158,7 +204,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                     lista.add("negativno");
                 }
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, lista);
-
+                try {
+                    String izmena = "rezKA(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezKA("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }else if(di.equals(DodatnaIspitivanjaEnum.rendgen)){
                 List<String> lista = new ArrayList<>();
                 if(udi.getUredanRend().isSelected()){
@@ -167,7 +226,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                     lista.add("nijeUredan");
                 }
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, lista);
-
+                try {
+                    String izmena = "rezRendgen(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezRendgen("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
             }else if(di.equals(DodatnaIspitivanjaEnum.ct)){
                 List<String> lista = new ArrayList<>();
@@ -177,7 +249,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                     lista.add("nijeUredan");
                 }
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, lista);
-
+                try {
+                    String izmena = "rezCT(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezCT("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
 
             }else if(di.equals(DodatnaIspitivanjaEnum.holter24)){
                 List<String> lista = new ArrayList<>();
@@ -199,7 +284,20 @@ public class PredloziDijagnozuListener implements ActionListener {
                 }
 
                 MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, lista);
-
+                try {
+                    String izmena = "rezHolter24(" + pacijent +",";
+                    for(int i =0; i < lista.size(); i++){
+                        if(i == lista.size()-1){
+                            izmena+= lista.get(i);
+                        }else{
+                            izmena+= lista.get(i) + ",";
+                        }
+                    }
+                    izmena += ").";
+                    MainWindow.getInstance().upisiUPrologFile("rezHolter24("+ pacijent, izmena);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
         System.out.println("DODATNA ISPITIVANJAA");

@@ -50,19 +50,27 @@ public class UnesiRezDIListener implements ActionListener {
     public void dijagnozaRB(){
         engine.consultFile("prolog/projekat.pl");
         JIPEngine engine = new JIPEngine();
+        engine.consultFile("prolog/projekat.pl");
 
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
 
         String temp = "dijagnoza(" + pacijent + ", Y)";
         JIPQuery query = engine.openSynchronousQuery(temp);
         JIPTerm solution;
-
+        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
+        System.out.println("dijagnoze predlozeneeee");
         while ( (solution = query.nextSolution()) != null  ) {
+            System.out.println(solution.getVariables()[0]);
+
             engine.consultFile("prolog/projekat.pl");
+
             JIPVariable dijagnoza = solution.getVariables()[0];
             System.out.println(dijagnoza.getValue().toString());
-//            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
-            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().contains(Dijagnoze.valueOf(dijagnoza.getValue().toString()))){
+                MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            }
+
         }
         System.out.println(temp);
         System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza());

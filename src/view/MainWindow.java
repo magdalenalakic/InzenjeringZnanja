@@ -20,8 +20,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.Integer;
 import java.util.*;
 import java.util.List;
@@ -1053,10 +1052,91 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
+        String temp = "dijagnoza(petar, Y)";
+        JIPQuery mica = engine.openSynchronousQuery(temp);
+        JIPTerm gica;
+        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
+        System.out.println("dijagnoze predlozeneeee");
+        while ( (gica = mica.nextSolution()) != null  ) {
+
+
+            JIPVariable dijagnoza = gica.getVariables()[0];
+            System.out.println(dijagnoza.getValue().toString());
+
+
+//            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+        }
+
 
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
         }
+    }
+
+
+    public void upisiUPrologFile(String provera, String linija) throws IOException {
+        System.out.println("------------- CITANJE -----------------");
+        List<String> prologFajl = new ArrayList<>();
+        try{
+            File file=new File("prolog/projekat.pl");
+            FileReader fr=new FileReader(file);
+            BufferedReader br=new BufferedReader(fr);
+            String line;
+            while((line=br.readLine())!=null)
+            {
+//                System.out.println(line);
+                prologFajl.add(line);
+            }
+            fr.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        System.out.println("------------------------------");
+        System.out.println("prologfile : " + prologFajl);
+
+        System.out.println("---------------- PISANJE --------------");
+        Boolean flag = false;
+        int izmena = -1;
+        for(int i = 0 ; i < prologFajl.size(); i++){
+            if(prologFajl.get(i).contains(provera)){
+                System.out.println("vec ima");
+                flag = true;
+                izmena = i;
+            }
+        }
+        if(izmena != -1){
+            prologFajl.set(izmena, linija);
+        }
+
+        if(flag == true){
+            try {
+                FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl");
+                System.out.println("izmena");
+                for(int i = 0; i < prologFajl.size(); i++){
+                    if(i == prologFajl.size()-1){
+                        exampleFileWriter.append(prologFajl.get(i) );
+                    }else{
+                        exampleFileWriter.append(prologFajl.get(i) + "\n" );
+                    }
+
+                }
+                exampleFileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            try {
+                FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl", true);
+                System.out.println("upis");
+                exampleFileWriter.append("\n" +linija);
+                exampleFileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
     }
 

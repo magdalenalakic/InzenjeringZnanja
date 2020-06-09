@@ -58,11 +58,17 @@ public class PredloziTerapijuWindow  extends JFrame {
         pan1.setLayout(new BoxLayout(pan1, BoxLayout.Y_AXIS));
         Label labDijag = new Label("Dijagnoza:");
         pan1.add(labDijag);
-        for(Dijagnoze l: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza()){
-            System.out.println(l.toString());
-            lab = new JLabel(l.toString());
-            pan1.add(lab);
-        }
+
+//        for(Dijagnoze l: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza()){
+//            System.out.println(l.toString());
+//
+//
+//            lab = new JLabel(l.toString());
+//            pan1.add(lab);
+//        }
+        lab = new JLabel(PredloziDijagnozuWindow.getInstance().getDijagnoze().getSelectedItem().toString());
+        pan1.add(lab);
+
         MainWindow.getInstance().getBoxCentar().add(pan1);
 
         JPanel pan = new JPanel();
