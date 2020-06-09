@@ -274,7 +274,7 @@ public class MainWindow extends JFrame {
 
             }
         });
-        previous = new JButton("Prethodno");
+        previous = new JButton("Vrati se");
         previous.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
         previous.setPreferredSize(new Dimension(95, 25));
         previous.addActionListener(new ActionListener() {
@@ -1051,56 +1051,58 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-        //DODATNA ISPITIVANJA
-        String temp = "dodatnoIspitivanje(listaSimptoma(slavica,[mucnina, vrtoglavica, otezanoDisanje, malaksalost, zamucenjeVida, hladnoZnojenje]), Y)";
 
-        System.out.println(temp);
-
-        JIPQuery primQueru = engine.openSynchronousQuery(temp);
-        JIPTerm primSolution;
-
-        while ( (primSolution = primQueru.nextSolution()) != null  ) {
-            JIPVariable dodatnoIspitivanje = primSolution.getVariables()[0];
-            System.out.println("--------------------");
-            System.out.println(dodatnoIspitivanje.getValue().toString());
-//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
-        }
-//        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
-
-
-
-        //TERAPIJE
-        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
+//        //DODATNA ISPITIVANJA
+//        String temp = "dodatnoIspitivanje(listaSimptoma(slavica,[mucnina, vrtoglavica, otezanoDisanje, malaksalost, zamucenjeVida, hladnoZnojenje]), Y)";
+//
+//        System.out.println(temp);
+//
+//        JIPQuery primQueru = engine.openSynchronousQuery(temp);
+//        JIPTerm primSolution;
+//
+//        while ( (primSolution = primQueru.nextSolution()) != null  ) {
+//            JIPVariable dodatnoIspitivanje = primSolution.getVariables()[0];
+//            System.out.println("--------------------");
+//            System.out.println(dodatnoIspitivanje.getValue().toString());
+////            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaRezultataDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+////            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().add(DodatnaIspitivanjaEnum.valueOf(dodatnoIspitivanje.getValue().toString()));
+//        }
+////        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja());
 
 
-            String dijag = "terapija(" + p.getIme() +"," + "hipertenzija" + ",Y)";
-            System.out.println(dijag);
 
-            JIPQuery query24 = engine.openSynchronousQuery(dijag);
-            JIPTerm solution24;
-
-            while ( (solution24 = query24.nextSolution()) != null  ) {
-                JIPEngine engine = new JIPEngine();
-                JIPTermParser termParser = engine.getTermParser();
-
-
-                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
-                if(list.getHead() != null){
-                    p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    while(!list.getTail().toString().equals("[]")){
-                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
-                        p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    }
-                }
-
+//        //TERAPIJE
+//        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
 //
 //
+//            String dijag = "terapija(" + p.getIme() +"," + "hipertenzija" + ",Y)";
+//            System.out.println(dijag);
 //
-//                JIPVariable terapija = solution24.getVariables()[0];
-//                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
-            }
-        }
+//            JIPQuery query24 = engine.openSynchronousQuery(dijag);
+//            JIPTerm solution24;
+//
+//            while ( (solution24 = query24.nextSolution()) != null  ) {
+//                JIPEngine engine = new JIPEngine();
+//                JIPTermParser termParser = engine.getTermParser();
+//
+//
+//                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
+//                if(list.getHead() != null){
+//                    p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+//                    while(!list.getTail().toString().equals("[]")){
+//                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+//                        p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+//                    }
+//                }
+//
+////
+////
+////
+////                JIPVariable terapija = solution24.getVariables()[0];
+////                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
+//            }
+//        }
+
 
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
