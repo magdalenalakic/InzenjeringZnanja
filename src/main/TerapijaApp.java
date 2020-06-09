@@ -85,6 +85,7 @@ public class TerapijaApp implements StandardCBRApplication {
 
         }
         MainWindow.getInstance().setTerapija(predlozeniLekovi);
+        MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaLekova(predlozeniLekovi);
         System.out.println();
 
 

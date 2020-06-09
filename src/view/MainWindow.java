@@ -1052,37 +1052,6 @@ public class MainWindow extends JFrame {
         System.out.println("pacijentiii");
         WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
-        //TERAPIJE
-        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata() ){
-
-
-            String dijag = "terapija(" + p.getIme() +"," + "hipertenzija" + ",Y)";
-            System.out.println(dijag);
-
-            JIPQuery query24 = engine.openSynchronousQuery(dijag);
-            JIPTerm solution24;
-
-            while ( (solution24 = query24.nextSolution()) != null  ) {
-                JIPEngine engine = new JIPEngine();
-                JIPTermParser termParser = engine.getTermParser();
-
-
-                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
-                if(list.getHead() != null){
-                    p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    while(!list.getTail().toString().equals("[]")){
-                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
-                        p.getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    }
-                }
-
-//
-//
-//
-//                JIPVariable terapija = solution24.getVariables()[0];
-//                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
-            }
-        }
 
         for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
             System.out.println(p);
