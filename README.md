@@ -15,8 +15,8 @@ $ git clone https://github.com/magdalenalakic/InzenjeringZnanja
 ## Аутори
 
 * [Магдалена Лакић, РА 24/2016](https://github.com/magdalenalakic)
-* [Светлана Антешевић, RA 33/2016](https://github.com/SvetlanaAnt)
-* [Виолета Марић, RA 4/2016](https://github.com/violetamaric)
+* [Светлана Антешевић, РA 33/2016](https://github.com/SvetlanaAnt)
+* [Виолета Марић, РA 4/2016](https://github.com/violetamaric)
 
 
 
