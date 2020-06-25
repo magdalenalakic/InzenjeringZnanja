@@ -44,34 +44,28 @@ public class PredloziTerapijuListener implements ActionListener {
         engine.consultFile("prolog/projekat.pl");
         String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
         String dijagnoza = PredloziDijagnozuWindow.getInstance().getDijagnoze().getSelectedItem().toString();
-        //TERAPIJE
-
-
-
-            String dijag = "terapija(" + pacijent +"," + dijagnoza + ",Y)";
-            System.out.println(dijag);
-
-            JIPQuery query24 = engine.openSynchronousQuery(dijag);
-            JIPTerm solution24;
-
-            while ( (solution24 = query24.nextSolution()) != null  ) {
-                JIPTermParser termParser = engine.getTermParser();
-
-                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
-                if(list.getHead() != null){
-                    MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    while(!list.getTail().toString().equals("[]")){
-                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
-                        MainWindow.getInstance().getTerapija().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                        MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
-                    }
-                }
+//        //TERAPIJE
 //
+//            String dijag = "terapija(" + pacijent +"," + dijagnoza + ",Y)";
+//            System.out.println(dijag);
 //
+//            JIPQuery query24 = engine.openSynchronousQuery(dijag);
+//            JIPTerm solution24;
 //
-//                JIPVariable terapija = solution24.getVariables()[0];
-//                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
-            }
+//            while ( (solution24 = query24.nextSolution()) != null  ) {
+//                JIPTermParser termParser = engine.getTermParser();
+//
+//                JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution24.getVariables()[0]));
+//                if(list.getHead() != null){
+////                    MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+//                    while(!list.getTail().toString().equals("[]")){
+//                        list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
+//                        MainWindow.getInstance().getTerapija().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+////                        MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
+//                    }
+//                }
+//
+//            }
 
 
         System.out.println( MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova());
