@@ -3,6 +3,7 @@ package view;
 import controller.PredloziDodatnaIspitivanjaListener;
 import model.PorodicneBolesti;
 import model.Simptomi;
+import sun.applet.Main;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -45,7 +46,6 @@ public class FizikalniPregledWindow extends JFrame {
     JScrollPane scrollPane2;
 
     public void init() {
-
         MainWindow.getInstance().getBoxCentar().removeAll();
         MainWindow.getInstance().getBoxRight().removeAll();
         pp = new JPanel(new FlowLayout());

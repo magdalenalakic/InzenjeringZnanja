@@ -302,6 +302,11 @@ public class MainWindow extends JFrame {
     }
 
     public void dodajZdravstveniKartonView(){
+        if(instance.getStatusLinija().getText().equals("Pacijent uspesno izmenjen!") ||
+                instance.getStatusLinija().getText().equals("Podaci su sacuvani!") ||
+                instance.getStatusLinija().getText().equals("Rezultati ispitivanja uspesno sacuvani!")){
+            instance.getStatusLinija().setText("");
+        }
         imePacijenta = new JTextField();
         imePacijenta.setMaximumSize(new Dimension(400,30));
 
@@ -312,6 +317,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(instance.getPolM().isSelected()){
+                    instance.getTrudnocaNe().setSelected(true);
                     instance.getTrudnocaDa().setEnabled(false);
                     instance.getTrudnocaNe().setEnabled(false);
                 }else{
@@ -438,6 +444,7 @@ public class MainWindow extends JFrame {
 
     public void OdabirPacijentaZaIzmenuZK(){
 
+
         boxCentar.removeAll();
         boxRight.removeAll();
         pacijenti = new ArrayList<>();
@@ -476,6 +483,11 @@ public class MainWindow extends JFrame {
     }
 
     public void IzmeniZKView(){
+        if(instance.getStatusLinija().getText().equals("Pacijent uspesno dodat!") ||
+                instance.getStatusLinija().getText().equals("Podaci su sacuvani!") ||
+                instance.getStatusLinija().getText().equals("Rezultati ispitivanja uspesno sacuvani!")){
+            instance.getStatusLinija().setText("");
+        }
 
         boxCentar.removeAll();
         boxRight.removeAll();
@@ -495,19 +507,7 @@ public class MainWindow extends JFrame {
         ButtonGroup pol = new ButtonGroup();
         polZ = new JRadioButton("zenski");
         polM = new JRadioButton("muski");
-        polM.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(instance.getPolM().isSelected()){
-//                    instance.getTrudnocaDa().setEnabled(false);
-//                    instance.getTrudnocaNe().setEnabled(false);
-                }else{
-                    instance.getTrudnocaDa().setEnabled(true);
-                    instance.getTrudnocaNe().setEnabled(true);
-                }
 
-            }
-        });
         pol.add(polZ);
         pol.add(polM);
         if(trenutnoAktivanPacijent.getPol().equals(PolEnum.M)){
@@ -583,11 +583,30 @@ public class MainWindow extends JFrame {
         trudnocaNe = new JRadioButton("ne");
         trudnocaButtonGroup.add(trudnocaDa);
         trudnocaButtonGroup.add(trudnocaNe);
-        if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
-            trudnocaDa.setSelected(true);
+        if(trenutnoAktivanPacijent.getPol().equals(PolEnum.M)){
+            instance.getTrudnocaDa().setEnabled(false);
+            instance.getTrudnocaNe().setEnabled(false);
         }else{
-            trudnocaNe.setSelected(true);
+            if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
+                trudnocaDa.setSelected(true);
+            }else{
+                trudnocaNe.setSelected(true);
+            }
         }
+        polM.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(instance.getPolM().isSelected()){
+                    instance.getTrudnocaNe().setSelected(true);
+                    instance.getTrudnocaDa().setEnabled(false);
+                    instance.getTrudnocaNe().setEnabled(false);
+                }else{
+                    instance.getTrudnocaDa().setEnabled(true);
+                    instance.getTrudnocaNe().setEnabled(true);
+                }
+
+            }
+        });
 
         ButtonGroup alergija = new ButtonGroup();
         alergijaDa = new JRadioButton("ima");
@@ -670,8 +689,6 @@ public class MainWindow extends JFrame {
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
-        System.out.println("DODAJ CBR");
-        System.out.println(niz);
 
         return niz;
     }
@@ -693,6 +710,7 @@ public class MainWindow extends JFrame {
     }
 
     public void ucitajPrologFile(){
+        ucitajPrologFajlove();
         ArrayList<Pacijent> pacijenti = new ArrayList<>();
 
         //IMENA PACIJENATA I ID
@@ -1049,19 +1067,15 @@ public class MainWindow extends JFrame {
             }
         }
 
-        System.out.println("pacijentiii");
-        WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
 
         String temp = "dijagnoza(petar, Y)";
         JIPQuery mica = engine.openSynchronousQuery(temp);
         JIPTerm gica;
         MainWindow.getInstance().setDijagnoze(new ArrayList<>());
-        System.out.println("dijagnoze predlozeneeee");
         while ( (gica = mica.nextSolution()) != null  ) {
 
 
             JIPVariable dijagnoza = gica.getVariables()[0];
-            System.out.println(dijagnoza.getValue().toString());
 
 
 //            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
@@ -1076,7 +1090,6 @@ public class MainWindow extends JFrame {
 
 
     public void upisiUPrologFile(String provera, String linija) throws IOException {
-        System.out.println("------------- CITANJE -----------------");
         List<String> prologFajl = new ArrayList<>();
         try{
             File file=new File("prolog/projekat.pl");
@@ -1085,22 +1098,17 @@ public class MainWindow extends JFrame {
             String line;
             while((line=br.readLine())!=null)
             {
-//                System.out.println(line);
                 prologFajl.add(line);
             }
             fr.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        System.out.println("------------------------------");
-        System.out.println("prologfile : " + prologFajl);
 
-        System.out.println("---------------- PISANJE --------------");
         Boolean flag = false;
         int izmena = -1;
         for(int i = 0 ; i < prologFajl.size(); i++){
             if(prologFajl.get(i).contains(provera)){
-                System.out.println("vec ima");
                 flag = true;
                 izmena = i;
             }
@@ -1112,7 +1120,6 @@ public class MainWindow extends JFrame {
         if(flag == true){
             try {
                 FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl");
-                System.out.println("izmena");
                 for(int i = 0; i < prologFajl.size(); i++){
                     if(i == prologFajl.size()-1){
                         exampleFileWriter.append(prologFajl.get(i) );
@@ -1128,7 +1135,6 @@ public class MainWindow extends JFrame {
         }else{
             try {
                 FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl", true);
-                System.out.println("upis");
                 exampleFileWriter.append("\n" +linija);
                 exampleFileWriter.close();
             } catch (IOException e) {
@@ -1141,11 +1147,10 @@ public class MainWindow extends JFrame {
     }
 
     public void zapocniPregledView(){
+        instance.getStatusLinija().setText("");
         boxCentar.removeAll();
         boxRight.removeAll();
         pacijenti = new ArrayList<>();
-        System.out.println("PACIJeNTI:::");
-        System.out.println(pacijenti);
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
         }else{
@@ -1255,7 +1260,6 @@ public class MainWindow extends JFrame {
                 DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
 
                 try {
-                    System.out.println("-----");
                     dia.configure();
                     dia.preCycle();
                     CBRQuery query = new CBRQuery();
@@ -1316,7 +1320,6 @@ public class MainWindow extends JFrame {
                 DijagnozeApp da = new DijagnozeApp();
 
                 try {
-                    System.out.println("-----");
                     da.configure();
                     da.preCycle();
                     CBRQuery query = new CBRQuery();
@@ -1376,7 +1379,6 @@ public class MainWindow extends JFrame {
                 TerapijaApp ta = new TerapijaApp();
 
                 try {
-                    System.out.println("-----");
                     ta.configure();
                     ta.preCycle();
                     CBRQuery query = new CBRQuery();
