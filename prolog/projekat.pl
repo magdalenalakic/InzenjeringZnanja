@@ -114,7 +114,7 @@ simptom(kratakDah).
 simptom(povisenaTemperatura).
 %PREGLED -> rutinske stvari i rezultati racunanja osnovnih stvari ---------------------------------------------------------------------------
 auskultacija(petar,poremecajRitma).
-auskultacija(milica,postojiSum).
+auskultacija(milica,poremecajRitma).
 auskultacija(milan,poremecajRitma).
 auskultacija(ana,poremecajRitma).
 auskultacija(luka, uredna).
@@ -122,8 +122,8 @@ auskultacija(zdravko, uredna).
 auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
-pritisak(petar,132,112).
-pritisak(milica,124,100).
+pritisak(petar,132,122).
+pritisak(milica,55,20).
 pritisak(milan,123,243).
 pritisak(ana,130,100).
 pritisak(luka, 121, 90).
@@ -174,7 +174,7 @@ rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.2
 %REZULTATI DODATNIH ISPITIVANJA ------------------------------------------------------------------------------------------------------
 %rezAnalizeKrvi:  pacijent, nivoSeceraUKrvi, nivoHolesterola, nivoTriglecirida
 rezAnalizeKrvi(petar,10,6,2).
-rezAnalizeKrvi(milica,10,2,3).
+rezAnalizeKrvi(milica,11,5,2).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
 rezAnalizeKrvi(ana,16,5.8,0.88).
 rezAnalizeKrvi(luka, 11, 2.5, 3.5).
@@ -184,7 +184,7 @@ rezAnalizeKrvi(zeljko, 16, 5.8, 0.88).
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
 rezEkg(petar,nijeUredan,ubrzan).
 rezEkg(milan, nijeUredan, usporen).
-rezEkg(milica,nijeUredan,normalan).
+rezEkg(milica,nijeUredan,usporen).
 rezEkg(ana,nijeUredan,ubrzan).
 rezEkg(luka, neodredjen, ubrzan).
 rezEkg(zdravko, nijeUredan, ubrzan).
