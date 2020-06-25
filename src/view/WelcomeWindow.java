@@ -24,8 +24,6 @@ public class WelcomeWindow extends JFrame {
     private BufferedImage image;
     private List<Pacijent> listaPacijenata = new ArrayList<>();
 
-
-
     public static WelcomeWindow getInstance() {
         if (instance == null) {
             instance = new WelcomeWindow();
@@ -35,12 +33,9 @@ public class WelcomeWindow extends JFrame {
         return instance;
     }
 
-
     public void setInstance(WelcomeWindow newInstance) {
         instance = newInstance;
     }
-
-
 
     public void init(){
 
@@ -196,7 +191,6 @@ public class WelcomeWindow extends JFrame {
         add(panBtm, BorderLayout.SOUTH);
 
     }
-
 
     public List<Pacijent> getListaPacijenata() {
         return listaPacijenata;

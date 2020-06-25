@@ -33,6 +33,7 @@ public class PredloziTerapijuListener implements ActionListener {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        MainWindow.getInstance().upisiDijagnozeCBR();
 
     }
 
@@ -66,11 +67,7 @@ public class PredloziTerapijuListener implements ActionListener {
                         MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(Lekovi.valueOf(String.valueOf(list.getHead())));
                     }
                 }
-//
-//
-//
-//                JIPVariable terapija = solution24.getVariables()[0];
-//                p.getListaLekova().add(Lekovi.valueOf(terapija.getValue().toString()));
+
             }
 
 
