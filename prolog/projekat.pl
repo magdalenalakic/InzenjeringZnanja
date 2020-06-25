@@ -122,7 +122,7 @@ auskultacija(zdravko, uredna).
 auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
-pritisak(petar,130,100).
+pritisak(petar,132,112).
 pritisak(milica,124,100).
 pritisak(milan,123,243).
 pritisak(ana,130,100).
@@ -173,7 +173,7 @@ rezHolesterola(X, R) :- (rezAnalizeKrvi(X, D, Y, T), Y >= 3.1, Y =< 5.5) -> R = 
 rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.28)-> R = normalan ;(rezAnalizeKrvi(X, D, H, Y), Y < 0.46) -> R = nizak;(rezAnalizeKrvi(X, D, H, Y), Y > 2.28) -> R = povisen.
 %REZULTATI DODATNIH ISPITIVANJA ------------------------------------------------------------------------------------------------------
 %rezAnalizeKrvi:  pacijent, nivoSeceraUKrvi, nivoHolesterola, nivoTriglecirida
-rezAnalizeKrvi(petar,16,5.8,0.88).
+rezAnalizeKrvi(petar,10,6,2).
 rezAnalizeKrvi(milica,10,2,3).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
 rezAnalizeKrvi(ana,16,5.8,0.88).
@@ -271,52 +271,3 @@ terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),listaSvihLekova(X, T, [
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),listaSvihLekova(X, T, [zenSenKapsule]) -> Z = T.
 %
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,promerol, valsartan ]) -> Z = T.
-rezHolter24(petar,povisen,prisutno,normalan).
-rezEkg(aa,nijeUredan,usporen).
-rezEhokardiografije(aa,uredan).
-rezCT(aa,uredan).
-rezHolter24(aa,snizen,nijePrisutno,nijeNormalan).
-rezAnalizeKrvi(aa,1,1,1).
-rezAnalizeKrvi(pavle,7,8,9).
-rezEkg(pavle,nijeUredan,usporen).
-rezCT(pavle,uredan).
-rezHolter24(pavle,povisen,prisutno,normalan).
-rezAnalizeKrvi(djsadaskd,3,6,2).
-rezHolter24(djsadaskd,povisen,prisutno,normalan).
-rezEhokardiografije(aaa,uredan).
-rezCT(aaa,uredan).
-rezEkg(kakkasdska,nijeUredan,ubrzan).
-rezHolter24(kakkasdska,snizen,prisutno,normalan).
-rezErgometrija(adasdas,niskaOpterecenja).
-rezHolter24(adasdas,povisen,prisutno,normalan).
-rezErgometrija(aa,niskaOpterecenja).
-rezEkg(asasa,nijeUredan,usporen).
-rezRendgen(asasa,nijeUredan).
-rezEkg(dds,nijeUredan,usporen).
-rezEkg(ivana,neodredjen,normalan).
-rezEhokardiografije(ivana,uredan).
-rezRendgen(ivana,uredan).
-rezCT(ivana,uredan).
-rezEkg(jj,nijeUredan,usporen).
-rezErgometrija(jj,visokaOpterecenja).
-rezEkg(YRTYRT,nijeUredan,usporen).
-rezErgometrija(YRTYRT,visokaOpterecenja).
-rezHolter24(dad,povisen,prisutno,normalan).
-rezEkg(sasasdas,neodredjen,usporen).
-rezEkg(yujkl,nijeUredan,usporen).
-rezErgometrija(yujkl,visokaOpterecenja).
-rezEkg(ujjk,nijeUredan,ubrzan).
-rezEkg(dsds,nijeUredan,usporen).
-rezEkg(dadasa,nijeUredan,usporen).
-rezEkg(dasdas,neodredjen,usporen).
-rezEkg(edede,uredan,ubrzan).
-rezErgometrija(edede,niskaOpterecenja).
-rezEkg(nh,nijeUredan,usporen).
-rezEhokardiografije(nh,uredan).
-rezEkg(ad,uredan,usporen).
-rezEkg(fd,uredan,usporen).
-rezHolter24(fd,povisen,nijePrisutno,normalan).
-rezEkg(kristina,nijeUredan,usporen).
-rezEhokardiografije(kristina,nijeUredan).
-rezRendgen(kristina,uredan).
-rezCT(kristina,nijeUredan).
