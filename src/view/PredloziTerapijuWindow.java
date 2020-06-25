@@ -53,7 +53,6 @@ public class PredloziTerapijuWindow  extends JFrame {
         List<Lekovi> lis = new ArrayList<>();
         for(Lekovi l: MainWindow.getInstance().getTerapija()){
             lis.add(l);
-            System.out.println("Dodajem lijek: " + l.toString());
         }
         JList<Lekovi> listBox = new JList(lis.toArray());
 

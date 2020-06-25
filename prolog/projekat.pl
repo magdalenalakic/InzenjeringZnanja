@@ -313,3 +313,10 @@ rezEkg(edede,uredan,ubrzan).
 rezErgometrija(edede,niskaOpterecenja).
 rezEkg(nh,nijeUredan,usporen).
 rezEhokardiografije(nh,uredan).
+rezEkg(ad,uredan,usporen).
+rezEkg(fd,uredan,usporen).
+rezHolter24(fd,povisen,nijePrisutno,normalan).
+rezEkg(kristina,nijeUredan,usporen).
+rezEhokardiografije(kristina,nijeUredan).
+rezRendgen(kristina,uredan).
+rezCT(kristina,nijeUredan).
