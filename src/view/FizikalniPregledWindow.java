@@ -101,10 +101,7 @@ public class FizikalniPregledWindow extends JFrame {
             Label textS = new Label("Lista izabranih simptoma:");
             textS.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
             panSimptomi.add(textS);
-
-            for(Simptomi simptom: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma()){
-                panSimptomi.add(new JLabel(simptom.toString()));
-            }
+            MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaSimptoma(new ArrayList<>());
             MainWindow.getInstance().getBoxRight().add(panSimptomi);
             MainWindow.getInstance().getBoxRight().revalidate();
             MainWindow.getInstance().getBoxRight().repaint();
@@ -114,7 +111,6 @@ public class FizikalniPregledWindow extends JFrame {
 
                     if (!e.getValueIsAdjusting()) {
                         JList<Simptomi> list = (JList)e.getSource();
-//                        System.out.println(list.getSelectedValue());
 
                         if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(list.getSelectedValue())){
                             MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().add(list.getSelectedValue());
@@ -148,6 +144,12 @@ public class FizikalniPregledWindow extends JFrame {
             Label textPB = new Label("Lista izabranih porodicnih bolesti:");
             textPB.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
             panPB.add(textPB);
+            for(PorodicneBolesti porodicneBolesti: MainWindow.getInstance().getTrenutnoAktivanPacijent().getPorodicneBolesti()){
+                panPB.add(new JLabel(porodicneBolesti.toString()));
+            }
+            MainWindow.getInstance().getBoxRight().add(panPB);
+            MainWindow.getInstance().getBoxRight().revalidate();
+            MainWindow.getInstance().getBoxRight().repaint();
             listaPB.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {

@@ -33,7 +33,6 @@ public class CBRCheckedListener implements ActionListener {
 
     public void ucitajPacijente(){
         List<Pacijent> listaPacijenata = new ArrayList<>();
-        System.out.println("--------- pacijenti");
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("csv-files/fizikalni-pregled.csv")));
             if (br == null)
@@ -57,8 +56,6 @@ public class CBRCheckedListener implements ActionListener {
                 pacijent.setFizickaAktivnost(Boolean.parseBoolean(values[8]));
                 pacijent.setTrudnoca(Boolean.parseBoolean(values[9]));
                 pacijent.setAlergican(Boolean.parseBoolean(values[10]));
-
-                System.out.println("duzinaaa ovog kurca: " + values.length);
 
                 if(!values[11].equals(" ")){
                     pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));

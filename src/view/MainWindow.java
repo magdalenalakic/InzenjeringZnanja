@@ -678,7 +678,6 @@ public class MainWindow extends JFrame {
     }
 
     public void upisiUPrologFile(String provera, String linija) throws IOException {
-        System.out.println("------------- CITANJE I PISANJE -----------------");
         List<String> prologFajl = new ArrayList<>();
         try{
             File file=new File("prolog/projekat.pl");

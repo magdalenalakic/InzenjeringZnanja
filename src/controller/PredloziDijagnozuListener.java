@@ -1,9 +1,16 @@
 package controller;
 
+import com.ugos.jiprolog.engine.JIPEngine;
+import com.ugos.jiprolog.engine.JIPQuery;
+import com.ugos.jiprolog.engine.JIPTerm;
+import com.ugos.jiprolog.engine.JIPVariable;
+import main.DijagnozeApp;
+import model.Dijagnoze;
 import model.DodatnaIspitivanjaEnum;
 import model.IzabranaOpcija;
 import model.Pacijent;
 import sun.applet.Main;
+import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 import view.*;
 
 import java.awt.*;
@@ -14,6 +21,59 @@ import java.util.*;
 import java.util.List;
 
 public class PredloziDijagnozuListener implements ActionListener {
+
+    private JIPEngine engine = new JIPEngine();
+
+    public void dijagnozaCBR(){
+        DijagnozeApp dia = new DijagnozeApp();
+
+        try {
+            System.out.println("DIJAGNOZE RBR");
+            dia.configure();
+            dia.preCycle();
+            CBRQuery query = new CBRQuery();
+
+            System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().toString());
+            query.setDescription( MainWindow.getInstance().getTrenutnoAktivanPacijent() );
+            dia.cycle(query);
+            dia.postCycle();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    public void dijagnozaRB(){
+        engine.consultFile("prolog/projekat.pl");
+        JIPEngine engine = new JIPEngine();
+        engine.consultFile("prolog/projekat.pl");
+
+        String pacijent = MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme();
+
+        String temp = "dijagnoza(" + pacijent + ", Y)";
+        JIPQuery query = engine.openSynchronousQuery(temp);
+        JIPTerm solution;
+        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
+        System.out.println("dijagnoze predlozeneeee");
+        while ( (solution = query.nextSolution()) != null  ) {
+            System.out.println(solution.getVariables()[0]);
+
+            engine.consultFile("prolog/projekat.pl");
+
+            JIPVariable dijagnoza = solution.getVariables()[0];
+            System.out.println(dijagnoza.getValue().toString());
+            if(!MainWindow.getInstance().getDijagnoze().contains(Dijagnoze.valueOf(dijagnoza.getValue().toString()))){
+                MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
+            }
+
+        }
+        System.out.println(temp);
+        System.out.println(MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza());
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -425,6 +485,12 @@ public class PredloziDijagnozuListener implements ActionListener {
 
         MainWindow.getInstance().getStatusLinija().setForeground(new Color(0, 255,0));
         MainWindow.getInstance().getStatusLinija().setText("Rezultati ispitivanja uspesno sacuvani!");
+
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            dijagnozaCBR();
+        }else{
+            dijagnozaRB();
+        }
 
         PredloziDijagnozuWindow wz1 = PredloziDijagnozuWindow.getInstance();
 
