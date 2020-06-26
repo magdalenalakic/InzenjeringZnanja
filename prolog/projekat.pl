@@ -44,7 +44,7 @@ tezina(zdravko, normalnaTezina).
 tezina(slavica, povecanaTezina).
 tezina(zeljko, povecanaTezina).
 %
-dijabeticar(petar,da).
+dijabeticar(petar,ne).
 dijabeticar(milica,da).
 dijabeticar(milan,ne).
 dijabeticar(ana,ne).
@@ -114,7 +114,7 @@ simptom(kratakDah).
 simptom(povisenaTemperatura).
 %PREGLED -> rutinske stvari i rezultati racunanja osnovnih stvari ---------------------------------------------------------------------------
 auskultacija(petar,poremecajRitma).
-auskultacija(milica,postojiSum).
+auskultacija(milica,poremecajRitma).
 auskultacija(milan,poremecajRitma).
 auskultacija(ana,uredna).
 auskultacija(luka, uredna).
@@ -123,7 +123,7 @@ auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
 pritisak(petar,130,101).
-pritisak(milica,124,102).
+pritisak(milica,132,102).
 pritisak(milan,123,243).
 pritisak(ana,130,100).
 pritisak(luka, 121, 90).
@@ -174,7 +174,7 @@ rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.2
 %REZULTATI DODATNIH ISPITIVANJA ------------------------------------------------------------------------------------------------------
 %rezAnalizeKrvi:  pacijent, nivoSeceraUKrvi, nivoHolesterola, nivoTriglecirida
 rezAnalizeKrvi(petar,16,5.8,0.88).
-rezAnalizeKrvi(milica,10,2,3).
+rezAnalizeKrvi(milica,15,5,1).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
 rezAnalizeKrvi(ana,14,6,1).
 rezAnalizeKrvi(luka, 11, 2.5, 3.5).
@@ -184,7 +184,7 @@ rezAnalizeKrvi(zeljko, 16, 5.8, 0.88).
 %rezEkg: pacijent, nalaz (uredan, nijeUredan, neodredjen), puls(ubrzan, normalan, usporen)
 rezEkg(petar,nijeUredan,ubrzan).
 rezEkg(milan, nijeUredan, usporen).
-rezEkg(milica,nijeUredan,normalan).
+rezEkg(milica,nijeUredan,ubrzan).
 rezEkg(ana,nijeUredan,ubrzan).
 rezEkg(luka, neodredjen, ubrzan).
 rezEkg(zdravko, nijeUredan, ubrzan).
@@ -212,7 +212,7 @@ rezHolter24(luka, povisen, prisutno, normalan).
 rezHolter24(zdravko, povisen, prisutno, normalan).
 rezHolter24(slavica, snizen, prisutno, normalan).
 %rezultati CT(uredan, nijeUredan)
-rezCT(milica,nijeUredan).
+rezCT(milica,uredan).
 rezCT(milan, nijeUredan).
 %DIJAGNOZE ----------------------------------------------------------------------------------------------------------------------
 % hipertenzija
@@ -271,3 +271,20 @@ terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),listaSvihLekova(X, T, [
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),listaSvihLekova(X, T, [zenSenKapsule]) -> Z = T.
 %
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,promerol, valsartan ]) -> Z = T.
+pacijent(ozren).
+pol(ozren,m).
+godine(ozren,30).
+tezina(ozren,normalnaTezina).
+pusac(ozren,ne).
+dijabeticar(ozren,ne).
+asmaticar(ozren,ne).
+fizickaAktivnost(ozren,ne).
+trudnoca(ozren,ne).
+alergican(ozren,ne).
+pritisak(ozren,123,95).
+auskultacija(ozren,uredna).
+porodicneBolesti(ozren,[]).
+rezAnalizeKrvi(ozren,16,5.8,0.8).
+rezRendgen(ozren, nijeUredan).
+rezHolter24(ozren,povisen,nijePrisutno,normalan).
+rezCT(ozren,nijeUredan).

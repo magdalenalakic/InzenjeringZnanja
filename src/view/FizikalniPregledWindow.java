@@ -89,9 +89,7 @@ public class FizikalniPregledWindow extends JFrame {
             panel.setLayout(layout);
             List<Simptomi> listS = new ArrayList<>();
             for(Simptomi s: Simptomi.values()){
-                if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaSimptoma().contains(s)){
-                    listS.add(s);
-                }
+                listS.add(s);
             }
             JList<Simptomi> listBox = new JList(listS.toArray());
             JPanel panSimptomi = new JPanel();
