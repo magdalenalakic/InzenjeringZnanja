@@ -25,7 +25,6 @@ $ git clone https://github.com/magdalenalakic/InzenjeringZnanja
 Након преузимања покренути програм:
 ```
 Run -> Run as Java Application или Run App
-
 ```
 
 ## Аутори
