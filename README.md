@@ -18,10 +18,10 @@
 $ git clone https://github.com/magdalenalakic/InzenjeringZnanja
 ```
 Преузети окружење по жељи (у наставку су дати линкови за преузимање неких од алата који се могу користити):
-```
+
 [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows)
 [Eclipse](https://www.eclipse.org/downloads/)
-```
+
 Након преузимања покренути програм:
 ```
 Run -> Run as Java Application или Run App
