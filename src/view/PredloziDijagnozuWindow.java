@@ -73,9 +73,6 @@ public class PredloziDijagnozuWindow extends JFrame {
         dalje.setPreferredSize(new Dimension(200,30));
         dalje.addActionListener(new PredloziTerapijuListener());
 
-
-
-
         JPanel panE = new JPanel();
         panE.setPreferredSize(new Dimension(220,30));
         MainWindow.getInstance().getBoxCentar().add(panE);

@@ -1,17 +1,11 @@
 package view;
 
-import com.ugos.jiprolog.engine.*;
-import controller.CuvanjePacijenata;
 import controller.DodajZdravstveniKartonListener;
 import controller.FizikalniPregledListener;
 import controller.IzmeniZdravstveniKartonListener;
 import controller.PacijentController;
 import controller.ZapocniPregledListener;
-import main.DijagnozeApp;
-import main.DodatnaIspitivanjaApp;
-import main.TerapijaApp;
 import model.*;
-import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 
 //import javax.management.Query;
 import javax.imageio.ImageIO;
@@ -37,7 +31,6 @@ public class MainWindow extends JFrame {
     private JButton previous;
     private JButton cancel;
     private JButton next;
-    private JIPEngine engine = new JIPEngine();
     private Box boxCentar;
     private Box boxRight;
     private JTextField imePacijenta;
@@ -75,15 +68,9 @@ public class MainWindow extends JFrame {
     public static MainWindow getInstance(){
         if (instance == null) {
             instance = new MainWindow();
-            instance.ucitajPrologFajlove();
             instance.initialise();
-
         }
         return instance;
-    }
-
-    public void ucitajPrologFajlove(){
-        engine.consultFile("prolog/projekat.pl");
     }
 
     public void initialise()  {
@@ -189,11 +176,7 @@ public class MainWindow extends JFrame {
         dodaj.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 dodajZdravstveniKartonView();
-
-
             }
         });
 
@@ -202,16 +185,10 @@ public class MainWindow extends JFrame {
         izmeni.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 instance.getStatusLinija().setText("");
                 OdabirPacijentaZaIzmenuZK();
             }
         });
-
-
-        JButton cuvanje = new JButton("Cuvanje");
-        cuvanje.setPreferredSize(new Dimension(200,30));
-        cuvanje.addActionListener(new CuvanjePacijenata());
 
 
         JButton zapocni = new JButton("Zapocni pregled");
@@ -227,7 +204,6 @@ public class MainWindow extends JFrame {
         panLeft.add(dodaj);
         panLeft.add(izmeni);
         panLeft.add(zapocni);
-//        panLeft.add(cuvanje);
 
         add(panLeft, BorderLayout.WEST);
 
@@ -677,406 +653,15 @@ public class MainWindow extends JFrame {
     }
 
     public ArrayList<String> dodajPacijenteRB(){
-//        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
         ArrayList<String> niz = new ArrayList<String>();
-//        JIPTerm solution;
-//        while ( (solution = query.nextSolution()) != null  ) {
-//            for (JIPVariable var: solution.getVariables()) {
-//                niz.add(var.getValue().toString());
-//            }
-//        }
         for(Pacijent p: WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
-//        ucitajPrologFile();
         return niz;
     }
 
-    public void ucitajPrologFile(){
-        ArrayList<Pacijent> pacijenti = new ArrayList<>();
-
-        //IMENA PACIJENATA I ID
-        Integer i = 1;
-        JIPQuery query = engine.openSynchronousQuery("pacijent(X)");
-        JIPTerm solution;
-        while ( (solution = query.nextSolution()) != null  ) {
-            for (JIPVariable var: solution.getVariables()) {
-                Pacijent pacijent = new Pacijent();
-                pacijent.setId(i.longValue());
-                pacijent.setIme(var.getValue().toString());
-                i++;
-                pacijenti.add(pacijent);
-            }
-        }
-
-        //POL
-        JIPQuery query2 = engine.openSynchronousQuery("pol(X, Y)");
-        JIPTerm solution2;
-        while ( (solution2 = query2.nextSolution()) != null  ) {
-            JIPVariable ime = solution2.getVariables()[0];
-            JIPVariable pol = solution2.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    p.setPol(PolEnum.valueOf(pol.getValue().toString()));
-                }
-            }
-        }
-
-        //GODINE
-        JIPQuery query3 = engine.openSynchronousQuery("godine(X, Y)");
-        JIPTerm solution3;
-        while ( (solution3 = query3.nextSolution()) != null  ) {
-
-            JIPVariable ime = solution3.getVariables()[0];
-            JIPVariable godine = solution3.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    p.setGodine(Integer.parseInt(godine.getValue().toString()));
-                }
-            }
-        }
-
-        //PUSAC
-        JIPQuery query4 = engine.openSynchronousQuery("pusac(X, Y)");
-        JIPTerm solution4;
-        while ( (solution4 = query4.nextSolution()) != null  ) {
-            JIPVariable ime = solution4.getVariables()[0];
-            JIPVariable pusac = solution4.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(pusac.getValue().toString().equals("da")){
-                        p.setPusac(true);
-                    }else{
-                        p.setPusac(false);
-                    }
-                }
-            }
-        }
-
-        //TEZINA
-        JIPQuery query5 = engine.openSynchronousQuery("tezina(X, Y)");
-        JIPTerm solution5;
-        while ( (solution5 = query5.nextSolution()) != null  ) {
-            JIPVariable ime = solution5.getVariables()[0];
-            JIPVariable tezina = solution5.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    p.setTezina(TezinaEnum.valueOf(tezina.getValue().toString()));
-                }
-            }
-        }
-
-        //DIJABETICAR
-        JIPQuery query6 = engine.openSynchronousQuery("dijabeticar(X, Y)");
-        JIPTerm solution6;
-        while ( (solution6 = query6.nextSolution()) != null  ) {
-            JIPVariable ime = solution6.getVariables()[0];
-            JIPVariable dijabeticar = solution6.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(dijabeticar.getValue().toString().equals("da")){
-                        p.setDijabeticar(true);
-                    }else{
-                        p.setDijabeticar(false);
-                    }
-                }
-            }
-        }
-
-        //ASMATICAR
-        JIPQuery query7 = engine.openSynchronousQuery("asmaticar(X, Y)");
-        JIPTerm solution7;
-        while ( (solution7 = query7.nextSolution()) != null  ) {
-
-            JIPVariable ime = solution7.getVariables()[0];
-            JIPVariable asmaticar = solution7.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(asmaticar.getValue().toString().equals("da")){
-                        p.setAsmaticar(true);
-                    }else{
-                        p.setAsmaticar(false);
-                    }
-                }
-            }
-        }
-
-        //FIZICKA AKTIVNOST
-        JIPQuery query8 = engine.openSynchronousQuery("fizickaAktivnost(X, Y)");
-        JIPTerm solution8;
-        while ( (solution8 = query8.nextSolution()) != null  ) {
-            JIPVariable ime = solution8.getVariables()[0];
-            JIPVariable fizickaAktivnost = solution8.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(fizickaAktivnost.getValue().toString().equals("da")){
-                        p.setFizickaAktivnost(true);
-                    }else{
-                        p.setFizickaAktivnost(false);
-                    }
-                }
-            }
-        }
-
-        //TRUDNOCA
-        JIPQuery query9 = engine.openSynchronousQuery("trudnoca(X, Y)");
-        JIPTerm solution9;
-        while ( (solution9 = query9.nextSolution()) != null  ) {
-            JIPVariable ime = solution9.getVariables()[0];
-            JIPVariable trudnoca = solution9.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(trudnoca.getValue().toString().equals("da")){
-                        p.setTrudnoca(true);
-                    }else{
-                        p.setTrudnoca(false);
-                    }
-                }
-            }
-        }
-
-        //ALERGICAN
-        JIPQuery query10 = engine.openSynchronousQuery("alergican(X, Y)");
-        JIPTerm solution10;
-        while ( (solution10 = query10.nextSolution()) != null  ) {
-            JIPVariable ime = solution10.getVariables()[0];
-            JIPVariable alergican = solution10.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    if(alergican.getValue().toString().equals("da")){
-                        p.setAlergican(true);
-                    }else{
-                        p.setAlergican(false);
-                    }
-                }
-            }
-        }
-
-        //PORODICNE BOLESTI
-        JIPQuery query11 = engine.openSynchronousQuery("porodicneBolesti(X, Y)");
-        JIPTerm solution11;
-        while ( (solution11 = query11.nextSolution()) != null  ) {
-
-            JIPVariable ime = solution11.getVariables()[0];
-
-            JIPEngine engine = new JIPEngine();
-            JIPTermParser termParser = engine.getTermParser();
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    JIPList list = (JIPList)termParser.parseTerm(String.valueOf(solution11.getVariables()[1]));
-                    if(list.getHead() != null){
-                        p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
-                        while(!list.getTail().toString().equals("[]")){
-                            list = (JIPList)termParser.parseTerm(String.valueOf(list.getTail()));
-                            p.getPorodicneBolesti().add(PorodicneBolesti.valueOf(String.valueOf(list.getHead())));
-                        }
-                    }
-
-                }
-            }
-        }
-
-        //ASKULTACIJA
-        JIPQuery query12 = engine.openSynchronousQuery("auskultacija(X, Y)");
-        JIPTerm solution12;
-        while ( (solution12 = query12.nextSolution()) != null  ) {
-            JIPVariable ime = solution12.getVariables()[0];
-            JIPVariable auskultacija = solution12.getVariables()[1];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                   p.setAuskultacija(AuskultacijaEnum.valueOf(auskultacija.getValue().toString()));
-                }
-            }
-        }
-
-        //PRITISAK
-        JIPQuery query13 = engine.openSynchronousQuery("pritisak(X, Y, Z)");
-        JIPTerm solution13;
-        while ( (solution13 = query13.nextSolution()) != null  ) {
-            JIPVariable ime = solution13.getVariables()[0];
-            JIPVariable pritisakG = solution13.getVariables()[1];
-            JIPVariable pritisakD = solution13.getVariables()[2];
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    p.setGornjiPritisak(Integer.parseInt(pritisakG.getValue().toString()));
-                    p.setDonjiPritisak(Integer.parseInt(pritisakD.getValue().toString()));
-                    RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(p.getGornjiPritisak(), p.getDonjiPritisak());
-                    if(!rez.equals(null)){
-                        p.setRezPritiska(rez);
-                    }
-
-                }
-            }
-        }
-
-        //REZ ANALIZE KRVI
-        JIPQuery query14 = engine.openSynchronousQuery("rezAnalizeKrvi(X, Y, Z, F)");
-        JIPTerm solution14;
-        while ( (solution14 = query14.nextSolution()) != null  ) {
-            JIPVariable ime = solution14.getVariables()[0];
-            JIPVariable nivoSeceraUKrvi = solution14.getVariables()[1];
-            JIPVariable nivoHolesterola = solution14.getVariables()[2];
-            JIPVariable nivoTriglecirida = solution14.getVariables()[3];
-
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(nivoSeceraUKrvi.getValue().toString());
-                    rezultati.add(nivoHolesterola.getValue().toString());
-                    rezultati.add(nivoTriglecirida.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, rezultati);
-                }
-            }
-        }
-
-        //REZ EKG
-        JIPQuery query15 = engine.openSynchronousQuery("rezEkg(X, Y, Z)");
-        JIPTerm solution15;
-        while ( (solution15 = query15.nextSolution()) != null  ) {
-            JIPVariable ime = solution15.getVariables()[0];
-            JIPVariable nalaz = solution15.getVariables()[1];
-            JIPVariable puls = solution15.getVariables()[2];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(nalaz.getValue().toString());
-                    rezultati.add(puls.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, rezultati);
-                }
-            }
-        }
-
-        //REZ ERGOMETRIJA
-        JIPQuery query16 = engine.openSynchronousQuery("rezErgometrija(X, Y)");
-        JIPTerm solution16;
-        while ( (solution16 = query16.nextSolution()) != null  ) {
-            JIPVariable ime = solution16.getVariables()[0];
-            JIPVariable ergometrija = solution16.getVariables()[1];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(ergometrija.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ergometrija, rezultati);
-                }
-            }
-        }
-
-        //REZ EHOKARDIOGRAFIJA
-        JIPQuery query17 = engine.openSynchronousQuery("rezEhokardiografije(X, Y)");
-        JIPTerm solution17;
-        while ( (solution17 = query17.nextSolution()) != null  ) {
-            JIPVariable ime = solution17.getVariables()[0];
-            JIPVariable ehokardiografija = solution17.getVariables()[1];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(ehokardiografija.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ehokardiografija, rezultati);
-                }
-            }
-        }
-
-        //REZ KORONARNA ANGIOGRAFIJA
-        JIPQuery query18 = engine.openSynchronousQuery("rezKA(X, Y)");
-        JIPTerm solution18;
-        while ( (solution18 = query18.nextSolution()) != null  ) {
-            JIPVariable ime = solution18.getVariables()[0];
-            JIPVariable koronarnaAngiografija = solution18.getVariables()[1];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(koronarnaAngiografija.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.koronarnaAngiografija, rezultati);
-                }
-            }
-        }
-
-        //REZ RENDGENA
-        JIPQuery query19 = engine.openSynchronousQuery("rezRendgen(X, Y)");
-        JIPTerm solution19;
-        while ( (solution19 = query19.nextSolution()) != null  ) {
-            JIPVariable ime = solution19.getVariables()[0];
-            JIPVariable rendgena = solution19.getVariables()[1];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(rendgena.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.rendgen, rezultati);
-                }
-            }
-        }
-
-        //REZ HOLTER 24
-        JIPQuery query20 = engine.openSynchronousQuery("rezHolter24(X, Y, Z, H)");
-        JIPTerm solution20;
-        while ( (solution20 = query20.nextSolution()) != null  ) {
-            JIPVariable ime = solution20.getVariables()[0];
-            JIPVariable srcanaFrekvencija = solution20.getVariables()[1];
-            JIPVariable poremecajRitma = solution20.getVariables()[2];
-            JIPVariable segment = solution20.getVariables()[3];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(srcanaFrekvencija.getValue().toString());
-                    rezultati.add(poremecajRitma.getValue().toString());
-                    rezultati.add(segment.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.holter24, rezultati);
-                }
-            }
-        }
-
-        //REZ CT
-        JIPQuery query21 = engine.openSynchronousQuery("rezCT(X, Y)");
-        JIPTerm solution21;
-        while ( (solution21 = query21.nextSolution()) != null  ) {
-            JIPVariable ime = solution21.getVariables()[0];
-            JIPVariable ct = solution21.getVariables()[1];
-
-            for(Pacijent p : pacijenti){
-                if(p.getIme().equals(ime.getValue().toString())){
-                    List<String> rezultati = new ArrayList<>();
-                    rezultati.add(ct.getValue().toString());
-                    p.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, rezultati);
-                }
-            }
-        }
-
-        System.out.println("pacijentiii");
-        WelcomeWindow.getInstance().setListaPacijenata(pacijenti);
-
-        String temp = "dijagnoza(petar, Y)";
-        JIPQuery mica = engine.openSynchronousQuery(temp);
-        JIPTerm gica;
-        MainWindow.getInstance().setDijagnoze(new ArrayList<>());
-        System.out.println("dijagnoze predlozeneeee");
-        while ( (gica = mica.nextSolution()) != null  ) {
-
-
-            JIPVariable dijagnoza = gica.getVariables()[0];
-            System.out.println(dijagnoza.getValue().toString());
-
-
-//            MainWindow.getInstance().getDijagnoze().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
-//            MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza().add(Dijagnoze.valueOf(dijagnoza.getValue().toString()));
-        }
-
-
-        for(Pacijent p : WelcomeWindow.getInstance().getListaPacijenata()){
-            System.out.println(p);
-        }
-    }
-
-
     public void upisiUPrologFile(String provera, String linija) throws IOException {
-        System.out.println("------------- CITANJE -----------------");
+        System.out.println("------------- CITANJE I PISANJE -----------------");
         List<String> prologFajl = new ArrayList<>();
         try{
             File file=new File("prolog/projekat.pl");
@@ -1085,22 +670,16 @@ public class MainWindow extends JFrame {
             String line;
             while((line=br.readLine())!=null)
             {
-//                System.out.println(line);
                 prologFajl.add(line);
             }
             fr.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        System.out.println("------------------------------");
-        System.out.println("prologfile : " + prologFajl);
-
-        System.out.println("---------------- PISANJE --------------");
         Boolean flag = false;
         int izmena = -1;
         for(int i = 0 ; i < prologFajl.size(); i++){
             if(prologFajl.get(i).contains(provera)){
-                System.out.println("vec ima");
                 flag = true;
                 izmena = i;
             }
@@ -1112,7 +691,6 @@ public class MainWindow extends JFrame {
         if(flag == true){
             try {
                 FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl");
-                System.out.println("izmena");
                 for(int i = 0; i < prologFajl.size(); i++){
                     if(i == prologFajl.size()-1){
                         exampleFileWriter.append(prologFajl.get(i) );
@@ -1128,23 +706,355 @@ public class MainWindow extends JFrame {
         }else{
             try {
                 FileWriter exampleFileWriter = new FileWriter("prolog/projekat.pl", true);
-                System.out.println("upis");
                 exampleFileWriter.append("\n" +linija);
                 exampleFileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
 
+    public void upisiFizikalniPregledCBR(){
+        //"csv-files/fizikalni-pregled.csv"
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/fizikalni-pregled.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;ime;pol;godine;tezina;pusac;dijabeticar;asmaticar;fizickaAktivnost;trudnoca;alergican;auskultacija;gornjiPritisak;donjiPritisak;listaSimptoma;porodicneBolesti\n");
+            Integer fl = 0;
+            for(Pacijent pacijent : WelcomeWindow.getInstance().getListaPacijenata()){
+                fl++;
+                String line = pacijent.getId() + ";";
+                line += pacijent.getIme() + ";";
+                line += pacijent.getPol() + ";";
+                line += pacijent.getGodine() + ";";
+                line += pacijent.getTezina() + ";";
+                if(pacijent.getPusac()){
+                    line +=  "da;";
+                }else if(!pacijent.getPusac()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
 
+                if(pacijent.getDijabeticar()){
+                    line +=  "da;";
+                }else if(!pacijent.getDijabeticar()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
 
+                if(pacijent.getAsmaticar()){
+                    line +=  "da;";
+                }else if(!pacijent.getAsmaticar()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getFizickaAktivnost()){
+                    line +=  "da;";
+                }else if(!pacijent.getFizickaAktivnost()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getTrudnoca()){
+                    line +=  "da;";
+                }else if(!pacijent.getTrudnoca()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getAlergican()){
+                    line +=  "da;";
+                }else if(!pacijent.getAlergican()){
+                    line +=  "ne;";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getAuskultacija() != null){
+                    line += pacijent.getAuskultacija() + ";";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getGornjiPritisak() != null){
+                    line += pacijent.getGornjiPritisak() + ";";
+                }else{
+                    line += " ;";
+                }
+
+                if(pacijent.getDonjiPritisak() != null){
+                    line += pacijent.getDonjiPritisak() + ";";
+                }else{
+                    line += " ;";
+                }
+
+                Integer flag = 0;
+                if(pacijent.getListaSimptoma().isEmpty()){
+                    line += " ;";
+                }else{
+                    for(Simptomi simptom : pacijent.getListaSimptoma()){
+                        flag++;
+                        if(flag == pacijent.getListaSimptoma().size()){
+                            line += simptom + ";";
+                        }else{
+                            line += simptom + ",";
+                        }
+                    }
+                }
+
+                flag = 0;
+                if(pacijent.getPorodicneBolesti().isEmpty()){
+                    line += " ;";
+                }else{
+                    for(PorodicneBolesti bolest : pacijent.getPorodicneBolesti()){
+                        flag++;
+                        if(flag == pacijent.getPorodicneBolesti().size()){
+                            line += bolest;
+                        }else{
+                            line += bolest + ",";
+                        }
+                    }
+                }
+
+                if(fl != WelcomeWindow.getInstance().getListaPacijenata().size()){
+                    line += "\n";
+                }
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Fizikalni pregledi sacuvani u csv fajl");
+    }
+
+    public void upisiDodatnaIspitivanjaCBR(){
+        //"csv-files/dodatna-ispitivanja.csv"
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/dodatna-ispitivanja.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;listaRezultataDodatnihIspitivanja\n");
+            Integer fl = 0;
+            for(Pacijent pacijent : WelcomeWindow.getInstance().getListaPacijenata()){
+                fl++;
+                String line = pacijent.getId() + ";";
+                if(pacijent.getListaRezultataDodatnihIspitivanja().isEmpty()){
+                    line += " ;";
+                }else{
+                    Integer flag = 0;
+                    for(DodatnaIspitivanjaEnum die : pacijent.getListaRezultataDodatnihIspitivanja().keySet()){
+                        flag++;
+                        if(flag == pacijent.getListaRezultataDodatnihIspitivanja().size()){
+                            line += die + "=";
+                            Integer flag2 = 0;
+                            for(String s : pacijent.getListaRezultataDodatnihIspitivanja().get(die)){
+                                flag2++;
+                                if(flag2 == pacijent.getListaRezultataDodatnihIspitivanja().get(die).size()){
+                                    line += s;
+                                }else{
+                                    line += s +"&";
+                                }
+                            }
+                        }else{
+                            line += die + "=";
+                            Integer flag2 = 0;
+                            for(String s : pacijent.getListaRezultataDodatnihIspitivanja().get(die)){
+                                flag2++;
+                                if(flag2 == pacijent.getListaRezultataDodatnihIspitivanja().get(die).size()){
+                                    line += s;
+                                }else{
+                                    line += s +"&";
+                                }
+                            }
+                            line += ",";
+                        }
+                    }
+                }
+
+                if(fl != WelcomeWindow.getInstance().getListaPacijenata().size()){
+                    line += "\n";
+                }
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Dodatna ispitivanja sacuvana u csv fajl");
+    }
+
+    public void upisiDijagnozeCBR(){
+        //"csv-files/dijagnoza.csv"
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/dijagnoza.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;listaDijagnoza\n");
+            Integer fl = 0;
+            for(Pacijent pacijent :  WelcomeWindow.getInstance().getListaPacijenata()){
+                fl++;
+                String line = pacijent.getId() + ";";
+
+                if(pacijent.getListaDijagnoza().isEmpty()){
+                    line += " ;";
+                }else{
+                    Integer flag = 0;
+                    for(Dijagnoze dijag : pacijent.getListaDijagnoza()){
+                        flag++;
+                        if(flag == pacijent.getListaDijagnoza().size()){
+                            line += dijag;
+                        }else{
+                            line += dijag + ",";
+                        }
+                    }
+                }
+
+                if(fl !=  WelcomeWindow.getInstance().getListaPacijenata().size()){
+                    line += "\n";
+                }
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Dijagnoze sacuvane u csv fajl");
+    }
+
+    public void upisiLekoveCBR(){
+        //"csv-files/lekovi.csv"
+        BufferedWriter writer = null;
+        FileWriter fileWriter = null;
+        try {
+            File file = new File("csv-files/lekovi.csv");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            fileWriter = new FileWriter(file);
+            writer = new BufferedWriter(fileWriter);
+            writer.write("#id;listaTerapija\n");
+            Integer fl = 0;
+            for(Pacijent pacijent : WelcomeWindow.getInstance().getListaPacijenata()){
+                fl++;
+                String line = pacijent.getId() + ";";
+                Integer flag = 0;
+                if(pacijent.getListaLekova().isEmpty()){
+                    line += " ;";
+                }else{
+                    for(Lekovi lek : pacijent.getListaLekova()){
+                        flag++;
+                        if(flag == pacijent.getListaLekova().size()){
+                            line += lek;
+                        }else{
+                            line += lek + ",";
+                        }
+                    }
+                }
+
+                if(fl != WelcomeWindow.getInstance().getListaPacijenata().size()){
+                    line += "\n";
+                }
+                writer.write(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // close BufferedWriter
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            // close FileWriter
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Lekovi sacuvani u csv fajl");
     }
 
     public void zapocniPregledView(){
         boxCentar.removeAll();
         boxRight.removeAll();
         pacijenti = new ArrayList<>();
-        System.out.println("PACIJeNTI:::");
+        System.out.println("------------zapocet pregled--------------------");
         System.out.println(pacijenti);
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
@@ -1247,215 +1157,16 @@ public class MainWindow extends JFrame {
         zapocni.addActionListener(new FizikalniPregledListener());
 
 
-        JButton predloziDodatnaIspitivanja = new JButton("Predlozi dodatna ispitivanja");
-        predloziDodatnaIspitivanja.setPreferredSize(new Dimension(200,30));
-        predloziDodatnaIspitivanja.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DodatnaIspitivanjaApp dia = new DodatnaIspitivanjaApp();
-
-                try {
-                    System.out.println("-----");
-                    dia.configure();
-                    dia.preCycle();
-                    CBRQuery query = new CBRQuery();
-                    Pacijent pacijent = new Pacijent();
-                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
-                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
-                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(trenutnoAktivanPacijent.getGornjiPritisak(),
-                            trenutnoAktivanPacijent.getDonjiPritisak()));
-                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
-                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
-                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
-                    pacijent.getListaSimptoma().add(Simptomi.umor);
-
-                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
-                    java.util.List<String> l = new ArrayList<>();
-                    l.add("10");
-                    l.add("2.1");
-                    l.add("3");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
-                    java.util.List<String> l2 = new ArrayList<>();
-                    l2.add("nijeUredan");
-                    l2.add("usporen");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
-                    List<String> l3 = new ArrayList<>();
-                    l3.add("nijeUredan");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
-
-
-//            pacijent.getListaSimptoma().add(Simptomi.umor);
-
-//            pacijent.setScore(5);
-                    query.setDescription( pacijent );
-                    dia.cycle(query);
-                    dia.postCycle();
-
-                    boxRight.removeAll();
-
-                    for(DodatnaIspitivanjaEnum DI:dodatnaIspitivanja){
-                        JLabel predlog = new JLabel(DI.name());
-                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
-                        boxRight.add(predlog);
-                    }
-
-                    boxRight.revalidate();
-                    boxRight.repaint();
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        JButton predloziDijagnoze = new JButton("Predlozi Dijagnoze");
-        predloziDijagnoze.setPreferredSize(new Dimension(200,30));
-        predloziDijagnoze.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                DijagnozeApp da = new DijagnozeApp();
-
-                try {
-                    System.out.println("-----");
-                    da.configure();
-                    da.preCycle();
-                    CBRQuery query = new CBRQuery();
-                    Pacijent pacijent = new Pacijent();
-                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
-                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
-                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
-                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
-                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
-                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
-                    pacijent.getListaSimptoma().add(Simptomi.umor);
-
-                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
-                    java.util.List<String> l = new ArrayList<>();
-                    l.add("10");
-                    l.add("2.1");
-                    l.add("3");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
-                    java.util.List<String> l2 = new ArrayList<>();
-                    l2.add("nijeUredan");
-                    l2.add("usporen");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
-                    List<String> l3 = new ArrayList<>();
-                    l3.add("nijeUredan");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
-
-
-//            pacijent.getListaSimptoma().add(Simptomi.umor);
-
-//            pacijent.setScore(5);
-                    query.setDescription( pacijent );
-                    da.cycle(query);
-                    da.postCycle();
-
-                    boxRight.removeAll();
-
-                    for(Dijagnoze dijagnoze:dijagnoze){
-                        JLabel predlog = new JLabel(dijagnoze.name());
-                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
-                        boxRight.add(predlog);
-                    }
-
-                    boxRight.revalidate();
-                    boxRight.repaint();
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        JButton predloziTerapiju = new JButton("Predlozi Terapiju");
-        predloziTerapiju.setPreferredSize(new Dimension(200,30));
-        predloziTerapiju.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                TerapijaApp ta = new TerapijaApp();
-
-                try {
-                    System.out.println("-----");
-                    ta.configure();
-                    ta.preCycle();
-                    CBRQuery query = new CBRQuery();
-                    Pacijent pacijent = new Pacijent();
-                    pacijent.setPol(trenutnoAktivanPacijent.getPol());
-                    pacijent.setGodine(trenutnoAktivanPacijent.getGodine());
-                    pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
-                    pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
-                    pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
-                    pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
-                    pacijent.getListaSimptoma().add(Simptomi.umor);
-
-                    pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
-                    java.util.List<String> l = new ArrayList<>();
-                    l.add("10");
-                    l.add("2.1");
-                    l.add("3");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
-                    java.util.List<String> l2 = new ArrayList<>();
-                    l2.add("nijeUredan");
-                    l2.add("usporen");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
-                    List<String> l3 = new ArrayList<>();
-                    l3.add("nijeUredan");
-                    pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
-
-
-//            pacijent.getListaSimptoma().add(Simptomi.umor);
-
-//            pacijent.setScore(5);
-                    query.setDescription( pacijent );
-                    ta.cycle(query);
-                    ta.postCycle();
-
-                    boxRight.removeAll();
-
-                    for(Lekovi lek:terapija){
-                        JLabel predlog = new JLabel(lek.name());
-                        predlog.setFont(new Font("Tahoma", Font.BOLD, 18));
-                        boxRight.add(predlog);
-                    }
-
-                    boxRight.revalidate();
-                    boxRight.repaint();
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-
-
-
         JPanel predlozi = new JPanel();
         predlozi.setLayout(new BoxLayout(predlozi,BoxLayout.Y_AXIS));
 
         JPanel panE1 = new JPanel();
         panE1.setPreferredSize(new Dimension(100,20));
-        JPanel panE2 = new JPanel();
-        panE2.setPreferredSize(new Dimension(100,20));
-        JPanel panE3 = new JPanel();
-        panE3.setPreferredSize(new Dimension(100,20));
-        JPanel panE4 = new JPanel();
-        panE4.setPreferredSize(new Dimension(100,20));
 
         predlozi.add(panE1);
         predlozi.add(zapocni);
-//        predlozi.add(panE2);
-//        predlozi.add(predloziDodatnaIspitivanja);
-//        predlozi.add(panE3);
-//        predlozi.add(predloziDijagnoze);
-//        predlozi.add(panE4);
-//        predlozi.add(predloziTerapiju);
 
         boxCentar.add(predlozi);
-
-
-
         boxCentar.revalidate();
         boxCentar.repaint();
 
@@ -1479,10 +1190,6 @@ public class MainWindow extends JFrame {
 
     public JButton getNext() {
         return next;
-    }
-
-    public JIPEngine getEngine() {
-        return engine;
     }
 
     public Box getBoxCentar() {
