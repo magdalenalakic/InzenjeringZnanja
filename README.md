@@ -26,7 +26,7 @@ $ git clone https://github.com/magdalenalakic/InzenjeringZnanja
 ```
 Run -> Run as Java Application или Run App
 ```
-На следећем линку се може погледати како апликација заправо изгледа -> [Погледај видео](https://github.com/magdalenalakic/InzenjeringZnanja/blob/master/video.mp4)
+На следећем линку се може погледати како апликација заправо изгледа -> [Погледај видео](https://drive.google.com/drive/folders/19VfZB6cjvfA8zXjoaQbflI91tXYZkYC0?usp=sharing)
 
 ## Аутори
 
