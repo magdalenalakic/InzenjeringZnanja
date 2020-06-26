@@ -153,19 +153,30 @@ public class MainWindow extends JFrame {
         boxCentar = Box.createVerticalBox();
         boxCentar.add(Box.createVerticalStrut(20));
         boxCentar.add(Box.createGlue());
-
+        File f = new File("kard.jpg");
+//        JLabel imgLabel = new JLabel(new ImageIcon(f.getName()));
+        JLabel imgLabel = new JLabel();
+        imgLabel.setIcon(new ImageIcon(new ImageIcon("k.jpg").getImage().getScaledInstance(450, 500, Image.SCALE_REPLICATE)));
+        boxCentar.add(imgLabel);
         panCenter.add(boxCentar);
 
         add(panCenter, BorderLayout.CENTER);
 
         JPanel panRight = new JPanel();
         panRight.setPreferredSize(new Dimension(250,200));
+        LayoutManager layout = new FlowLayout();
+        panRight.setLayout(layout);
         add(panRight, BorderLayout.EAST);
-
         boxRight = Box.createVerticalBox();
         boxRight.add(Box.createVerticalStrut(20));
         boxRight.add(Box.createGlue());
         panRight.add(boxRight);
+
+        JLabel labelaTekst = new JLabel("Kardiologija je");
+        //"Kardiologija je grana medicine koja se bavi liječenjem bolesti srca i krvnih žila. Njih možemo podijeliti na: bolesti endokarda (najčešće endokarditis), bolesti miokarda (kardiomiopatije, angina pectoris, infarkt miokarda), bolesti perikarda (najčešće perikarditis), poremećaji rada srca (aritmije), greške srčanih zalistaka (urođene i stečene), srčana insuficijencija (dekompenzacija), bolesti krvnih žila (ateroskleroza, tromboza, tromboflebitis)."
+        labelaTekst.setFont(new Font("Verdana", Font.BOLD, 12));
+
+        boxRight.add(labelaTekst);
 
         JPanel panLeft = new JPanel();
         panLeft.setPreferredSize(new Dimension(250,200));
@@ -1114,57 +1125,57 @@ public class MainWindow extends JFrame {
                 UnesiRezDIWindow.getInstance().setUnetiRezDI(new ArrayList<>());
             }
         }
-        JLabel imeP = new JLabel(trenutnoAktivanPacijent.getIme());
-        imeP.setFont(new Font("Tahoma", Font.BOLD, 18));
+        Label imeP = new Label("Ime pacijenta: "+ trenutnoAktivanPacijent.getIme() );
+        imeP.setFont(new Font("Tahoma", Font.BOLD, 14));
 
         boxCentar.add(imeP);
-        boxCentar.add(new JLabel("Godine: " + String.valueOf(trenutnoAktivanPacijent.getGodine())));
+        boxCentar.add(new Label("Godine: " + String.valueOf(trenutnoAktivanPacijent.getGodine())));
 
         if(trenutnoAktivanPacijent.getTezina().equals(TezinaEnum.normalnaTezina)){
-            boxCentar.add(new JLabel("Tezina: "+ "NORMALNA"));
+            boxCentar.add(new Label("Tezina: "+ "NORMALNA"));
         }else if(trenutnoAktivanPacijent.getTezina().equals(TezinaEnum.smanjenaTezina)){
-            boxCentar.add(new JLabel("Tezina: "+ "SMANJENA"));
+            boxCentar.add(new Label("Tezina: "+ "SMANJENA"));
         }else{
-            boxCentar.add(new JLabel("Tezina: "+ "POVECANA"));
+            boxCentar.add(new Label("Tezina: "+ "POVECANA"));
         }
 
         if(trenutnoAktivanPacijent.getPusac().equals(true)){
-            boxCentar.add(new JLabel("Pusac: " + "DA"));
+            boxCentar.add(new Label("Pusac: " + "DA"));
         }else{
-            boxCentar.add(new JLabel("Pusac: " + "NE"));
+            boxCentar.add(new Label("Pusac: " + "NE"));
         }
 
         if(trenutnoAktivanPacijent.getDijabeticar().equals(true)){
-            boxCentar.add(new JLabel("Dijabeticar: " + "DA"));
+            boxCentar.add(new Label("Dijabeticar: " + "DA"));
         }else{
-            boxCentar.add(new JLabel("Dijabeticar: " + "NE"));
+            boxCentar.add(new Label("Dijabeticar: " + "NE"));
         }
 
         if(trenutnoAktivanPacijent.getAsmaticar().equals(true)){
-            boxCentar.add(new JLabel("Asmaticar: " + "DA"));
+            boxCentar.add(new Label("Asmaticar: " + "DA"));
         }else{
-            boxCentar.add(new JLabel("Asmaticar: " + "NE"));
+            boxCentar.add(new Label("Asmaticar: " + "NE"));
         }
 
         if(trenutnoAktivanPacijent.getFizickaAktivnost().equals(true)){
-            boxCentar.add(new JLabel("Fizicka aktivnost: " + "DA"));
+            boxCentar.add(new Label("Fizicka aktivnost: " + "DA"));
         }else{
-            boxCentar.add(new JLabel("Fizicka aktivnost: " + "NE"));
+            boxCentar.add(new Label("Fizicka aktivnost: " + "NE"));
         }
 
         if(trenutnoAktivanPacijent.getPol() == PolEnum.Z){
             if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
-                boxCentar.add(new JLabel("Trudnoca: " + "DA"));
+                boxCentar.add(new Label("Trudnoca: " + "DA"));
             }else{
-                boxCentar.add(new JLabel("Trudnoca: " + "NE"));
+                boxCentar.add(new Label("Trudnoca: " + "NE"));
             }
 
         }
 
         if(trenutnoAktivanPacijent.getAlergican().equals(true)){
-            boxCentar.add(new JLabel("Alergija: " + "DA"));
+            boxCentar.add(new Label("Alergija: " + "DA"));
         }else{
-            boxCentar.add(new JLabel("Alergija: " + "NE"));
+            boxCentar.add(new Label("Alergija: " + "NE"));
         }
 
         JButton zapocni = new JButton("ZAPOCNI");
