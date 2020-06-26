@@ -288,3 +288,20 @@ rezAnalizeKrvi(ozren,16,5.8,0.8).
 rezRendgen(ozren, nijeUredan).
 rezHolter24(ozren,povisen,nijePrisutno,normalan).
 rezCT(ozren,nijeUredan).
+pacijent(milos).
+pol(milos,m).
+godine(milos,22).
+tezina(milos,normalnaTezina).
+pusac(milos,da).
+dijabeticar(milos,ne).
+asmaticar(milos,ne).
+fizickaAktivnost(milos,ne).
+trudnoca(milos,ne).
+alergican(milos,ne).
+pritisak(milos,121,101).
+auskultacija(milos,postojiSum).
+porodicneBolesti(milos,[]).
+rezAnalizeKrvi(milos,11,4,3).
+rezEhokardiografije(milos,nijeUredan).
+rezEkg(milos,nijeUredan,ubrzan).
+rezHolter24(milos,povisen,prisutno,normalan).

@@ -5,8 +5,11 @@ import model.*;
 import view.MainWindow;
 import view.WelcomeWindow;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,12 +20,30 @@ public class RBCheckedListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("-------------------- RB --------------------------");
+
+        JLabel imgLabel = new JLabel();
+        imgLabel.setIcon(new ImageIcon(new ImageIcon("Cardiology.jpg").getImage().getScaledInstance(500, 500, Image.SCALE_SMOOTH)));
+        MainWindow.getInstance().getBoxCentar().add(imgLabel);
+
+        Label labelaTekst = new Label("Kardiologija          ");
+        JTextArea tekst = new JTextArea("Kardiologija je grana medicine koja se bavi liječenjem bolesti srca i krvnih žila. Njih možemo podijeliti na: bolesti endokarda (najčešće endokarditis), bolesti miokarda (kardiomiopatije, angina pectoris, infarkt miokarda), bolesti perikarda (najčešće perikarditis), poremećaji rada srca (aritmije), greške srčanih zalistaka (urođene i stečene), srčana insuficijencija (dekompenzacija), bolesti krvnih žila (ateroskleroza, tromboza, tromboflebitis).");
+        labelaTekst.setFont(new Font("Verdana", Font.BOLD, 14));
+        tekst.setFont(new Font("Verdana", Font.ITALIC, 13));
+        tekst.setLineWrap(true);
+        tekst.setWrapStyleWord(true);
+        tekst.setBackground(null);
+        MainWindow.getInstance().getBoxRight().add(labelaTekst);
+        MainWindow.getInstance().getBoxRight().add(tekst);
+        MainWindow.getInstance().getStatusLinija().setText("");
+
+        MainWindow.getInstance().getPanCenter().revalidate();
+        MainWindow.getInstance().getPanCenter().repaint();
+
         ucitajPacijente();
         MainWindow wz2 = MainWindow.getInstance();
         MainWindow.getInstance().setIzabranaOpcija(IzabranaOpcija.RB);
         wz2.setVisible(true);
         WelcomeWindow.getInstance().setVisible(false);
-        System.out.println("-------------------- RB --------------------------");
     }
 
     public void ucitajPacijente(){
