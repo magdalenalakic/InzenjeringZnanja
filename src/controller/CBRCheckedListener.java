@@ -20,64 +20,24 @@ public class CBRCheckedListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println("-------------------------- CBR ------------------------------------------- ");
         ucitajPacijente();
-
 
         MainWindow wz2 = MainWindow.getInstance();
         MainWindow.getInstance().setIzabranaOpcija(IzabranaOpcija.CBR);
         wz2.setVisible(true);
         WelcomeWindow.getInstance().setVisible(false);
-
-
-//        App recommender = new App();
-//        try {
-//            System.out.println("-----");
-//            recommender.configure();
-//            recommender.preCycle();
-
-//            CBRQuery query = new CBRQuery();
-//            Pacijent pacijent = new Pacijent();
-//            pacijent.setPol(PolEnum.M);
-//            pacijent.setGodine(49);
-//            pacijent.setRezPritiska(pacijentController.racunanjeRezultataPritiska(130, 95));
-//            pacijent.getListaSimptoma().add(Simptomi.otezanoDisanje);
-//            pacijent.getListaSimptoma().add(Simptomi.vrtoglavica);
-//            pacijent.getListaSimptoma().add(Simptomi.gubitakSvesti);
-//            pacijent.getListaSimptoma().add(Simptomi.umor);
-//
-//            pacijent.getPorodicneBolesti().add(PorodicneBolesti.infarktMiokarda);
-//            List<String> l = new ArrayList<>();
-//            l.add("10");
-//            l.add("2.1");
-//            l.add("3");
-//            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.analizaKrvi, l);
-//            List<String> l2 = new ArrayList<>();
-//            l2.add("nijeUredan");
-//            l2.add("usporen");
-//            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ekg, l2);
-//            List<String> l3 = new ArrayList<>();
-//            l3.add("nijeUredan");
-//            pacijent.getListaRezultataDodatnihIspitivanja().put(DodatnaIspitivanjaEnum.ct, l3);
-//
-//            query.setDescription( pacijent );
-//            recommender.cycle(query);
-//            recommender.postCycle();
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-
-
+        System.out.println("-------------------------- CBR ------------------------------------------- ");
     }
+
+
     public void ucitajPacijente(){
         List<Pacijent> listaPacijenata = new ArrayList<>();
-        //"csv-files/fizikalni-pregled.csv"
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("csv-files/fizikalni-pregled.csv")));
             if (br == null)
                 throw new Exception("Error opening file");
-//            System.out.println("Fizikalni pregled.");
+
             String line = "";
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("#") || (line.length() == 0))
@@ -96,18 +56,30 @@ public class CBRCheckedListener implements ActionListener {
                 pacijent.setFizickaAktivnost(Boolean.parseBoolean(values[8]));
                 pacijent.setTrudnoca(Boolean.parseBoolean(values[9]));
                 pacijent.setAlergican(Boolean.parseBoolean(values[10]));
-                pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
-                pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
-                pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
-                RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
-                if(!rez.equals(null)){
-                    pacijent.setRezPritiska(rez);
+
+                if(!values[11].equals(" ")){
+                    pacijent.setAuskultacija(AuskultacijaEnum.valueOf(values[11]));
                 }
-                String[] listaSimptoma = values[14].split(",");
-                for(int i = 0; i < listaSimptoma.length; i++){
-                    pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
+                if(!values[12].equals(" ")){
+                    pacijent.setGornjiPritisak(Integer.parseInt(values[12]));
                 }
-                if(values.length == 16){
+                if(!values[13].equals(" ")){
+                    pacijent.setDonjiPritisak(Integer.parseInt(values[13]));
+                }
+                if(!values[12].equals(" ") && !values[13].equals(" ") ){
+                    RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(pacijent.getGornjiPritisak(), pacijent.getDonjiPritisak());
+                    if(!rez.equals(null)){
+                        pacijent.setRezPritiska(rez);
+                    }
+                }
+                if(!values[14].equals(" ")){
+                    String[] listaSimptoma = values[14].split(",");
+                    for(int i = 0; i < listaSimptoma.length; i++){
+                        pacijent.getListaSimptoma().add(Simptomi.valueOf(listaSimptoma[i]));
+                    }
+                }
+
+                if(!values[15].equals(" ")){
                     String[] porodicneBolesti   = values[15].split(",");
                     for(int i = 0; i < porodicneBolesti.length; i++){
                         pacijent.getPorodicneBolesti().add(PorodicneBolesti.valueOf(porodicneBolesti[i]));
@@ -115,7 +87,6 @@ public class CBRCheckedListener implements ActionListener {
                 }
 
                 listaPacijenata.add(pacijent);
-
                 System.out.println(pacijent);
 
             }

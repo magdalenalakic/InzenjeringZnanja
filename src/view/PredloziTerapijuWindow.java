@@ -67,7 +67,7 @@ public class PredloziTerapijuWindow  extends JFrame {
         MainWindow.getInstance().getBoxRight().add(pan1);
         MainWindow.getInstance().getBoxRight().revalidate();
         MainWindow.getInstance().getBoxRight().repaint();
-
+        MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaLekova(new ArrayList<>());
         listBox.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -80,6 +80,7 @@ public class PredloziTerapijuWindow  extends JFrame {
                         pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
 
                     }
+//                    pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
 
                     MainWindow.getInstance().getBoxRight().revalidate();
                     MainWindow.getInstance().getBoxRight().repaint();

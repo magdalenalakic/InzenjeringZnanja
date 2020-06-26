@@ -30,27 +30,15 @@ public class App implements StandardCBRApplication {
     CBRCaseBase _caseBase;
     NNConfig simConfig;
 
-
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         try {
-//            UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
             UIManager.setLookAndFeel("com.jtattoo.plaf.graphite.GraphiteLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                 | UnsupportedLookAndFeelException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         WelcomeWindow gp = WelcomeWindow.getInstance();
         gp.setVisible(true);
-
-//        RezPritiskaEnum rez = pacijentController.racunanjeRezultataPritiska(130,100);
-//        if(rez.equals(null)){
-//            System.out.println("null");
-//        }
-//        System.out.println("REZULTAT PRITISKA: "+ rez.toString());
-
-
     }
 
     @Override
@@ -71,23 +59,12 @@ public class App implements StandardCBRApplication {
         simConfig.addMapping(new Attribute("listaSimptoma", Pacijent.class), new ProveraSimpUListi());
         simConfig.addMapping(new Attribute("listaRezultataDodatnihIspitivanja", Pacijent.class), new ProveraRezDodIsUListi());
         simConfig.addMapping(new Attribute("listaDijagnoza", Pacijent.class), new ProveraTerapija());
-
-
-//        simConfig.addMapping(new Attribute("listaLekova", Pacijent.class), new ProveraTerapija());
-//        simConfig.addMapping(new Attribute("age", MovieDescription.class), new Interval(5));
-//        simConfig.addMapping(new Attribute("score", MovieDescription.class), new Interval(1));
-//        simConfig.addMapping(new Attribute("year", MovieDescription.class), new Interval(10));
-//        TableSimilarity genreSimilarity = new TableSimilarity((Arrays.asList(new String[] {"Crime","Action","Thriller"})));
-
-//        simConfig.addMapping(new Attribute("genre", MovieDescription.class), genreSimilarity);
     }
 
     @Override
     public CBRCaseBase preCycle() throws ExecutionException {
         _caseBase.init(_connector);
         java.util.Collection<CBRCase> cases = _caseBase.getCases();
-//		for (CBRCase c: cases)
-//			System.out.println(c.getDescription());
         return _caseBase;
     }
 

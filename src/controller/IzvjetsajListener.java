@@ -4,6 +4,7 @@ import com.ugos.jiprolog.engine.*;
 import main.TerapijaApp;
 import model.Dijagnoze;
 import model.IzabranaOpcija;
+import sun.applet.Main;
 import ucm.gaia.jcolibri.cbrcore.CBRQuery;
 import view.IzvjestajWindow;
 import view.MainWindow;
@@ -30,11 +31,9 @@ public class IzvjetsajListener  implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaLekova(MainWindow.getInstance().getTerapija());
-
-
-
-
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            MainWindow.getInstance().upisiLekoveCBR();
+        }
         IzvjestajWindow wz1 = IzvjestajWindow.getInstance().getInstance();
         wz1.init();
 
