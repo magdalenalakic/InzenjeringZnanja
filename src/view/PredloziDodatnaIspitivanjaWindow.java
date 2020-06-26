@@ -61,6 +61,9 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
             pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
             pan.setBackground(new Color(255, 255, 255));
             JScrollPane scrollPane;
+            Label textS = new Label("Lista izabranih dodatnih ispitivanja:");
+            textS.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+            pan.add(textS);
 
             for(DodatnaIspitivanjaEnum di: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja()){
                 pan.add(new JLabel(di.toString()));

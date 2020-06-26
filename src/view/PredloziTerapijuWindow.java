@@ -1,15 +1,17 @@
 package view;
 
+import controller.IzvjetsajListener;
 import controller.PredloziDodatnaIspitivanjaListener;
-import model.Dijagnoze;
-import model.Lekovi;
-import model.PorodicneBolesti;
-import model.Simptomi;
+import controller.UnesiRezDIListener;
+import model.*;
+import sun.applet.Main;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PredloziTerapijuWindow  extends JFrame {
 
@@ -36,51 +38,73 @@ public class PredloziTerapijuWindow  extends JFrame {
     private JLabel lab;
 
     public void init() {
-
         MainWindow.getInstance().getBoxCentar().removeAll();
-        MainWindow.getInstance().getBoxRight().removeAll();
+        MainWindow.getInstance().getBoxCentar().revalidate();
+        MainWindow.getInstance().getBoxCentar().repaint();
 
-
-        JLabel naslov = new JLabel("- IZVESTAJ -");
+        JLabel naslov = new JLabel("- TERAPIJA -");
         naslov.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
         MainWindow.getInstance().getBoxCentar().add(naslov);
-        MainWindow.getInstance().getBoxRight().add(new Label("                                                          "));
 
-        JPanel pan2 = new JPanel();
-        pan2.setLayout(new BoxLayout(pan2, BoxLayout.Y_AXIS));
-        Label labP = new Label("Ime pacijenta:");
-        pan2.add(labP);
-        JLabel imeP = new JLabel(MainWindow.getInstance().getTrenutnoAktivanPacijent().getIme());
-        pan2.add(imeP);
-        MainWindow.getInstance().getBoxCentar().add(pan2);
+        JPanel panel = new JPanel();
+        LayoutManager layout = new FlowLayout();
+        panel.setLayout(layout);
+
+        List<Lekovi> lis = new ArrayList<>();
+        for(Lekovi l: MainWindow.getInstance().getTerapija()){
+            lis.add(l);
+        }
+        JList<Lekovi> listBox = new JList(lis.toArray());
 
         JPanel pan1 = new JPanel();
         pan1.setLayout(new BoxLayout(pan1, BoxLayout.Y_AXIS));
-        Label labDijag = new Label("Dijagnoza:");
-        pan1.add(labDijag);
+        pan1.setBackground(new Color(255, 255, 255));
+        JScrollPane scrollPane;
+        Label textS = new Label("Lista izabranih lekova:");
+        textS.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
+        pan1.add(textS);
 
-//        for(Dijagnoze l: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDijagnoza()){
-//            System.out.println(l.toString());
-//
-//
-//            lab = new JLabel(l.toString());
-//            pan1.add(lab);
-//        }
-        lab = new JLabel(PredloziDijagnozuWindow.getInstance().getDijagnoze().getSelectedItem().toString());
-        pan1.add(lab);
+        MainWindow.getInstance().getBoxRight().add(pan1);
+        MainWindow.getInstance().getBoxRight().revalidate();
+        MainWindow.getInstance().getBoxRight().repaint();
 
-        MainWindow.getInstance().getBoxCentar().add(pan1);
+        listBox.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
 
-        JPanel pan = new JPanel();
-        pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-        Label labTer = new Label("Terapija:");
-        pan1.add(labTer);
-        for(Lekovi l: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova()){
-            System.out.println(l.toString());
-            lab = new JLabel(l.toString());
-            pan.add(lab);
-        }
-        MainWindow.getInstance().getBoxCentar().add(pan);
+                if (!e.getValueIsAdjusting()) {
+                    JList<Lekovi> list = (JList)e.getSource();
+
+                    if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().contains(list.getSelectedValue())){
+                        MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaLekova().add(list.getSelectedValue());
+                        pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
+
+                    }
+                    if(!MainWindow.getInstance().getTerapija().contains(list.getSelectedValue())){
+                        MainWindow.getInstance().getTerapija().add(list.getSelectedValue());
+                    }
+                    pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
+
+                    MainWindow.getInstance().getBoxRight().revalidate();
+                    MainWindow.getInstance().getBoxRight().repaint();
+                }
+            }
+        });
+
+        panel.add(listBox);
+        scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(50, 120));
+        MainWindow.getInstance().getBoxCentar().add(scrollPane);
+
+
+        JButton dalje = new JButton("DALJE");
+        dalje.setPreferredSize(new Dimension(200,30));
+        dalje.addActionListener(new IzvjetsajListener());
+
+        JPanel panE = new JPanel();
+        panE.setPreferredSize(new Dimension(220,30));
+        MainWindow.getInstance().getBoxCentar().add(panE);
+        MainWindow.getInstance().getBoxCentar().add(dalje);
 
         MainWindow.getInstance().getBoxCentar().revalidate();
         MainWindow.getInstance().getBoxCentar().repaint();

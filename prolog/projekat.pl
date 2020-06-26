@@ -188,12 +188,12 @@ rezEkg(milica,nijeUredan,normalan).
 rezEkg(ana,nijeUredan,ubrzan).
 rezEkg(luka, neodredjen, ubrzan).
 rezEkg(zdravko, nijeUredan, ubrzan).
-rezEkg(slavica,nijeUredan,usporen).
+rezEkg(slavica, nijeUredan, usporen).
 rezEkg(zeljko, nijeUredan, ubrzan).
 %ergometrija, rezultati
 rezErgometrija(petar, niskaOpterecenja).
 rezErgometrija(ana, niskaOpterecenja).
-rezErgometrija(slavica,visokaOpterecenja).
+rezErgometrija(slavica, niskaOpterecenja).
 rezErgometrija(zdravko, niskaOpterecenja).
 %ehokardiografija rezultati(uredan, nijeUredan)
 rezEhokardiografije(milica,nijeUredan).
@@ -210,7 +210,7 @@ rezHolter24(ana,povisen,prisutno,normalan).
 rezHolter24(milica,povisen,nijePrisutno,normalan).
 rezHolter24(luka, povisen, prisutno, normalan).
 rezHolter24(zdravko, povisen, prisutno, normalan).
-rezHolter24(slavica,snizen,prisutno,nijeNormalan).
+rezHolter24(slavica, snizen, prisutno, normalan).
 %rezultati CT(uredan, nijeUredan)
 rezCT(milica,nijeUredan).
 rezCT(milan, nijeUredan).
@@ -271,40 +271,3 @@ terapija(X, tahikardija, Z) :- dijagnoza(X, tahikardija),listaSvihLekova(X, T, [
 terapija(X, bradikardija, Z) :- dijagnoza(X, bradikardija),listaSvihLekova(X, T, [zenSenKapsule]) -> Z = T.
 %
 terapija(X, infarktMiokarda, Z) :- dijagnoza(X, infarktMiokarda),listaSvihLekova(X, T, [lizinopril, kaptopril, nitroglicerin, aspirin, atenolol, propranolol, rosuvastatin,promerol, valsartan ]) -> Z = T.
-rezHolter24(petar,povisen,prisutno,normalan).
-pacijent(maga).
-pol(maga,z).
-godine(maga,23).
-tezina(maga,smanjenaTezina).
-pusac(maga,da).
-dijabeticar(maga,ne).
-asmaticar(maga,ne).
-fizickaAktivnost(maga,ne).
-trudnoca(maga,da).
-alergican(maga,ne).
-pacijent(ina).
-pol(ina,z).
-godine(ina,23).
-tezina(ina,normalnaTezina).
-pusac(ina,da).
-dijabeticar(ina,da).
-asmaticar(ina,ne).
-fizickaAktivnost(ina,ne).
-trudnoca(ina,ne).
-alergican(ina,da).
-pacijent(cecaceca).
-pol(cecaceca,z).
-godine(cecaceca,23).
-tezina(cecaceca,normalnaTezina).
-pusac(cecaceca,ne).
-dijabeticar(cecaceca,ne).
-asmaticar(cecaceca,ne).
-fizickaAktivnost(cecaceca,ne).
-trudnoca(cecaceca,da).
-alergican(cecaceca,ne).
-rezEkg(anastasija,uredan,normalan).
-rezEhokardiografije(anastasija,nijeUredan).
-rezCT(anastasija,uredan).
-rezEkg(dafsfa,nijeUredan,usporen).
-rezEkg(bojan,nijeUredan,usporen).
-rezHolter24(bojan,snizen,nijePrisutno,normalan).
