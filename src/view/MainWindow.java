@@ -278,6 +278,11 @@ public class MainWindow extends JFrame {
     }
 
     public void dodajZdravstveniKartonView(){
+        if(instance.getStatusLinija().getText().equals("Pacijent uspesno izmenjen!") ||
+                instance.getStatusLinija().getText().equals("Podaci su sacuvani!") ||
+                instance.getStatusLinija().getText().equals("Rezultati ispitivanja uspesno sacuvani!")){
+            instance.getStatusLinija().setText("");
+        }
         imePacijenta = new JTextField();
         imePacijenta.setMaximumSize(new Dimension(400,30));
 
@@ -288,6 +293,7 @@ public class MainWindow extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(instance.getPolM().isSelected()){
+                    instance.getTrudnocaNe().setSelected(true);
                     instance.getTrudnocaDa().setEnabled(false);
                     instance.getTrudnocaNe().setEnabled(false);
                 }else{
@@ -414,6 +420,7 @@ public class MainWindow extends JFrame {
 
     public void OdabirPacijentaZaIzmenuZK(){
 
+
         boxCentar.removeAll();
         boxRight.removeAll();
         pacijenti = new ArrayList<>();
@@ -452,6 +459,11 @@ public class MainWindow extends JFrame {
     }
 
     public void IzmeniZKView(){
+        if(instance.getStatusLinija().getText().equals("Pacijent uspesno dodat!") ||
+                instance.getStatusLinija().getText().equals("Podaci su sacuvani!") ||
+                instance.getStatusLinija().getText().equals("Rezultati ispitivanja uspesno sacuvani!")){
+            instance.getStatusLinija().setText("");
+        }
 
         boxCentar.removeAll();
         boxRight.removeAll();
@@ -471,19 +483,7 @@ public class MainWindow extends JFrame {
         ButtonGroup pol = new ButtonGroup();
         polZ = new JRadioButton("zenski");
         polM = new JRadioButton("muski");
-        polM.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if(instance.getPolM().isSelected()){
-//                    instance.getTrudnocaDa().setEnabled(false);
-//                    instance.getTrudnocaNe().setEnabled(false);
-                }else{
-                    instance.getTrudnocaDa().setEnabled(true);
-                    instance.getTrudnocaNe().setEnabled(true);
-                }
 
-            }
-        });
         pol.add(polZ);
         pol.add(polM);
         if(trenutnoAktivanPacijent.getPol().equals(PolEnum.M)){
@@ -559,11 +559,30 @@ public class MainWindow extends JFrame {
         trudnocaNe = new JRadioButton("ne");
         trudnocaButtonGroup.add(trudnocaDa);
         trudnocaButtonGroup.add(trudnocaNe);
-        if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
-            trudnocaDa.setSelected(true);
+        if(trenutnoAktivanPacijent.getPol().equals(PolEnum.M)){
+            instance.getTrudnocaDa().setEnabled(false);
+            instance.getTrudnocaNe().setEnabled(false);
         }else{
-            trudnocaNe.setSelected(true);
+            if(trenutnoAktivanPacijent.getTrudnoca().equals(true)){
+                trudnocaDa.setSelected(true);
+            }else{
+                trudnocaNe.setSelected(true);
+            }
         }
+        polM.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(instance.getPolM().isSelected()){
+                    instance.getTrudnocaNe().setSelected(true);
+                    instance.getTrudnocaDa().setEnabled(false);
+                    instance.getTrudnocaNe().setEnabled(false);
+                }else{
+                    instance.getTrudnocaDa().setEnabled(true);
+                    instance.getTrudnocaNe().setEnabled(true);
+                }
+
+            }
+        });
 
         ButtonGroup alergija = new ButtonGroup();
         alergijaDa = new JRadioButton("ima");
@@ -646,8 +665,6 @@ public class MainWindow extends JFrame {
         for(Pacijent p:WelcomeWindow.getInstance().getListaPacijenata()){
             niz.add(p.getIme());
         }
-        System.out.println("DODAJ CBR");
-        System.out.println(niz);
 
         return niz;
     }
@@ -661,7 +678,6 @@ public class MainWindow extends JFrame {
     }
 
     public void upisiUPrologFile(String provera, String linija) throws IOException {
-        System.out.println("------------- CITANJE I PISANJE -----------------");
         List<String> prologFajl = new ArrayList<>();
         try{
             File file=new File("prolog/projekat.pl");
@@ -1051,11 +1067,10 @@ public class MainWindow extends JFrame {
     }
 
     public void zapocniPregledView(){
+        instance.getStatusLinija().setText("");
         boxCentar.removeAll();
         boxRight.removeAll();
         pacijenti = new ArrayList<>();
-        System.out.println("------------zapocet pregled--------------------");
-        System.out.println(pacijenti);
         if(instance.getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
             pacijenti = dodajPacijenteCBR();
         }else{

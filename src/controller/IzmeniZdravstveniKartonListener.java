@@ -54,6 +54,10 @@ public class IzmeniZdravstveniKartonListener implements ActionListener {
 
             pol = PolEnum.Z;
         }else if(MainWindow.getInstance().getPolM().isSelected()){
+            if(MainWindow.getInstance().getTrudnocaDa().isSelected()){
+                MainWindow.getInstance().getStatusLinija().setText("Muska osoba ne moze da bude trudna!");
+                return;
+            }
             trudnoca = new Boolean(false);
             pol = PolEnum.M;
         }else{
