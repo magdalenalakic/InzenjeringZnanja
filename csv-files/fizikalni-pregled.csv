@@ -1,6 +1,6 @@
 #id;ime;pol;godine;tezina;pusac;dijabeticar;asmaticar;fizickaAktivnost;trudnoca;alergican;auskultacija;gornjiPritisak;donjiPritisak;listaSimptoma;porodicneBolesti
 1;kristina;Z;23;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;120;70;bolUGrudima;dijabetes
-2;milana;Z;25;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;120;80;bolUGrudima,zamucenjeVida;dijabetes,trombofilija
+2;milana;Z;25;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;90;60;bolUGrudima,zamucenjeVida;dijabetes,trombofilija
 3;ivana;Z;29;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;120;81;umor,zamucenjeVida;dijabetes
 4;anastasija;Z;26;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;120;85; ;dijabetes,trombofilija
 5;nevena;Z;27;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;125;82;bolUGrudima,zamucenjeVida;trombofilija
@@ -25,3 +25,8 @@
 24;bojan;M;33;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;130;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje; ;
 25;igor;M;31;povecanaTezina;ne;ne;ne;ne;ne;ne;postojiSum;138;100;gubitakSvesti,vrtoglavica,malaksalost,zamucenjeVida,umor,znojenje;dijabetes
 26;ceca;Z;33;smanjenaTezina;ne;ne;ne;ne;ne;ne;poremecajRitma;130;100;mucnina,otezanoDisanje,gusenje,gubitakSvesti;trombofilija
+27;milana;Z;33;smanjenaTezina;ne;ne;ne;ne;ne;ne;postojiSum;90;60;mucnina,vrtoglavica,otezanoDisanje;trombofilija
+28;milos;M;22;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;121;101; ; ;
+29;miodrag;M;22;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;121;101;bolUGrudima,pritiskanje,hladnoZnojenje,malaksalost,zamucenjeVida; ;
+30;stanko;M;22;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;121;101;bolUGrudima,pritiskanje,hladnoZnojenje,malaksalost,zamucenjeVida; ;
+31;srecko;M;23;normalnaTezina;ne;ne;ne;ne;ne;ne;postojiSum;121;103;bolUGrudima,hladnoZnojenje,pritiskanje,malaksalost,zamucenjeVida; ;
