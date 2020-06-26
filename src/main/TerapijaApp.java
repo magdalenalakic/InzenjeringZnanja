@@ -59,7 +59,6 @@ public class TerapijaApp implements StandardCBRApplication {
 
     @Override
     public void cycle(CBRQuery cbrQuery) throws ExecutionException {
-//        System.out.println("POZIVA SE KLIKOM NA DUGME**************");
         Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), cbrQuery, simConfig);
         eval = SelectCases.selectTopKRR(eval, 5);
         System.out.println("Retrieved cases:");
@@ -85,7 +84,6 @@ public class TerapijaApp implements StandardCBRApplication {
 
         }
         MainWindow.getInstance().setTerapija(predlozeniLekovi);
-//        MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaLekova(predlozeniLekovi);
         System.out.println();
 
 

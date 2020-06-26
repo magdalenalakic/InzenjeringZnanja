@@ -50,9 +50,8 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
 
             List<DodatnaIspitivanjaEnum> lis = new ArrayList<>();
             for(DodatnaIspitivanjaEnum DI:MainWindow.getInstance().getDodatnaIspitivanja()){
-                if(!MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja().contains(DI)){
-                    lis.add(DI);
-                }
+                lis.add(DI);
+
             }
 
             JList<DodatnaIspitivanjaEnum> listBox = new JList(lis.toArray());
@@ -64,10 +63,7 @@ public class PredloziDodatnaIspitivanjaWindow  extends JFrame {
             Label textS = new Label("Lista izabranih dodatnih ispitivanja:");
             textS.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
             pan.add(textS);
-
-            for(DodatnaIspitivanjaEnum di: MainWindow.getInstance().getTrenutnoAktivanPacijent().getListaDodatnihIspitivanja()){
-                pan.add(new JLabel(di.toString()));
-            }
+            MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaDodatnihIspitivanja(new ArrayList<>());
             MainWindow.getInstance().getBoxRight().add(pan);
             MainWindow.getInstance().getBoxRight().revalidate();
             MainWindow.getInstance().getBoxRight().repaint();

@@ -92,7 +92,7 @@ alergican(zeljko, ne).
 porodicneBolesti(petar,[trombofilija, dijabetes, artritis, infarktMiokarda, tahikardija]).
 porodicneBolesti(milica,[dijabetes, trombofilija, artritis, infarktMiokarda, tahikardija]).
 porodicneBolesti(milan,[artritis, trombofilija, dijabetes]).
-porodicneBolesti(ana,[infarktMiokarda, trombofilija]).
+porodicneBolesti(ana,[infarktMiokarda, trombofilija, artritis]).
 porodicneBolesti(luka, [infarktMiokarda]).
 porodicneBolesti(zdravko, []).
 porodicneBolesti(slavica, [infarktMiokarda]).
@@ -116,14 +116,14 @@ simptom(povisenaTemperatura).
 auskultacija(petar,poremecajRitma).
 auskultacija(milica,postojiSum).
 auskultacija(milan,poremecajRitma).
-auskultacija(ana,poremecajRitma).
+auskultacija(ana,uredna).
 auskultacija(luka, uredna).
 auskultacija(zdravko, uredna).
 auskultacija(slavica, poremecajRitma).
 auskultacija(zeljko, poremecajRitma).
 %racunanje pritiska
-pritisak(petar,130,100).
-pritisak(milica,124,100).
+pritisak(petar,130,101).
+pritisak(milica,124,102).
 pritisak(milan,123,243).
 pritisak(ana,130,100).
 pritisak(luka, 121, 90).
@@ -176,7 +176,7 @@ rezTriglicerida(X, normalan) :- (rezAnalizeKrvi(X, D, H, Y), Y >= 0.46, Y =< 2.2
 rezAnalizeKrvi(petar,16,5.8,0.88).
 rezAnalizeKrvi(milica,10,2,3).
 rezAnalizeKrvi(milan, 10, 2.1, 3).
-rezAnalizeKrvi(ana,16,5.8,0.88).
+rezAnalizeKrvi(ana,14,6,1).
 rezAnalizeKrvi(luka, 11, 2.5, 3.5).
 rezAnalizeKrvi(zdravko, 11, 2.5, 3.5).
 rezAnalizeKrvi(slavica, 10, 2.2, 3).

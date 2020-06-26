@@ -31,14 +31,8 @@ public class IzvjetsajListener  implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        MainWindow.getInstance().getTrenutnoAktivanPacijent().setListaLekova(MainWindow.getInstance().getTerapija());
-        System.out.println("TERAPIJEEEEEEEEEEEEEEEE");
-        System.out.println(MainWindow.getInstance().getTerapija());
-
-        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.RB)){
-
-        }else if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
-
+        if(MainWindow.getInstance().getIzabranaOpcija().equals(IzabranaOpcija.CBR)){
+            MainWindow.getInstance().upisiLekoveCBR();
         }
         IzvjestajWindow wz1 = IzvjestajWindow.getInstance().getInstance();
         wz1.init();
