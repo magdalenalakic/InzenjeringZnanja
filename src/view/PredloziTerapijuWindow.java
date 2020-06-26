@@ -80,6 +80,10 @@ public class PredloziTerapijuWindow  extends JFrame {
                         pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
 
                     }
+                    if(!MainWindow.getInstance().getTerapija().contains(list.getSelectedValue())){
+                        MainWindow.getInstance().getTerapija().add(list.getSelectedValue());
+                    }
+                    pan1.add(new JLabel(String.valueOf(list.getSelectedValue())));
 
                     MainWindow.getInstance().getBoxRight().revalidate();
                     MainWindow.getInstance().getBoxRight().repaint();
