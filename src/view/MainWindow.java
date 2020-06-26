@@ -153,19 +153,30 @@ public class MainWindow extends JFrame {
         boxCentar = Box.createVerticalBox();
         boxCentar.add(Box.createVerticalStrut(20));
         boxCentar.add(Box.createGlue());
-
+        File f = new File("kard.jpg");
+//        JLabel imgLabel = new JLabel(new ImageIcon(f.getName()));
+        JLabel imgLabel = new JLabel();
+        imgLabel.setIcon(new ImageIcon(new ImageIcon("k.jpg").getImage().getScaledInstance(450, 500, Image.SCALE_REPLICATE)));
+        boxCentar.add(imgLabel);
         panCenter.add(boxCentar);
 
         add(panCenter, BorderLayout.CENTER);
 
         JPanel panRight = new JPanel();
         panRight.setPreferredSize(new Dimension(250,200));
+        LayoutManager layout = new FlowLayout();
+        panRight.setLayout(layout);
         add(panRight, BorderLayout.EAST);
-
         boxRight = Box.createVerticalBox();
         boxRight.add(Box.createVerticalStrut(20));
         boxRight.add(Box.createGlue());
         panRight.add(boxRight);
+
+        JLabel labelaTekst = new JLabel("Kardiologija je");
+        //"Kardiologija je grana medicine koja se bavi liječenjem bolesti srca i krvnih žila. Njih možemo podijeliti na: bolesti endokarda (najčešće endokarditis), bolesti miokarda (kardiomiopatije, angina pectoris, infarkt miokarda), bolesti perikarda (najčešće perikarditis), poremećaji rada srca (aritmije), greške srčanih zalistaka (urođene i stečene), srčana insuficijencija (dekompenzacija), bolesti krvnih žila (ateroskleroza, tromboza, tromboflebitis)."
+        labelaTekst.setFont(new Font("Verdana", Font.BOLD, 12));
+
+        boxRight.add(labelaTekst);
 
         JPanel panLeft = new JPanel();
         panLeft.setPreferredSize(new Dimension(250,200));
